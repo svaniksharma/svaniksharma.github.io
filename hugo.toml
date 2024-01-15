@@ -2,3 +2,4 @@ baseURL = 'https://svaniksharma.github.io'
 languageCode = 'en-us'
 title = 'Svanik Sharma Website'
 theme = 'papermod'
+math = true
