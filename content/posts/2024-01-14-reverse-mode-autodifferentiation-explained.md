@@ -15,7 +15,7 @@ The reason we prefer autodifferentiation over symbolic differentiation is due to
 Before we can start differentiating, we need to create an *evaluation trace*. An evaluation trace essentially shows the order of operations in the form of a graph like the one below:
 
     
-![png](/assets/img/eval-trace-1.png)
+![png](/eval-trace-1.png)
  
 
 This evaluation trace represents the equation $$f(x) = xz + y$$. The nodes that you see in between the output $$f$$ and $$x, y, z$$ are called *intermediate variables*. Now we'll look at how this evaluation trace can be used to compute a derivative.
@@ -146,7 +146,7 @@ x.grad, y.grad
 Ok, so how does this relate back to what we've seen? First, let's look at the evaluation trace for $$z = x \cdot x + x \cdot y$$:
 
     
-![png](/assets/img/eval-trace-2.png)   
+![png](/eval-trace-2.png)   
 
 
 
