@@ -89,7 +89,7 @@ The convolution operation is defined as below:
 
 $$C(j, k) = \sum_{l} \sum_{m} I(j + l, k + m) K(l, m)$$
 
-where \\(I\\) is an image and \\(K\\) is called the *kernel*. The above equation gives the computation for the $j, k$ entry of $C$. In this case, $K$ is a learnable parameter. The resulting $C$ is called a feature map. Though the above is called a convolution in machine learning literature, it is actually called the "[cross correlation](https://en.wikipedia.org/wiki/Cross-correlation)" operation, which comes from signal processing and statistics. The main reason we use convolutional layers is because they retain "inductive bias", i.e, they are able to exploit the properties of images better than a typical multilayer-perception network. In particular, convolutions maintain *equivariance*, which essentially means that if an input image is transformed and passed through a convolutional layer, the feature map will be transformed in a consistent manner. In our image classification example, we seek a special case of equivariance, namely, *invariance*, whereby a translation, rotation, or scaling of the input image will not affect its classification. We will implement the convolution operation as well as some additional features to demonstrate how it works.
+where \newline(I\newline) is an image and \newline(K\newline) is called the *kernel*. The above equation gives the computation for the $j, k$ entry of $C$. In this case, $K$ is a learnable parameter. The resulting $C$ is called a feature map. Though the above is called a convolution in machine learning literature, it is actually called the "[cross correlation](https://en.wikipedia.org/wiki/Cross-correlation)" operation, which comes from signal processing and statistics. The main reason we use convolutional layers is because they retain "inductive bias", i.e, they are able to exploit the properties of images better than a typical multilayer-perception network. In particular, convolutions maintain *equivariance*, which essentially means that if an input image is transformed and passed through a convolutional layer, the feature map will be transformed in a consistent manner. In our image classification example, we seek a special case of equivariance, namely, *invariance*, whereby a translation, rotation, or scaling of the input image will not affect its classification. We will implement the convolution operation as well as some additional features to demonstrate how it works.
 
 ### Creating a convolutional neural network
 
@@ -147,11 +147,11 @@ test_conv_impl(32, 64, 8)
 
 One problem with the convolution operation is that pixels near the edge of the image are not convolved. We can solve this problem by adding *padding* to the image. Another reason to use padding is to ensure that the dimensions of the feature map match the dimensions of the input. Consider the following $3 \times 3$ image:
 
-$$\begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{bmatrix}$$
+$$\begin{bmatrix} 1 & 2 & 3 \newline 4 & 5 & 6 \newline 7 & 8 & 9 \end{bmatrix}$$
 
 And say we apply one layer of padding. Then, the image becomes: 
 
-$$\begin{bmatrix} 0 & 0 & 0 & 0 & 0 \\ 0 & 1 & 2 & 3 & 0 \\ 0 & 4 & 5 & 6 & 0 \\ 0 & 7 & 8 & 9 & 0 \\  0 & 0 & 0 & 0 & 0 \end{bmatrix}$$
+$$\begin{bmatrix} 0 & 0 & 0 & 0 & 0 \newline 0 & 1 & 2 & 3 & 0 \newline 0 & 4 & 5 & 6 & 0 \newline 0 & 7 & 8 & 9 & 0 \newline 0 & 0 & 0 & 0 & 0 \end{bmatrix}$$
 
 If we were to now apply a $2 \times 2$ kernel, we would be able to convolve the corners and edges of the image. In general, if we add $P$ pixels on each side of a $J \times K$ image and convolve it with a $M \times M$ kernel, then the dimension of the feature map is $(J + 2P - M + 1) \times (K + 2P - M + 1)$. When $P = 0$, we say the feature map has "valid" padding and when $P$ is selected to make the feature map have the same dimensions as the input, we say it has "same" padding. For odd $M$, we can select $P = \frac{M-1}{2}$. Then, the $(J + 2P - M + 1) \times (K + 2P - M + 1)$ image will be $J \times K$ in size, the same as the original image.
 
@@ -289,23 +289,23 @@ test_conv_impl(32, 64, 7, padding=10, stride=4)
 
 This next aspect is separate from the convolution operation we have been writing. *Pooling* is essentially the convolution operation except instead of multiplying and summing with a kernel, we apply some other function. The two most common types of pooling are average pooling and max pooling. To illustrate what pooling is, we perform a $2 \times 2$ max pool operation on the following $3 \times 3$ matrix:
 
-$$\begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{bmatrix}$$
+$$\begin{bmatrix} 1 & 2 & 3 \newline 4 & 5 & 6 \newline 7 & 8 & 9 \end{bmatrix}$$
 
 The pooling operation is still like a sliding window, so we look at the first $2 \times 2$ submatrix:
 
-$$\begin{bmatrix} 1 & 2 \\ 4 & 5 \end{bmatrix}$$
+$$\begin{bmatrix} 1 & 2 \newline 4 & 5 \end{bmatrix}$$
 
 and we take the maximum of all these elements, which is $5$. We then slide the window over and take the maximum of the next $2 \times 2$ submatrix:
 
-$$\begin{bmatrix} 2 & 3 \\ 5 & 6 \end{bmatrix}$$
+$$\begin{bmatrix} 2 & 3 \newline 5 & 6 \end{bmatrix}$$
 
 which is $6$. Continuing this way, we arrive at the following max-pooled matrix:
 
-$$\begin{bmatrix} 5 & 6 \\ 8 & 9 \end{bmatrix}$$
+$$\begin{bmatrix} 5 & 6 \newline 8 & 9 \end{bmatrix}$$
 
 If we were to use average pooling, we would take the average of each window and use that as the entries to get the following matrix:
 
-$$\begin{bmatrix} 3 & 4 \\ 6 & 7 \end{bmatrix}$$
+$$\begin{bmatrix} 3 & 4 \newline 6 & 7 \end{bmatrix}$$
 
 The primary use of the pooling operation is to allow for *invariance*. For example, in the case of the FashionMNIST dataset, we would like our neural network to be invariant to translations and rotations of the images, i.e, it should be able to tell that a T-shirt is a T-shirt regardless of whether the image is upside-down or rightside-up. 
 
