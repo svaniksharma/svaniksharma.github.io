@@ -7,7 +7,8 @@ math = 'mathjax'
 
 ## Reverse Mode Autodifferentiation Explained
 
-This article is my attempt to explain reverse mode autodifferentiation to myself and hopefully to anyone else that finds this useful.
+This article is my attempt to explain reverse mode autodifferentiation to myself and hopefully to anyone else that finds this useful. 
+([Link to notebook](https://github.com/svaniksharma/svaniksharma.github.io/tree/main/content/notebooks))
 
 ### Why autodifferentiation?
 

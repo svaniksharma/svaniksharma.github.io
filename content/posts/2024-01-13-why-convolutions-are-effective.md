@@ -7,7 +7,7 @@ math = 'mathjax'
 
 
 Convolutional neural networks have seen great success in computer vision tasks. However, why is this architecture so effective? This article hopes to elucidate the apparent efficacy of convolutional networks in many computer vision tasks. We'll approach this by training a convolutional network on the Fashion MNIST dataset.
-(Link to notebook [here](https://github.com/svaniksharma/svaniksharma.github.io/blob/master/notebooks/Why%20convolutions%20are%20effective.ipynb)).
+([Link to notebook](https://github.com/svaniksharma/svaniksharma.github.io/tree/main/content/notebooks)).
 ### A brief look at the dataset
 
 First, we make some necessary imports:
