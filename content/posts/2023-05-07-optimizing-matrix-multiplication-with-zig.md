@@ -1,7 +1,7 @@
 +++
 title = "Optimizing Matrix Multiplication with Zig"
 date = 2023-05-07T07:07:07+01:00
-draft = true
+draft = false
 +++
 
 I recently started playing with the [Zig](https://ziglang.org/) programming language and wanted to try it out for its speed.

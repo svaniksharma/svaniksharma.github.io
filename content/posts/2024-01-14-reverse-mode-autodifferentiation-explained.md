@@ -1,7 +1,7 @@
 +++
 title = 'Reverse Mode Autodifferentiation Explained'
 date = 2024-01-14T07:07:07+01:00
-draft = true
+draft = false
 +++
 
 This article is my attempt to explain reverse mode autodifferentiation to myself and hopefully to anyone else that finds this useful.
