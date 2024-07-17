@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Svanik Sharma&#39;s Website</title>
+    <link>https://svaniksharma.github.io/</link>
+    <description>Recent content on Svanik Sharma&#39;s Website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 16 Jul 2024 07:07:07 +0100</lastBuildDate>
+    <atom:link href="https://svaniksharma.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Credible Intervals versus Confidence Intervals</title>
+      <link>https://svaniksharma.github.io/posts/2024-07-16-credible-intervals-versus-confidence-intervals/</link>
+      <pubDate>Tue, 16 Jul 2024 07:07:07 +0100</pubDate>
+      <guid>https://svaniksharma.github.io/posts/2024-07-16-credible-intervals-versus-confidence-intervals/</guid>
+      <description>Suppose you have data $X_i | \mu, \sigma^2 \sim N(\mu, \sigma^2)$, for $i = 1, &amp;hellip;, n$, i.e, $n$ normally distributed data points with mean $\mu$ and variance $\sigma^2$ (or standard deviation $\sigma$). Assume you don&amp;rsquo;t know $\sigma^2$, which is usually the case anyway. You could estimate $\mu \approx \bar{X}$ and call it a day, but you probably want some measure of uncertainty, i.e, an interval estimate.
+Note: Throughout this article, I use the convention that uppercase variables are random variables and lowercase variables are fixed (observed) quantities.</description>
+    </item>
+    <item>
+      <title>Reverse Mode Autodifferentiation Explained</title>
+      <link>https://svaniksharma.github.io/posts/2024-01-14-reverse-mode-autodifferentiation-explained/</link>
+      <pubDate>Sun, 14 Jan 2024 07:07:07 +0100</pubDate>
+      <guid>https://svaniksharma.github.io/posts/2024-01-14-reverse-mode-autodifferentiation-explained/</guid>
+      <description>Reverse Mode Autodifferentiation Explained This article is my attempt to explain reverse mode autodifferentiation to myself and hopefully to anyone else that finds this useful. (Link to notebook)
+Why autodifferentiation? The reason we prefer autodifferentiation over symbolic differentiation is due to its efficiency and simplicity. Instead of writing out explicit derivatives or parsing complex expressions and finding their symbolic derivatives, we can just compute a derivative at a particular value directly with the help of autodifferentiation.</description>
+    </item>
+    <item>
+      <title>Why convolutions are effective</title>
+      <link>https://svaniksharma.github.io/posts/2024-01-13-why-convolutions-are-effective/</link>
+      <pubDate>Sun, 14 Jan 2024 07:07:07 +0100</pubDate>
+      <guid>https://svaniksharma.github.io/posts/2024-01-13-why-convolutions-are-effective/</guid>
+      <description>Convolutional neural networks have seen great success in computer vision tasks. However, why is this architecture so effective? This article hopes to elucidate the apparent efficacy of convolutional networks in many computer vision tasks. We&amp;rsquo;ll approach this by training a convolutional network on the Fashion MNIST dataset. (Link to notebook).
+A brief look at the dataset First, we make some necessary imports:
+import torch import torch.nn as nn import torch.nn.functional as F from torch.</description>
+    </item>
+    <item>
+      <title>Optimizing Matrix Multiplication with Zig</title>
+      <link>https://svaniksharma.github.io/posts/2023-05-07-optimizing-matrix-multiplication-with-zig/</link>
+      <pubDate>Sun, 07 May 2023 07:07:07 +0100</pubDate>
+      <guid>https://svaniksharma.github.io/posts/2023-05-07-optimizing-matrix-multiplication-with-zig/</guid>
+      <description>I recently started playing with the Zig programming language and wanted to try it out for its speed. And what better way to do that than to try optimizing matrix multiplication? Since there are a plethora of resources to understand how to multiply matrices efficiently (see the Resources section below), I won&amp;rsquo;t be doing anything intense in this article (though maybe in the future I will).
+The naive matrix multiplication algorithm is given below in Zig:</description>
+    </item>
+  </channel>
+</rss>

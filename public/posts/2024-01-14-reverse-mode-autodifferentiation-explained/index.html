@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Reverse Mode Autodifferentiation Explained | Svanik Sharma&#39;s Website</title>
+<meta name="keywords" content="">
+<meta name="description" content="Reverse Mode Autodifferentiation Explained This article is my attempt to explain reverse mode autodifferentiation to myself and hopefully to anyone else that finds this useful. (Link to notebook)
+Why autodifferentiation? The reason we prefer autodifferentiation over symbolic differentiation is due to its efficiency and simplicity. Instead of writing out explicit derivatives or parsing complex expressions and finding their symbolic derivatives, we can just compute a derivative at a particular value directly with the help of autodifferentiation.">
+<meta name="author" content="">
+<link rel="canonical" href="https://svaniksharma.github.io/posts/2024-01-14-reverse-mode-autodifferentiation-explained/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.b609c58d5c11bb90b1a54e04005d74ad1ddf22165eb79f5533967e57df9c3b50.css" integrity="sha256-tgnFjVwRu5CxpU4EAF10rR3fIhZet59VM5Z&#43;V9&#43;cO1A=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://svaniksharma.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://svaniksharma.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://svaniksharma.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://svaniksharma.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://svaniksharma.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://svaniksharma.github.io/posts/2024-01-14-reverse-mode-autodifferentiation-explained/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+  <script type="text/javascript">
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+    },
+  };
+</script>
+<script
+    async
+    id="MathJax-script"
+    src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js"
+    integrity="sha384-+BSz3oj3ILMYvOBr16U9i0H4RZRmGyQQ+1q9eqr8T3skmAFrJk8GmgwgqlCZdNSo"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    type="text/javascript"></script>
+
+
+
+  
+
+<meta property="og:title" content="Reverse Mode Autodifferentiation Explained" />
+<meta property="og:description" content="Reverse Mode Autodifferentiation Explained This article is my attempt to explain reverse mode autodifferentiation to myself and hopefully to anyone else that finds this useful. (Link to notebook)
+Why autodifferentiation? The reason we prefer autodifferentiation over symbolic differentiation is due to its efficiency and simplicity. Instead of writing out explicit derivatives or parsing complex expressions and finding their symbolic derivatives, we can just compute a derivative at a particular value directly with the help of autodifferentiation." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://svaniksharma.github.io/posts/2024-01-14-reverse-mode-autodifferentiation-explained/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-14T07:07:07+01:00" />
+<meta property="article:modified_time" content="2024-01-14T07:07:07+01:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Reverse Mode Autodifferentiation Explained"/>
+<meta name="twitter:description" content="Reverse Mode Autodifferentiation Explained This article is my attempt to explain reverse mode autodifferentiation to myself and hopefully to anyone else that finds this useful. (Link to notebook)
+Why autodifferentiation? The reason we prefer autodifferentiation over symbolic differentiation is due to its efficiency and simplicity. Instead of writing out explicit derivatives or parsing complex expressions and finding their symbolic derivatives, we can just compute a derivative at a particular value directly with the help of autodifferentiation."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://svaniksharma.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Reverse Mode Autodifferentiation Explained",
+      "item": "https://svaniksharma.github.io/posts/2024-01-14-reverse-mode-autodifferentiation-explained/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Reverse Mode Autodifferentiation Explained",
+  "name": "Reverse Mode Autodifferentiation Explained",
+  "description": "Reverse Mode Autodifferentiation Explained This article is my attempt to explain reverse mode autodifferentiation to myself and hopefully to anyone else that finds this useful. (Link to notebook)\nWhy autodifferentiation? The reason we prefer autodifferentiation over symbolic differentiation is due to its efficiency and simplicity. Instead of writing out explicit derivatives or parsing complex expressions and finding their symbolic derivatives, we can just compute a derivative at a particular value directly with the help of autodifferentiation.",
+  "keywords": [
+    
+  ],
+  "articleBody": "Reverse Mode Autodifferentiation Explained This article is my attempt to explain reverse mode autodifferentiation to myself and hopefully to anyone else that finds this useful. (Link to notebook)\nWhy autodifferentiation? The reason we prefer autodifferentiation over symbolic differentiation is due to its efficiency and simplicity. Instead of writing out explicit derivatives or parsing complex expressions and finding their symbolic derivatives, we can just compute a derivative at a particular value directly with the help of autodifferentiation.\nEvaluation Trace Before we can start differentiating, we need to create an evaluation trace. An evaluation trace essentially shows the order of operations in the form of a graph like the one below:\nThis evaluation trace represents the equation $f(x) = xz + y$. The nodes that you see in between the output $f$ and $x, y, z$ are called intermediate variables. Now we’ll look at how this evaluation trace can be used to compute a derivative.\nDifferentiation This essentially boils down to using the chain rule. To compute $\\frac{\\partial f}{\\partial v_i}$, we do the following: $$ \\begin{align*} \\bar v_i = \\frac{\\partial f}{\\partial v_i} \u0026= \\sum_{j \\in \\text{ children}(i)} \\frac{\\partial f}{\\partial v_j} \\frac{\\partial v_j}{\\partial v_i} \\newline \u0026= \\sum_{j \\in \\text{ children}(i)} \\bar v_j \\frac{\\partial v_j}{\\partial v_i} \\end{align*} $$\nNote that since the children of $v_i$, $v_j$, are functions of $v_i$ and $f$ is a function of those children, we can apply the chain rule. The $\\bar v_i = \\frac{\\partial f}{\\partial v_i}$ and $\\bar v_j = \\frac{\\partial f}{\\partial v_j}$ are called adjoint variables. We’ll use the evaluation trace for the example above to calculate $\\frac{\\partial f}{\\partial x}$. Since $v_1 = x$, we can calculate $\\bar v_1$ as follows: $$ \\begin{align} \\frac{\\partial f}{\\partial v_1} \u0026= \\sum_{j \\in \\text{ children}(1)} \\bar v_j \\frac{\\partial v_j}{\\partial v_1} \\newline \u0026= \\bar v_3 \\frac{\\partial v_3}{\\partial v_1} \\end{align} $$\nSo to calculate $\\bar v_1$, we need to calculate $\\bar v_3$. Let’s try to calculate $\\bar v_3$: $$ \\begin{align} \\frac{\\partial f}{\\partial v_3} \u0026= \\sum_{j \\in \\text{ children}(3)} \\bar v_j \\frac{\\partial v_j}{\\partial v_3} \\newline \u0026= \\bar v_5 \\frac{\\partial v_5}{\\partial v_3} \\end{align} $$\nAnd now we need to compute $\\bar v_5$…but $v_5$’s only child is $f$ and $f = v_5$, so $\\frac{\\partial f}{\\partial v_5} = 1$. So, now we can compute $\\bar v_3$! But what about $\\frac{\\partial v_5}{\\partial v_3}$? Well, we know that $v_5 = v_3 + v_4$. Initially, you might think we would try to use some fancy chain rule stuff to programatically do this, but we don’t have to. We already know that if $z = x + y$, then $\\frac{\\partial z}{\\partial x} = \\frac{\\partial z}{\\partial y} = 1$. This is a crucial aspect for understanding autodifferentiation: we know how to compute the derivatives of elementary functions, so we can use that to compute $\\frac{\\partial v_j}{\\partial v_i}$ if $v_j$ is a child node of $v_i$. In our example, we know $v_5 = v_3 + v_4$, so we can use our knowledge of differentiating addition to get $\\frac{\\partial v_5}{\\partial v_3} = 1$. If $v_5 = v_4 - v_3$, then we would use our knowledge of differentiating subtraction to get $\\frac{\\partial v_5}{\\partial v_3} = -1$. If $v_5 = e^{v_3}$, then $\\frac{\\partial v_5}{\\partial v_3} = e^{v_3}$. From a programming perspective, this means we need to (1) track which operation is being done and (2) have some way to look up how to compute the gradient of that function. If this doesn’t make sense right now, don’t worry, we’ll write some code that reflects what is happening above. We now have all the information necessary to compute $\\frac{\\partial f}{\\partial v_3}$: $$ \\begin{align} \\bar v_3 = \\frac{\\partial f}{\\partial v_3} \u0026= \\bar v_5 \\frac{\\partial v_5}{\\partial v_3} \\newline \u0026= 1 \\cdot 1 \\newline \u0026= 1 \\end{align} $$ Also: $$ \\begin{align} \\frac{\\partial f}{\\partial v_1} \u0026= \\bar v_3 \\frac{\\partial v_3}{\\partial v_1} \\newline \u0026= 1 \\cdot v_2 \\newline \u0026= v_2 \\newline \u0026= z \\end{align} $$ It bears repeating that while we are using symbols to express these derivatives here, when we program this we will be using concrete values for $v_1, v_2, x, $ etc. The procedure above has returned the right answer for $\\bar v_1$, since $\\frac{\\partial f}{\\partial v_1} = \\frac{\\partial}{\\partial v_1} (xz + y) = z = v_2$. Also notice how we computed $\\bar v_1$ by first computing $\\bar v_5$, then $\\bar v_3$, and then finally $\\bar v_1$. This is why the procedure is called reverse-mode autodifferentiation.\nCode We will write a small reverse-autodifferentiation program that emulates Pytorch’s interface. Namely, we want to be able to do the following:\nx = Tensor(3) y = Tensor(10) z = x * x + x * y z.backward() print(x.grad) # Should print out 2 * 3 + 10 = 16 print(y.grad) # Should print out 3 Here’s the code below:\ndef _add_grad_fn(a, b, grad): a.grad = grad * 1 if a.grad is None else a.grad + grad * 1 if a.grad_fn is not None: a.grad_fn(*a.inputs, a.grad) b.grad = grad * 1 if b.grad is None else b.grad + grad * 1 if b.grad_fn is not None: b.grad_fn(*b.inputs, b.grad) def _multiply_grad_fn(a, b, grad): a.grad = grad * b.value if a.grad is None else a.grad + grad * b.value if a.grad_fn is not None: a.grad_fn(*a.inputs, a.grad) b.grad = grad * a.value if b.grad is None else b.grad + grad * a.value if b.grad_fn is not None: b.grad_fn(*b.inputs, b.grad) class Tensor: def __init__(self, value, inputs=[], grad_fn=None): self.inputs = inputs self.value = value self.grad = None self.grad_fn = grad_fn def __add__(self, b): return Tensor(self.value + b.value, inputs=[self, b], grad_fn=_add_grad_fn) def __mul__(self, b): return Tensor(self.value * b.value, inputs=[self, b], grad_fn=_multiply_grad_fn) __rmul__ = __mul__ # This is just to render the tensor as a string def __str__(self): return f'Tensor({self.value})' __repr__ = __str__ def backward(self): if self.grad_fn is not None: self.grad = 1 self.grad_fn(*self.inputs, self.grad) else: raise Exception('grad_fn is None, probably because this tensor isn\\'t the result of a computation') x = Tensor(3) y = Tensor(10) z = x * x + x * y z.backward() x.grad, y.grad (16, 3) Ok, so how does this relate back to what we’ve seen? First, let’s look at the evaluation trace for $z = x \\cdot x + x \\cdot y$:\nNow, we’ll step through the code. The key behind this is that each tensor retains its value, a set of inputs that were used to create it (by default, none), a grad variable to track the value of its gradient, and a grad_fn variable to track a gradient function, which is used to compute the $\\frac{\\partial v_i}{\\partial v_j}$. By default, there is no gradient function, because if I create a tensor (e.g, x = Tensor(3)) with only a value, there are no derivatives we can compute (i.e, x is a constant, not a function of other variables). Furthermore, the grad variable is set to None instead of 0 to indicate that no gradient has been computed yet (as 0 could very well be the computed gradient).\nNote that I also use the term “tensor” here. Normally, we would compute these derivatives with respect to a vector or matrix of values instead of just a single scalar like we did above. For simplicity’s sake, I decided to keep the code to scalars, but it can be easily extended to vectors, matrices, or tensors if you wish.\nLet’s see what happens when we call z.backward():\ndef backward(self): if self.grad_fn is not None: self.grad = 1 self.grad_fn(*self.inputs, self.grad) else: raise Exception('grad_fn is None, probably because this tensor isn\\'t the result of a computation') We first check that there is a gradient function to call. Assuming there is one, we set the gradient to one and call the gradient function of this tensor. In any computation, the last intermediate variable will always be $1$, since if $v_m$ is the last intermediate variable and $f = v_m$, then $\\frac{\\partial f}{\\partial v_m} = \\frac{\\partial f}{\\partial f} = 1$. In the evaluation trace for $z = x \\cdot x + x \\cdot y$, $\\bar v_6 = 1$. Similarly, for $f(x) = xz + y$, $\\bar v_5 = 1$. Following that, we call the current tensor’s gradient function, passing in its inputs and its gradient (which is $1$). In the current example, this means passing in $\\bar v_6$ (self.grad) and $v_4, v_5$ (self.inputs). If you’re not familiar with Python, the asterisk in *self.inputs simply splices the list into the argument list of self.grad_fn, so foo(*[1, 2]) becomes foo(1, 2). The gradient function is the core of this. Where is grad_fn assigned, you might ask? We overload the multiplication and addition operator for the Tensor class so that when we add/multiply two tensors, we get a tensor. This is where we not only set the gradient function to call, but the inputs as well:\ndef __add__(self, b): return Tensor(self.value + b.value, inputs=[self, b], grad_fn=_add_grad_fn) def __mul__(self, b): return Tensor(self.value * b.value, inputs=[self, b], grad_fn=_multiply_grad_fn) __rmul__ = __mul__ Since $z = v_6$ is equal to $v_4 + v_5$, it is the result of an addition, so the grad_fn variable points to the _add_grad_fn function. Let’s look at it:\ndef _add_grad_fn(a, b, grad): a.grad = grad * 1 if a.grad is None else a.grad + grad * 1 if a.grad_fn is not None: a.grad_fn(*a.inputs, a.grad) b.grad = grad * 1 if b.grad is None else b.grad + grad * 1 if b.grad_fn is not None: b.grad_fn(*b.inputs, b.grad) Again, grad is $\\bar v_6 = 1$ right now and a and b are $v_4$ and $v_5$, respectively. What the gradient function does is compute $\\bar v_4$ and $\\bar v_5$. Let’s look at the computation of a.grad and what happens right after. First, we see this peculiar line:\na.grad = grad * 1 if a.grad is None else a.grad + grad * 1 If a.grad has not been computed yet, then we set it to grad * 1 because $\\bar v_4 = \\bar v_6 \\frac{\\partial v_6}{\\partial v_4}$. Since this is addition, $\\frac{\\partial v_6}{\\partial v_4} = 1$ and $\\bar v_6 = $ grad $ = 1$. However, in the case a.grad already has been computed once, why would we do a.grad = a.grad + grad * 1? Recall the autodifferentiation equation again: $$ \\bar v_i = \\sum_{j \\in \\text{ children}(i)} \\bar v_j \\frac{\\partial v_j}{\\partial v_i} $$\nIt is a sum over the children, but remember that since we are going in reverse, each child will visit its parent once. As an example of this, let’s look at $\\bar v_1$’s computation: $$\\bar v_1 = \\bar v_5 \\frac{\\partial v_5}{\\partial v_1} + \\bar v_4 \\frac{\\partial v_4}{\\partial v_1}$$ Since $v_5 = v_1v_2$, it will call _multiply_grad_fn and compute $\\bar v_1$ and $\\bar v_2$, with grad=$\\bar v_5$ and, since multiplication is an elementary function, we know that $\\frac{\\partial v_5}{\\partial v_1} = v_2$ and $\\frac{\\partial v_5}{\\partial v_2} = v_1$:\na.grad = grad * b.value if a.grad is None else a.grad + grad * b.value In essence, the sum is not performed all at once, but is performed incrementally as each child visits its parent. The way we implement each child visiting its parent is through the if statement (which is in both the add and multiply gradient functions):\nif a.grad_fn is not None: a.grad_fn(*a.inputs, a.grad) Once grad_fn is null, we have arrived at a terminal node, so we stop. This is essentially the core of how reverse autodifferentiation works. Note that this implementation uses an implicit computational graph, i.e, we do not actually create a graph with nodes and edges to represent the evaluation trace (though you can do this in both Pytorch and Tensorflow).\nIf you’re still struggling with this, I highly recommend Christopher Bishop’s deep learning book, specifically the chapter on backpropagation. It gives some more example evaluation traces and gives some performance details regarding both forward and reverse mode autodifferentiation.\nBig Picture Essentially, reverse mode autodifferentiation works by going backwards through an evaluation trace, and setting/updating the gradients of each adjoint variable it visits until it gets to a terminal node. The code does this traversal implicitly, calling a grad_fn which allows it to compute the derivatives of elementary functions, such as addition and multiplication and, as we’ve seen, it’s not hard to write a basic implementation on your own.\n",
+  "wordCount" : "1999",
+  "inLanguage": "en",
+  "datePublished": "2024-01-14T07:07:07+01:00",
+  "dateModified": "2024-01-14T07:07:07+01:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://svaniksharma.github.io/posts/2024-01-14-reverse-mode-autodifferentiation-explained/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Svanik Sharma's Website",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://svaniksharma.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://svaniksharma.github.io/" accesskey="h" title="Svanik Sharma&#39;s Website (Alt + H)">Svanik Sharma&#39;s Website</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Reverse Mode Autodifferentiation Explained
+    </h1>
+    <div class="post-meta"><span title='2024-01-14 07:07:07 +0100 +0100'>January 14, 2024</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h2 id="reverse-mode-autodifferentiation-explained">Reverse Mode Autodifferentiation Explained<a hidden class="anchor" aria-hidden="true" href="#reverse-mode-autodifferentiation-explained">#</a></h2>
+<p>This article is my attempt to explain reverse mode autodifferentiation to myself and hopefully to anyone else that finds this useful.
+(<a href="https://github.com/svaniksharma/svaniksharma.github.io/tree/main/content/notebooks">Link to notebook</a>)</p>
+<h3 id="why-autodifferentiation">Why autodifferentiation?<a hidden class="anchor" aria-hidden="true" href="#why-autodifferentiation">#</a></h3>
+<p>The reason we prefer autodifferentiation over symbolic differentiation is due to its efficiency and simplicity. Instead of writing out explicit derivatives or parsing complex expressions and finding their symbolic derivatives, we can just compute a derivative at a particular value directly with the help of autodifferentiation.</p>
+<h3 id="evaluation-trace">Evaluation Trace<a hidden class="anchor" aria-hidden="true" href="#evaluation-trace">#</a></h3>
+<p>Before we can start differentiating, we need to create an <em>evaluation trace</em>. An evaluation trace essentially shows the order of operations in the form of a graph like the one below:</p>
+<p><img loading="lazy" src="/eval-trace-1.png" alt="png"  />
+</p>
+<p>This evaluation trace represents the equation $f(x) = xz + y$. The nodes that you see in between the output $f$ and $x, y, z$ are called <em>intermediate variables</em>. Now we&rsquo;ll look at how this evaluation trace can be used to compute a derivative.</p>
+<h3 id="differentiation">Differentiation<a hidden class="anchor" aria-hidden="true" href="#differentiation">#</a></h3>
+<p>This essentially boils down to using the chain rule. To compute $\frac{\partial f}{\partial v_i}$, we do the following:
+$$
+\begin{align*}
+\bar v_i = \frac{\partial f}{\partial v_i} &amp;= \sum_{j \in \text{ children}(i)} \frac{\partial f}{\partial v_j} \frac{\partial v_j}{\partial v_i} \newline &amp;=
+\sum_{j \in \text{ children}(i)} \bar v_j \frac{\partial v_j}{\partial v_i}
+\end{align*}
+$$</p>
+<p>Note that since the <strong>children</strong> of $v_i$, $v_j$, are functions of $v_i$ and $f$ is a function of those children, we can apply the chain rule. The $\bar v_i = \frac{\partial f}{\partial v_i}$ and $\bar v_j = \frac{\partial f}{\partial v_j}$ are called <em>adjoint variables</em>. We&rsquo;ll use the evaluation trace for the example above to calculate $\frac{\partial f}{\partial x}$. Since $v_1 = x$, we can calculate $\bar v_1$ as follows:
+$$
+\begin{align}
+\frac{\partial f}{\partial v_1} &amp;= \sum_{j \in \text{ children}(1)} \bar v_j \frac{\partial v_j}{\partial v_1}
+\newline &amp;= \bar v_3 \frac{\partial v_3}{\partial v_1}
+\end{align}
+$$</p>
+<p>So to calculate $\bar v_1$, we need to calculate $\bar v_3$. Let&rsquo;s try to calculate $\bar v_3$:
+$$
+\begin{align}
+\frac{\partial f}{\partial v_3} &amp;= \sum_{j \in \text{ children}(3)} \bar v_j \frac{\partial v_j}{\partial v_3}
+\newline &amp;= \bar v_5 \frac{\partial v_5}{\partial v_3}
+\end{align}
+$$</p>
+<p>And now we need to compute $\bar v_5$&hellip;but $v_5$&rsquo;s only child is $f$ and $f = v_5$, so $\frac{\partial f}{\partial v_5} = 1$. So, now we can compute $\bar v_3$! But what about $\frac{\partial v_5}{\partial v_3}$? Well, we know that $v_5 = v_3 + v_4$. Initially, you might think we would try to use some fancy chain rule stuff to programatically do this, but we don&rsquo;t have to. We already know that if $z = x + y$, then $\frac{\partial z}{\partial x} = \frac{\partial z}{\partial y} = 1$.
+This is a crucial aspect for understanding autodifferentiation: we know how to compute the derivatives of elementary functions, so we can use that to compute $\frac{\partial v_j}{\partial v_i}$ if $v_j$ is a child node of $v_i$. In our example, we know $v_5 = v_3 + v_4$, so we can use our knowledge of differentiating addition to get $\frac{\partial v_5}{\partial v_3} = 1$. If $v_5 = v_4 - v_3$, then we would use our knowledge of differentiating subtraction to get $\frac{\partial v_5}{\partial v_3} = -1$. If $v_5 = e^{v_3}$, then $\frac{\partial v_5}{\partial v_3} = e^{v_3}$. From a programming perspective, this means we need to (1) track which operation is being done and (2) have some way to look up how to compute the gradient of that function. If this doesn&rsquo;t make sense right now, don&rsquo;t worry, we&rsquo;ll write some code that reflects what is happening above.
+We now have all the information necessary to compute $\frac{\partial f}{\partial v_3}$:
+$$
+\begin{align}
+\bar v_3 = \frac{\partial f}{\partial v_3} &amp;= \bar v_5 \frac{\partial v_5}{\partial v_3}
+\newline &amp;= 1 \cdot 1 \newline &amp;= 1
+\end{align}
+$$
+Also:
+$$
+\begin{align}
+\frac{\partial f}{\partial v_1} &amp;= \bar v_3 \frac{\partial v_3}{\partial v_1}
+\newline &amp;= 1 \cdot v_2
+\newline &amp;= v_2
+\newline &amp;= z
+\end{align}
+$$
+It bears repeating that while we are using symbols to express these derivatives here, when we program this we will be using concrete values for $v_1, v_2, x, $ etc. The procedure above has returned the right answer for $\bar v_1$, since $\frac{\partial f}{\partial v_1} = \frac{\partial}{\partial v_1} (xz + y) = z = v_2$.
+Also notice how we computed $\bar v_1$ by first computing $\bar v_5$, then $\bar v_3$, and then finally $\bar v_1$. This is why the procedure is called <em>reverse</em>-mode autodifferentiation.</p>
+<h3 id="code">Code<a hidden class="anchor" aria-hidden="true" href="#code">#</a></h3>
+<p>We will write a small reverse-autodifferentiation program that emulates Pytorch&rsquo;s interface. Namely, we want to be able to do the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>x <span style="color:#f92672">=</span> Tensor(<span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> Tensor(<span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>z <span style="color:#f92672">=</span> x <span style="color:#f92672">*</span> x <span style="color:#f92672">+</span> x <span style="color:#f92672">*</span> y
+</span></span><span style="display:flex;"><span>z<span style="color:#f92672">.</span>backward()
+</span></span><span style="display:flex;"><span>print(x<span style="color:#f92672">.</span>grad) <span style="color:#75715e"># Should print out 2 * 3 + 10 = 16</span>
+</span></span><span style="display:flex;"><span>print(y<span style="color:#f92672">.</span>grad) <span style="color:#75715e"># Should print out 3</span>
+</span></span></code></pre></div><p>Here&rsquo;s the code below:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_add_grad_fn</span>(a, b, grad):
+</span></span><span style="display:flex;"><span>    a<span style="color:#f92672">.</span>grad <span style="color:#f92672">=</span> grad <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">if</span> a<span style="color:#f92672">.</span>grad <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span> <span style="color:#66d9ef">else</span> a<span style="color:#f92672">.</span>grad <span style="color:#f92672">+</span> grad <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> a<span style="color:#f92672">.</span>grad_fn <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        a<span style="color:#f92672">.</span>grad_fn(<span style="color:#f92672">*</span>a<span style="color:#f92672">.</span>inputs, a<span style="color:#f92672">.</span>grad)
+</span></span><span style="display:flex;"><span>    b<span style="color:#f92672">.</span>grad <span style="color:#f92672">=</span> grad <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">if</span> b<span style="color:#f92672">.</span>grad <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span> <span style="color:#66d9ef">else</span> b<span style="color:#f92672">.</span>grad <span style="color:#f92672">+</span> grad <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> b<span style="color:#f92672">.</span>grad_fn <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        b<span style="color:#f92672">.</span>grad_fn(<span style="color:#f92672">*</span>b<span style="color:#f92672">.</span>inputs, b<span style="color:#f92672">.</span>grad)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_multiply_grad_fn</span>(a, b, grad):
+</span></span><span style="display:flex;"><span>    a<span style="color:#f92672">.</span>grad <span style="color:#f92672">=</span> grad <span style="color:#f92672">*</span> b<span style="color:#f92672">.</span>value <span style="color:#66d9ef">if</span> a<span style="color:#f92672">.</span>grad <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span> <span style="color:#66d9ef">else</span> a<span style="color:#f92672">.</span>grad <span style="color:#f92672">+</span> grad <span style="color:#f92672">*</span> b<span style="color:#f92672">.</span>value
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> a<span style="color:#f92672">.</span>grad_fn <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        a<span style="color:#f92672">.</span>grad_fn(<span style="color:#f92672">*</span>a<span style="color:#f92672">.</span>inputs, a<span style="color:#f92672">.</span>grad)
+</span></span><span style="display:flex;"><span>    b<span style="color:#f92672">.</span>grad <span style="color:#f92672">=</span> grad <span style="color:#f92672">*</span> a<span style="color:#f92672">.</span>value <span style="color:#66d9ef">if</span> b<span style="color:#f92672">.</span>grad <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span> <span style="color:#66d9ef">else</span> b<span style="color:#f92672">.</span>grad <span style="color:#f92672">+</span> grad <span style="color:#f92672">*</span> a<span style="color:#f92672">.</span>value
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> b<span style="color:#f92672">.</span>grad_fn <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        b<span style="color:#f92672">.</span>grad_fn(<span style="color:#f92672">*</span>b<span style="color:#f92672">.</span>inputs, b<span style="color:#f92672">.</span>grad)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Tensor</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, value, inputs<span style="color:#f92672">=</span>[], grad_fn<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>inputs <span style="color:#f92672">=</span> inputs
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>value <span style="color:#f92672">=</span> value
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>grad <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>grad_fn <span style="color:#f92672">=</span> grad_fn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __add__(self, b):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Tensor(self<span style="color:#f92672">.</span>value <span style="color:#f92672">+</span> b<span style="color:#f92672">.</span>value, inputs<span style="color:#f92672">=</span>[self, b], grad_fn<span style="color:#f92672">=</span>_add_grad_fn)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __mul__(self, b):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Tensor(self<span style="color:#f92672">.</span>value <span style="color:#f92672">*</span> b<span style="color:#f92672">.</span>value, inputs<span style="color:#f92672">=</span>[self, b], grad_fn<span style="color:#f92672">=</span>_multiply_grad_fn)
+</span></span><span style="display:flex;"><span>    __rmul__ <span style="color:#f92672">=</span> __mul__
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># This is just to render the tensor as a string</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __str__(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Tensor(</span><span style="color:#e6db74">{</span>self<span style="color:#f92672">.</span>value<span style="color:#e6db74">}</span><span style="color:#e6db74">)&#39;</span>
+</span></span><span style="display:flex;"><span>    __repr__ <span style="color:#f92672">=</span> __str__
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">backward</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>grad_fn <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>grad <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>grad_fn(<span style="color:#f92672">*</span>self<span style="color:#f92672">.</span>inputs, self<span style="color:#f92672">.</span>grad)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">Exception</span>(<span style="color:#e6db74">&#39;grad_fn is None, probably because this tensor isn</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">t the result of a computation&#39;</span>)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>x <span style="color:#f92672">=</span> Tensor(<span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>y <span style="color:#f92672">=</span> Tensor(<span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>z <span style="color:#f92672">=</span> x <span style="color:#f92672">*</span> x <span style="color:#f92672">+</span> x <span style="color:#f92672">*</span> y
+</span></span><span style="display:flex;"><span>z<span style="color:#f92672">.</span>backward()
+</span></span><span style="display:flex;"><span>x<span style="color:#f92672">.</span>grad, y<span style="color:#f92672">.</span>grad
+</span></span></code></pre></div><pre><code>(16, 3)
+</code></pre>
+<p>Ok, so how does this relate back to what we&rsquo;ve seen? First, let&rsquo;s look at the evaluation trace for $z = x \cdot x + x \cdot y$:</p>
+<p><img loading="lazy" src="/eval-trace-2.png" alt="png"  />
+</p>
+<p>Now, we&rsquo;ll step through the code. The key behind this is that each tensor retains its value, a set of inputs that were used to create it (by default, none), a <code>grad</code> variable to track the value of its gradient, and a <code>grad_fn</code> variable to track a gradient function, which is used to compute the $\frac{\partial v_i}{\partial v_j}$. By default, there is no gradient function, because if I create a tensor (e.g, <code>x = Tensor(3)</code>) with only a value, there are no derivatives we can compute (i.e, <code>x</code> is a constant, not a function of other variables). Furthermore, the <code>grad</code> variable is set to <code>None</code> instead of <code>0</code> to indicate that no gradient has been computed yet (as <code>0</code> could very well be the computed gradient).</p>
+<blockquote>
+<p>Note that I also use the term &ldquo;tensor&rdquo; here. Normally, we would compute these derivatives with respect to a <em>vector</em> or <em>matrix</em> of values instead of just a single <em>scalar</em> like we did above. For simplicity&rsquo;s sake, I decided to keep the code to scalars, but it can be easily extended to vectors, matrices, or tensors if you wish.</p>
+</blockquote>
+<p>Let&rsquo;s see what happens when we call <code>z.backward()</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">backward</span>(self):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>grad_fn <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>grad <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>grad_fn(<span style="color:#f92672">*</span>self<span style="color:#f92672">.</span>inputs, self<span style="color:#f92672">.</span>grad)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">Exception</span>(<span style="color:#e6db74">&#39;grad_fn is None, probably because this tensor isn</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">t the result of a computation&#39;</span>)
+</span></span></code></pre></div><p>We first check that there is a gradient function to call. Assuming there is one, we set the gradient to one and call the gradient function of this tensor. In any computation, the last intermediate variable will always be $1$, since if $v_m$ is the last intermediate variable and $f = v_m$, then $\frac{\partial f}{\partial v_m} = \frac{\partial f}{\partial f} = 1$. In the evaluation trace for $z = x \cdot x + x \cdot y$, $\bar v_6 = 1$. Similarly, for $f(x) = xz + y$, $\bar v_5 = 1$. Following that, we call the current tensor&rsquo;s gradient function, passing in its inputs and its gradient (which is $1$). In the current example, this means passing in $\bar v_6$ (<code>self.grad</code>) and $v_4, v_5$ (<code>self.inputs</code>). If you&rsquo;re not familiar with Python, the asterisk in <code>*self.inputs</code> simply splices the list into the argument list of <code>self.grad_fn</code>, so <code>foo(*[1, 2])</code> becomes <code>foo(1, 2)</code>.
+The gradient function is the core of this. Where is <code>grad_fn</code> assigned, you might ask? We overload the multiplication and addition operator for the <code>Tensor</code> class so that when we add/multiply two tensors, we get a tensor. This is where we not only set the gradient function to call, but the inputs as well:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> __add__(self, b):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> Tensor(self<span style="color:#f92672">.</span>value <span style="color:#f92672">+</span> b<span style="color:#f92672">.</span>value, inputs<span style="color:#f92672">=</span>[self, b], grad_fn<span style="color:#f92672">=</span>_add_grad_fn)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> __mul__(self, b):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> Tensor(self<span style="color:#f92672">.</span>value <span style="color:#f92672">*</span> b<span style="color:#f92672">.</span>value, inputs<span style="color:#f92672">=</span>[self, b], grad_fn<span style="color:#f92672">=</span>_multiply_grad_fn)
+</span></span><span style="display:flex;"><span>__rmul__ <span style="color:#f92672">=</span> __mul__
+</span></span></code></pre></div><p>Since $z = v_6$ is equal to $v_4 + v_5$, it is the result of an addition, so the <code>grad_fn</code> variable points to the <code>_add_grad_fn</code> function. Let&rsquo;s look at it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_add_grad_fn</span>(a, b, grad):
+</span></span><span style="display:flex;"><span>    a<span style="color:#f92672">.</span>grad <span style="color:#f92672">=</span> grad <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">if</span> a<span style="color:#f92672">.</span>grad <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span> <span style="color:#66d9ef">else</span> a<span style="color:#f92672">.</span>grad <span style="color:#f92672">+</span> grad <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> a<span style="color:#f92672">.</span>grad_fn <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        a<span style="color:#f92672">.</span>grad_fn(<span style="color:#f92672">*</span>a<span style="color:#f92672">.</span>inputs, a<span style="color:#f92672">.</span>grad)
+</span></span><span style="display:flex;"><span>    b<span style="color:#f92672">.</span>grad <span style="color:#f92672">=</span> grad <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">if</span> b<span style="color:#f92672">.</span>grad <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span> <span style="color:#66d9ef">else</span> b<span style="color:#f92672">.</span>grad <span style="color:#f92672">+</span> grad <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> b<span style="color:#f92672">.</span>grad_fn <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        b<span style="color:#f92672">.</span>grad_fn(<span style="color:#f92672">*</span>b<span style="color:#f92672">.</span>inputs, b<span style="color:#f92672">.</span>grad)
+</span></span></code></pre></div><p>Again, <code>grad</code> is $\bar v_6 = 1$ right now and <code>a</code> and <code>b</code> are $v_4$ and $v_5$, respectively. What the gradient function does is compute $\bar v_4$ and $\bar v_5$. Let&rsquo;s look at the computation of <code>a.grad</code> and what happens right after. First, we see this peculiar line:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>a<span style="color:#f92672">.</span>grad <span style="color:#f92672">=</span> grad <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">if</span> a<span style="color:#f92672">.</span>grad <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span> <span style="color:#66d9ef">else</span> a<span style="color:#f92672">.</span>grad <span style="color:#f92672">+</span> grad <span style="color:#f92672">*</span> <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>If <code>a.grad</code> has not been computed yet, then we set it to <code>grad * 1</code> because $\bar v_4 = \bar v_6 \frac{\partial v_6}{\partial v_4}$. Since this is addition, $\frac{\partial v_6}{\partial v_4} = 1$ and $\bar v_6 = $ <code>grad</code> $ = 1$. However, in the case <code>a.grad</code> already has been computed once, why would we do <code>a.grad = a.grad + grad * 1</code>? Recall the autodifferentiation equation again:
+$$ \bar v_i =  \sum_{j \in \text{ children}(i)} \bar v_j \frac{\partial v_j}{\partial v_i} $$</p>
+<p>It is a <em>sum</em> over the <em>children</em>, but remember that since we are going in reverse, each child will visit its parent once. As an example of this, let&rsquo;s look at $\bar v_1$&rsquo;s computation:
+$$\bar v_1 = \bar v_5 \frac{\partial v_5}{\partial v_1} + \bar v_4 \frac{\partial v_4}{\partial v_1}$$
+Since $v_5 = v_1v_2$, it will call <code>_multiply_grad_fn</code> and compute $\bar v_1$ and $\bar v_2$, with <code>grad</code>=$\bar v_5$ and, since multiplication is an elementary function, we know that $\frac{\partial v_5}{\partial v_1} = v_2$ and $\frac{\partial v_5}{\partial v_2} = v_1$:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>a<span style="color:#f92672">.</span>grad <span style="color:#f92672">=</span> grad <span style="color:#f92672">*</span> b<span style="color:#f92672">.</span>value <span style="color:#66d9ef">if</span> a<span style="color:#f92672">.</span>grad <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span> <span style="color:#66d9ef">else</span> a<span style="color:#f92672">.</span>grad <span style="color:#f92672">+</span> grad <span style="color:#f92672">*</span> b<span style="color:#f92672">.</span>value
+</span></span></code></pre></div><p>In essence, the sum is not performed all at once, but is performed incrementally <em>as each child visits its parent</em>. The way we implement each child visiting its parent is through the if statement (which is in both the add and multiply gradient functions):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> a<span style="color:#f92672">.</span>grad_fn <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        a<span style="color:#f92672">.</span>grad_fn(<span style="color:#f92672">*</span>a<span style="color:#f92672">.</span>inputs, a<span style="color:#f92672">.</span>grad)
+</span></span></code></pre></div><p>Once <code>grad_fn</code> is null, we have arrived at a terminal node, so we stop. This is essentially the core of how reverse autodifferentiation works. Note that this implementation uses an <em>implicit</em> computational graph, i.e, we do not actually create a graph with nodes and edges to represent the evaluation trace (though you can do this in both Pytorch and Tensorflow).</p>
+<p>If you&rsquo;re still struggling with this, I highly recommend Christopher Bishop&rsquo;s <a href="https://www.bishopbook.com/">deep learning book</a>, specifically the chapter on backpropagation. It gives some more example evaluation traces and gives some performance details regarding both forward and reverse mode autodifferentiation.</p>
+<h3 id="big-picture">Big Picture<a hidden class="anchor" aria-hidden="true" href="#big-picture">#</a></h3>
+<p>Essentially, reverse mode autodifferentiation works by going backwards through an evaluation trace, and setting/updating the gradients of each adjoint variable it visits until it gets to a terminal node. The code does this traversal implicitly, calling a <code>grad_fn</code> which allows it to compute the derivatives of elementary functions, such as addition and multiplication and, as we&rsquo;ve seen, it&rsquo;s not hard to write a basic implementation on your own.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="https://svaniksharma.github.io/">Svanik Sharma&#39;s Website</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
