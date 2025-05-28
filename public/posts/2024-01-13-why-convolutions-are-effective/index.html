@@ -1,26 +1,68 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, nofollow">
 <title>Why convolutions are effective | Svanik Sharma&#39;s Website</title>
 <meta name="keywords" content="">
-<meta name="description" content="Convolutional neural networks have seen great success in computer vision tasks. However, why is this architecture so effective? This article hopes to elucidate the apparent efficacy of convolutional networks in many computer vision tasks. We&rsquo;ll approach this by training a convolutional network on the Fashion MNIST dataset. (Link to notebook).
-A brief look at the dataset First, we make some necessary imports:
-import torch import torch.nn as nn import torch.nn.functional as F from torch.">
+<meta name="description" content="Convolutional neural networks have seen great success in computer vision tasks. However, why is this architecture so effective? This article hopes to elucidate the apparent efficacy of convolutional networks in many computer vision tasks. We&rsquo;ll approach this by training a convolutional network on the Fashion MNIST dataset.
+(Link to notebook).
+A brief look at the dataset
+First, we make some necessary imports:
+
+
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+
+
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from torch.utils.data import DataLoader
+import torchvision
+from torchvision.transforms import ToTensor
+import matplotlib.pyplot as plt
+import numpy as np
+from torchinfo import summary
+
+device_name = None
+if torch.cuda.is_available():
+    device_name = &#39;cuda&#39;
+else:
+    device_name = &#39;cpu&#39;
+device = torch.device(device_name)
+print(&#39;Using device: &#39; &#43; device_name)
+
+
+Then, we load the dataset and display it:">
 <meta name="author" content="">
-<link rel="canonical" href="https://svaniksharma.github.io/posts/2024-01-13-why-convolutions-are-effective/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.b609c58d5c11bb90b1a54e04005d74ad1ddf22165eb79f5533967e57df9c3b50.css" integrity="sha256-tgnFjVwRu5CxpU4EAF10rR3fIhZet59VM5Z&#43;V9&#43;cO1A=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://svaniksharma.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://svaniksharma.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://svaniksharma.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://svaniksharma.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://svaniksharma.github.io/safari-pinned-tab.svg">
+<link rel="canonical" href="http://localhost:1313/posts/2024-01-13-why-convolutions-are-effective/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.c5de734fbd88c3d21543485ffbcb1ccdda89a86a780cf987fa00199c41dbc947.css" integrity="sha256-xd5zT72Iw9IVQ0hf&#43;8sczdqJqGp4DPmH&#43;gAZnEHbyUc=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://svaniksharma.github.io/posts/2024-01-13-why-convolutions-are-effective/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/2024-01-13-why-convolutions-are-effective/">
 <noscript>
     <style>
         #theme-toggle,
@@ -77,73 +119,6 @@ import torch import torch.nn as nn import torch.nn.functional as F from torch.">
 
 
 
-  
-
-<meta property="og:title" content="Why convolutions are effective" />
-<meta property="og:description" content="Convolutional neural networks have seen great success in computer vision tasks. However, why is this architecture so effective? This article hopes to elucidate the apparent efficacy of convolutional networks in many computer vision tasks. We&rsquo;ll approach this by training a convolutional network on the Fashion MNIST dataset. (Link to notebook).
-A brief look at the dataset First, we make some necessary imports:
-import torch import torch.nn as nn import torch.nn.functional as F from torch." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://svaniksharma.github.io/posts/2024-01-13-why-convolutions-are-effective/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2024-01-14T07:07:07+01:00" />
-<meta property="article:modified_time" content="2024-01-14T07:07:07+01:00" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Why convolutions are effective"/>
-<meta name="twitter:description" content="Convolutional neural networks have seen great success in computer vision tasks. However, why is this architecture so effective? This article hopes to elucidate the apparent efficacy of convolutional networks in many computer vision tasks. We&rsquo;ll approach this by training a convolutional network on the Fashion MNIST dataset. (Link to notebook).
-A brief look at the dataset First, we make some necessary imports:
-import torch import torch.nn as nn import torch.nn.functional as F from torch."/>
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Posts",
-      "item": "https://svaniksharma.github.io/posts/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "Why convolutions are effective",
-      "item": "https://svaniksharma.github.io/posts/2024-01-13-why-convolutions-are-effective/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Why convolutions are effective",
-  "name": "Why convolutions are effective",
-  "description": "Convolutional neural networks have seen great success in computer vision tasks. However, why is this architecture so effective? This article hopes to elucidate the apparent efficacy of convolutional networks in many computer vision tasks. We\u0026rsquo;ll approach this by training a convolutional network on the Fashion MNIST dataset. (Link to notebook).\nA brief look at the dataset First, we make some necessary imports:\nimport torch import torch.nn as nn import torch.nn.functional as F from torch.",
-  "keywords": [
-    
-  ],
-  "articleBody": "Convolutional neural networks have seen great success in computer vision tasks. However, why is this architecture so effective? This article hopes to elucidate the apparent efficacy of convolutional networks in many computer vision tasks. We’ll approach this by training a convolutional network on the Fashion MNIST dataset. (Link to notebook).\nA brief look at the dataset First, we make some necessary imports:\nimport torch import torch.nn as nn import torch.nn.functional as F from torch.utils.data import DataLoader import torchvision from torchvision.transforms import ToTensor import matplotlib.pyplot as plt import numpy as np from torchinfo import summary device_name = None if torch.cuda.is_available(): device_name = 'cuda' else: device_name = 'cpu' device = torch.device(device_name) print('Using device: ' + device_name) Then, we load the dataset and display it:\n# this will download the dataset to a local directory if not downloaded already # otherwise looks for a directory named \"fashion_mnist\" train_dataset = torchvision.datasets.FashionMNIST(root='fashion_mnist', download=True, train=True, transform=ToTensor()) test_dataset = torchvision.datasets.FashionMNIST(root='fashion_mnist', download=True, train=False, transform=ToTensor()) labels = [ 'T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle Boot' ] figure = plt.figure(figsize=(5, 5)) rows, cols = 3, 3 for i in range(1, cols * rows + 1): sample_idx = torch.randint(len(train_dataset), size=(1,)).item() img, label = train_dataset[sample_idx] figure.add_subplot(rows, cols, i) plt.title(labels[label]) plt.axis(\"off\") plt.imshow(img.squeeze(), cmap=\"gray\") plt.show() The FashionMNIST dataset has 10 classes (indicated in the labels array above) and they each consist of $28 \\times 28$ grayscale images. Unlike RGB, this means that each pixel has only one value. We can verify this by looking at an example from the dataset:\nsample_idx = torch.randint(len(train_dataset), size=(1,)).item() img, _ = train_dataset[sample_idx] print(f'Image shape: {img.shape}') max_pixel_val = torch.max(img) min_pixel_val = torch.min(img) print(f'Range of image pixels: {min_pixel_val} to {max_pixel_val}') What are convolutions? The convolution operation is defined as below:\n$$C(j, k) = \\sum_{l} \\sum_{m} I(j + l, k + m) K(l, m)$$\nwhere \\newline(I\\newline) is an image and \\newline(K\\newline) is called the kernel. The above equation gives the computation for the $j, k$ entry of $C$. In this case, $K$ is a learnable parameter. The resulting $C$ is called a feature map. Though the above is called a convolution in machine learning literature, it is actually called the “cross correlation” operation, which comes from signal processing and statistics. The main reason we use convolutional layers is because they retain “inductive bias”, i.e, they are able to exploit the properties of images better than a typical multilayer-perception network. In particular, convolutions maintain equivariance, which essentially means that if an input image is transformed and passed through a convolutional layer, the feature map will be transformed in a consistent manner. In our image classification example, we seek a special case of equivariance, namely, invariance, whereby a translation, rotation, or scaling of the input image will not affect its classification. We will implement the convolution operation as well as some additional features to demonstrate how it works.\nCreating a convolutional neural network Basic implementation We implement a custom convolution layer. Note that the layer we are creating is not trainable (which I’ve done to make the implementation of convolution a bit easier to understand), but it doesn’t take too much effort to make the DIYConv2D layer usable. In addition to the this convolution layer, I’ve also created a test_conv_impl to compare our convolutional layer with the one created by Pytorch. The code below implements the convolution (cross-correlation) operation that we discussed above:\nclass DIYConv2D(nn.Module): def __init__(self, in_channels, out_channels, kernel_size, padding='valid', stride=1): # TODO: implement padding and stride super().__init__() self.out_channels = out_channels self.in_channels = in_channels self.kernel_size = kernel_size self.kernel = torch.rand(out_channels, in_channels, kernel_size, kernel_size) self.bias = torch.rand(out_channels,) # For testing def _set_parameters(self, kernel, bias): self.kernel = kernel self.bias = bias assert self.kernel.shape == (self.out_channels, self.in_channels, self.kernel_size, self.kernel_size) assert self.bias.shape == (self.out_channels,) def forward(self, x): height = x.shape[1] - self.kernel_size + 1 width = x.shape[2] - self.kernel_size + 1 conv = torch.zeros((self.out_channels, height, width)) for i in range(self.out_channels): for j in range(height): for k in range(width): conv[i][j][k] = torch.sum(self.kernel[i, ...] * x[..., j:j+self.kernel_size, k:k+self.kernel_size]) return conv + self.bias.reshape(self.out_channels, 1, 1) def test_conv_impl(img_width, img_height, kernel_size, padding=0, stride=1): img = torch.rand(1, img_width, img_height) conv_layer = nn.Conv2d(kernel_size=kernel_size, in_channels=1, out_channels=3, stride=stride, padding=padding, dilation=1, bias=True) diy_conv_layer = DIYConv2D(1, 3, kernel_size=kernel_size, padding=padding, stride=stride) diy_conv_layer._set_parameters(conv_layer.weight, conv_layer.bias) conv_layer_output = conv_layer(img) diy_conv_layer_output = diy_conv_layer(img) print(conv_layer_output) print(diy_conv_layer_output) assert torch.allclose(conv_layer_output, diy_conv_layer_output, atol=1e-5, rtol=1e-5) test_conv_impl(3, 3, 2) test_conv_impl(28, 28, 3) test_conv_impl(32, 64, 8) Padding One problem with the convolution operation is that pixels near the edge of the image are not convolved. We can solve this problem by adding padding to the image. Another reason to use padding is to ensure that the dimensions of the feature map match the dimensions of the input. Consider the following $3 \\times 3$ image:\n$$\\begin{bmatrix} 1 \u0026 2 \u0026 3 \\newline 4 \u0026 5 \u0026 6 \\newline 7 \u0026 8 \u0026 9 \\end{bmatrix}$$\nAnd say we apply one layer of padding. Then, the image becomes:\n$$\\begin{bmatrix} 0 \u0026 0 \u0026 0 \u0026 0 \u0026 0 \\newline 0 \u0026 1 \u0026 2 \u0026 3 \u0026 0 \\newline 0 \u0026 4 \u0026 5 \u0026 6 \u0026 0 \\newline 0 \u0026 7 \u0026 8 \u0026 9 \u0026 0 \\newline 0 \u0026 0 \u0026 0 \u0026 0 \u0026 0 \\end{bmatrix}$$\nIf we were to now apply a $2 \\times 2$ kernel, we would be able to convolve the corners and edges of the image. In general, if we add $P$ pixels on each side of a $J \\times K$ image and convolve it with a $M \\times M$ kernel, then the dimension of the feature map is $(J + 2P - M + 1) \\times (K + 2P - M + 1)$. When $P = 0$, we say the feature map has “valid” padding and when $P$ is selected to make the feature map have the same dimensions as the input, we say it has “same” padding. For odd $M$, we can select $P = \\frac{M-1}{2}$. Then, the $(J + 2P - M + 1) \\times (K + 2P - M + 1)$ image will be $J \\times K$ in size, the same as the original image.\nNote: Adding padding to images for even-sized kernels is not necessarily well-defined. It seems that Pytorch will do this by adding padding to the right and bottom of the matrix as described here. Generally for computer vision tasks, we use odd-sized kernels so that the padding is symmetric on all sides and there is a well-defined central pixel (see the textbook by Bishop in the References below for more details).\nclass DIYConv2D(nn.Module): def __init__(self, in_channels, out_channels, kernel_size, padding='valid', stride=1): super().__init__() self.out_channels = out_channels self.in_channels = in_channels self.kernel_size = kernel_size self.kernel = torch.rand(out_channels, in_channels, kernel_size, kernel_size) self.bias = torch.rand(out_channels,) self.padding = padding # For testing def _set_parameters(self, kernel, bias): self.kernel = kernel self.bias = bias assert self.kernel.shape == (self.out_channels, self.in_channels, self.kernel_size, self.kernel_size) assert self.bias.shape == (self.out_channels,) def _add_padding(self, x): padding = None if self.padding == 'valid': padding = 0 elif self.padding == 'same': padding = (self.kernel_size - 1) // 2 elif isinstance(self.padding, int): padding = self.padding else: raise Exception(f'Undefined padding mode \\\"{self.padding}\\\"') padded_x = x for _ in range(padding): padding_vertical = torch.zeros((padded_x.shape[0], padded_x.shape[1] + 2, 1)) padding_horizontal = torch.zeros((padded_x.shape[0], 1, padded_x.shape[2])) padded_x = torch.cat((padding_horizontal, padded_x, padding_horizontal), dim=1) padded_x = torch.cat((padding_vertical, padded_x, padding_vertical), dim=2) return padded_x def forward(self, x): x = self._add_padding(x) height = x.shape[1] - self.kernel_size + 1 width = x.shape[2] - self.kernel_size + 1 conv = torch.zeros((self.out_channels, height, width)) for i in range(self.out_channels): for j in range(height): for k in range(width): conv[i][j][k] = torch.sum(self.kernel[i, ...] * x[..., j:j+self.kernel_size, k:k+self.kernel_size]) return conv + self.bias.reshape(self.out_channels, 1, 1) test_conv_impl(3, 3, 3, padding='valid') test_conv_impl(3, 3, 3, padding='same') test_conv_impl(3, 3, 1, padding=2) test_conv_impl(28, 28, 5, padding='valid') test_conv_impl(28, 28, 5, padding='same') test_conv_impl(28, 28, 5, padding=2) test_conv_impl(32, 64, 7, padding='valid') test_conv_impl(32, 64, 7, padding='same') test_conv_impl(32, 64, 7, padding=10) Stride Sometimes, instead of padding, we wish to make the feature map smaller than the input rather than keep it of a similar size. We can do this by using a different stride when applying the kernel. Essentially, instead of moving the sliding window over by $1$ each time, we skip $S$ pixels. The resulting feature map has the size $(\\lfloor \\frac{J + 2P - M}{S} + 1 \\rfloor) \\times (\\lfloor \\frac{K + 2P - M}{S} + 1 \\rfloor)$. The code below is not too different from the above; we just skip $S$ pixels in the loop.\nclass DIYConv2D(nn.Module): def __init__(self, in_channels, out_channels, kernel_size, padding='valid', stride=1): super().__init__() self.out_channels = out_channels self.in_channels = in_channels self.kernel_size = kernel_size self.kernel = torch.rand(out_channels, in_channels, kernel_size, kernel_size) self.bias = torch.rand(out_channels) self.padding = padding self.stride = stride # For testing def _set_parameters(self, kernel, bias): self.kernel = kernel self.bias = bias assert self.kernel.shape == (self.out_channels, self.in_channels, self.kernel_size, self.kernel_size) assert self.bias.shape == (self.out_channels,) def _add_padding(self, x): padding = None if self.padding == 'valid': padding = 0 elif self.padding == 'same': padding = (self.kernel_size - 1) // 2 elif isinstance(self.padding, int): padding = self.padding else: raise Exception(f'Undefined padding mode \\\"{self.padding}\\\"') padded_x = x for _ in range(padding): padding_vertical = torch.zeros((padded_x.shape[0], padded_x.shape[1] + 2, 1)) padding_horizontal = torch.zeros((padded_x.shape[0], 1, padded_x.shape[2])) padded_x = torch.cat((padding_horizontal, padded_x, padding_horizontal), dim=1) padded_x = torch.cat((padding_vertical, padded_x, padding_vertical), dim=2) return padded_x def forward(self, x): x = self._add_padding(x) height = int(np.floor(1 + (x.shape[1] - self.kernel_size) / self.stride)) width = int(np.floor(1 + (x.shape[2] - self.kernel_size) / self.stride)) conv = torch.zeros((self.out_channels, height, width)) jc, kc = 0, 0 for i in range(self.out_channels): jc = 0 for j in range(0, x.shape[1] - self.kernel_size + 1, self.stride): kc = 0 for k in range(0, x.shape[2] - self.kernel_size + 1, self.stride): conv[i][jc][kc] = torch.sum(self.kernel[i, ...] * x[..., j:j+self.kernel_size, k:k+self.kernel_size]) kc += 1 jc += 1 return conv + self.bias.reshape(self.out_channels, 1, 1) test_conv_impl(3, 3, 3, padding='valid') test_conv_impl(3, 3, 3, padding='same') test_conv_impl(3, 3, 1, padding=2) test_conv_impl(28, 28, 5, padding='valid', stride=2) test_conv_impl(28, 28, 5, padding='same') test_conv_impl(28, 28, 5, padding=2, stride=3) test_conv_impl(32, 64, 7, padding='valid', stride=2) test_conv_impl(32, 64, 7, padding='same') test_conv_impl(32, 64, 7, padding=10, stride=4) Pooling This next aspect is separate from the convolution operation we have been writing. Pooling is essentially the convolution operation except instead of multiplying and summing with a kernel, we apply some other function. The two most common types of pooling are average pooling and max pooling. To illustrate what pooling is, we perform a $2 \\times 2$ max pool operation on the following $3 \\times 3$ matrix:\n$$\\begin{bmatrix} 1 \u0026 2 \u0026 3 \\newline 4 \u0026 5 \u0026 6 \\newline 7 \u0026 8 \u0026 9 \\end{bmatrix}$$\nThe pooling operation is still like a sliding window, so we look at the first $2 \\times 2$ submatrix:\n$$\\begin{bmatrix} 1 \u0026 2 \\newline 4 \u0026 5 \\end{bmatrix}$$\nand we take the maximum of all these elements, which is $5$. We then slide the window over and take the maximum of the next $2 \\times 2$ submatrix:\n$$\\begin{bmatrix} 2 \u0026 3 \\newline 5 \u0026 6 \\end{bmatrix}$$\nwhich is $6$. Continuing this way, we arrive at the following max-pooled matrix:\n$$\\begin{bmatrix} 5 \u0026 6 \\newline 8 \u0026 9 \\end{bmatrix}$$\nIf we were to use average pooling, we would take the average of each window and use that as the entries to get the following matrix:\n$$\\begin{bmatrix} 3 \u0026 4 \\newline 6 \u0026 7 \\end{bmatrix}$$\nThe primary use of the pooling operation is to allow for invariance. For example, in the case of the FashionMNIST dataset, we would like our neural network to be invariant to translations and rotations of the images, i.e, it should be able to tell that a T-shirt is a T-shirt regardless of whether the image is upside-down or rightside-up.\nTraining and Evaluation Now all that’s left to do is train the network. The network below is a modified version of the LeNet5 network implemented in this Pytorch tutorial. It embodies many of the principles that we discussed above for a convolutional network. It uses max-pooling to be invariant to transformations and increases the number of filters to magnify the receptive field of earlier layers. The convolution-ReLU-maxpool trend is typical for most convolutional neural networks.\nclass FashionClassifier(nn.Module): def __init__(self): super().__init__() self.conv1 = nn.Conv2d(1, 6, 5) self.pool = nn.MaxPool2d(2, 2) self.conv2 = nn.Conv2d(6, 16, 5) self.fc1 = nn.Linear(16 * 4 * 4, 120) self.fc2 = nn.Linear(120, 84) self.fc3 = nn.Linear(84, 10) def forward(self, x): x = self.pool(F.relu(self.conv1(x))) x = self.pool(F.relu(self.conv2(x))) x = x.view(-1, 16 * 4 * 4) x = F.relu(self.fc1(x)) x = F.relu(self.fc2(x)) x = self.fc3(x) return x batch_size = 32 classifier = FashionClassifier() classifier.train(True) summary(classifier, input_size=(batch_size, 1, 28, 28)) Since this is an image classification task, we use cross-entropy loss:\nloss_fn = nn.CrossEntropyLoss() optimizer = torch.optim.SGD(classifier.parameters(), lr=0.001, momentum=0.9) epochs = 10 for epoch in range(epochs): print(f'Epoch {epoch+1}:') total_epoch_loss = 0 i = 0 for input, target in DataLoader(train_dataset, batch_size=batch_size, shuffle=True): x = input.cuda() y = target.cuda() optimizer.zero_grad() yhat = classifier(x) loss = loss_fn(yhat, y) loss.backward() optimizer.step() total_epoch_loss += loss.item() # 1875 / 375 = 5, so 5 reports per epoch if i % 375 == 374: print(f' batch {i+1} loss: {total_epoch_loss / 1000}') total_epoch_loss = 0 i += 1 accuracy = 0. with torch.no_grad(): for i, data in enumerate(test_dataset): x, y = data yhat = classifier(x.cuda()) accuracy += torch.argmax(yhat) == y accuracy / len(test_dataset) If you run this in the notebook, then you should get roughly 85% accuracy on the dataset, which is not bad for a small network. Though this article explored convolutions for a simple image classification task, the convolution operation can be used for object detection, face recognition, and non-computer-vision tasks, such as audio/speech processing (in this case, the convolution would be one dimensional). Either way, the main reason to use convolutions in a network boils down to 1) parameter sharing, 2) sparse connections, and 3) for inference on images of different sizes without retraining.\nReferences Modified LeNet5 network Pytorch tutorial for basic neural network training FashionMNIST dataset Issue discussing padding for even-sized kernels Deep Learning: Foundations and Concepts Cross Correlation operation ",
-  "wordCount" : "2282",
-  "inLanguage": "en",
-  "datePublished": "2024-01-14T07:07:07+01:00",
-  "dateModified": "2024-01-14T07:07:07+01:00",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://svaniksharma.github.io/posts/2024-01-13-why-convolutions-are-effective/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Svanik Sharma's Website",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://svaniksharma.github.io/favicon.ico"
-    }
-  }
-}
-</script>
 </head>
 
 <body class="" id="top">
@@ -161,7 +136,7 @@ import torch import torch.nn as nn import torch.nn.functional as F from torch."/
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://svaniksharma.github.io/" accesskey="h" title="Svanik Sharma&#39;s Website (Alt + H)">Svanik Sharma&#39;s Website</a>
+            <a href="http://localhost:1313/" accesskey="h" title="Svanik Sharma&#39;s Website (Alt + H)">Svanik Sharma&#39;s Website</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -207,7 +182,28 @@ import torch import torch.nn as nn import torch.nn.functional as F from torch."/
 (<a href="https://github.com/svaniksharma/svaniksharma.github.io/tree/main/content/notebooks">Link to notebook</a>).</p>
 <h3 id="a-brief-look-at-the-dataset">A brief look at the dataset<a hidden class="anchor" aria-hidden="true" href="#a-brief-look-at-the-dataset">#</a></h3>
 <p>First, we make some necessary imports:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn <span style="color:#66d9ef">as</span> nn
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch.nn.functional <span style="color:#66d9ef">as</span> F
 </span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> torch.utils.data <span style="color:#f92672">import</span> DataLoader
@@ -224,12 +220,50 @@ import torch import torch.nn as nn import torch.nn.functional as F from torch."/
 </span></span><span style="display:flex;"><span>    device_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;cpu&#39;</span>
 </span></span><span style="display:flex;"><span>device <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>device(device_name)
 </span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;Using device: &#39;</span> <span style="color:#f92672">+</span> device_name)
-</span></span></code></pre></div><p>Then, we load the dataset and display it:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># this will download the dataset to a local directory if not downloaded already</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Then, we load the dataset and display it:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># this will download the dataset to a local directory if not downloaded already</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># otherwise looks for a directory named &#34;fashion_mnist&#34;</span>
 </span></span><span style="display:flex;"><span>train_dataset <span style="color:#f92672">=</span> torchvision<span style="color:#f92672">.</span>datasets<span style="color:#f92672">.</span>FashionMNIST(root<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;fashion_mnist&#39;</span>, download<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, train<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, transform<span style="color:#f92672">=</span>ToTensor())
 </span></span><span style="display:flex;"><span>test_dataset <span style="color:#f92672">=</span> torchvision<span style="color:#f92672">.</span>datasets<span style="color:#f92672">.</span>FashionMNIST(root<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;fashion_mnist&#39;</span>, download<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, train<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>, transform<span style="color:#f92672">=</span>ToTensor())
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>labels <span style="color:#f92672">=</span> [
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>labels <span style="color:#f92672">=</span> [
 </span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;T-shirt/top&#39;</span>,
 </span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;Trouser&#39;</span>,
 </span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;Pullover&#39;</span>,
@@ -251,16 +285,30 @@ import torch import torch.nn as nn import torch.nn.functional as F from torch."/
 </span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>axis(<span style="color:#e6db74">&#34;off&#34;</span>)
 </span></span><span style="display:flex;"><span>    plt<span style="color:#f92672">.</span>imshow(img<span style="color:#f92672">.</span>squeeze(), cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gray&#34;</span>)
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
-</span></span></code></pre></div><p><img loading="lazy" src="/fashionmnist.png" alt="image of 9 clothing articles sampled from the 10 categories"  />
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img loading="lazy" src="/fashionmnist.png" alt="image of 9 clothing articles sampled from the 10 categories"  />
 </p>
 <p>The FashionMNIST dataset has 10 classes (indicated in the <code>labels</code> array above) and they each consist of $28 \times 28$ grayscale images. Unlike RGB, this means that each pixel has only one value. We can verify this by looking at an example from the dataset:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>sample_idx <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randint(len(train_dataset), size<span style="color:#f92672">=</span>(<span style="color:#ae81ff">1</span>,))<span style="color:#f92672">.</span>item()
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>sample_idx <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randint(len(train_dataset), size<span style="color:#f92672">=</span>(<span style="color:#ae81ff">1</span>,))<span style="color:#f92672">.</span>item()
 </span></span><span style="display:flex;"><span>img, _ <span style="color:#f92672">=</span> train_dataset[sample_idx]
 </span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Image shape: </span><span style="color:#e6db74">{</span>img<span style="color:#f92672">.</span>shape<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
 </span></span><span style="display:flex;"><span>max_pixel_val <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>max(img)
 </span></span><span style="display:flex;"><span>min_pixel_val <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>min(img)
 </span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Range of image pixels: </span><span style="color:#e6db74">{</span>min_pixel_val<span style="color:#e6db74">}</span><span style="color:#e6db74"> to </span><span style="color:#e6db74">{</span>max_pixel_val<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
-</span></span></code></pre></div><h3 id="what-are-convolutions">What are convolutions?<a hidden class="anchor" aria-hidden="true" href="#what-are-convolutions">#</a></h3>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="what-are-convolutions">What are convolutions?<a hidden class="anchor" aria-hidden="true" href="#what-are-convolutions">#</a></h3>
 <p>The convolution operation is defined as below:</p>
 <p>$$C(j, k) = \sum_{l} \sum_{m} I(j + l, k + m) K(l, m)$$</p>
 <p>where \newline(I\newline) is an image and \newline(K\newline) is called the <em>kernel</em>. The above equation gives the computation for the $j, k$ entry of $C$. In this case, $K$ is a learnable parameter. The resulting $C$ is called a feature map. Though the above is called a convolution in machine learning literature, it is actually called the &ldquo;<a href="https://en.wikipedia.org/wiki/Cross-correlation">cross correlation</a>&rdquo; operation, which comes from signal processing and statistics. The main reason we use convolutional layers is because they retain &ldquo;inductive bias&rdquo;, i.e, they are able to exploit the properties of images better than a typical multilayer-perception network. In particular, convolutions maintain <em>equivariance</em>, which essentially means that if an input image is transformed and passed through a convolutional layer, the feature map will be transformed in a consistent manner. In our image classification example, we seek a special case of equivariance, namely, <em>invariance</em>, whereby a translation, rotation, or scaling of the input image will not affect its classification. We will implement the convolution operation as well as some additional features to demonstrate how it works.</p>
@@ -268,10 +316,55 @@ import torch import torch.nn as nn import torch.nn.functional as F from torch."/
 <h4 id="basic-implementation">Basic implementation<a hidden class="anchor" aria-hidden="true" href="#basic-implementation">#</a></h4>
 <p>We implement a custom convolution layer. Note that the layer we are creating is not trainable (which I&rsquo;ve done to make the implementation of convolution a bit easier to understand), but it doesn&rsquo;t take too much effort to make the <code>DIYConv2D</code> layer usable.
 In addition to the this convolution layer, I&rsquo;ve also created a <code>test_conv_impl</code> to compare our convolutional layer with the one created by Pytorch. The code below implements the convolution (cross-correlation) operation that we discussed above:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DIYConv2D</span>(nn<span style="color:#f92672">.</span>Module):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, in_channels, out_channels, kernel_size, padding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;valid&#39;</span>, stride<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>):
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DIYConv2D</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, in_channels, out_channels, kernel_size, padding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;valid&#39;</span>, stride<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>):
 </span></span><span style="display:flex;"><span>        <span style="color:#75715e"># TODO: implement padding and stride</span>
-</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span><span style="color:#a6e22e">__init__</span>()
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>out_channels <span style="color:#f92672">=</span> out_channels
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>in_channels <span style="color:#f92672">=</span> in_channels
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>kernel_size <span style="color:#f92672">=</span> kernel_size
@@ -309,18 +402,78 @@ In addition to the this convolution layer, I&rsquo;ve also created a <code>test_
 </span></span><span style="display:flex;"><span>test_conv_impl(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>)
 </span></span><span style="display:flex;"><span>test_conv_impl(<span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">3</span>)
 </span></span><span style="display:flex;"><span>test_conv_impl(<span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">64</span>, <span style="color:#ae81ff">8</span>)
-</span></span></code></pre></div><h4 id="padding">Padding<a hidden class="anchor" aria-hidden="true" href="#padding">#</a></h4>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="padding">Padding<a hidden class="anchor" aria-hidden="true" href="#padding">#</a></h4>
 <p>One problem with the convolution operation is that pixels near the edge of the image are not convolved. We can solve this problem by adding <em>padding</em> to the image. Another reason to use padding is to ensure that the dimensions of the feature map match the dimensions of the input. Consider the following $3 \times 3$ image:</p>
 <p>$$\begin{bmatrix} 1 &amp; 2 &amp; 3 \newline 4 &amp; 5 &amp; 6 \newline 7 &amp; 8 &amp; 9 \end{bmatrix}$$</p>
 <p>And say we apply one layer of padding. Then, the image becomes:</p>
 <p>$$\begin{bmatrix} 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \newline 0 &amp; 1 &amp; 2 &amp; 3 &amp; 0 \newline 0 &amp; 4 &amp; 5 &amp; 6 &amp; 0 \newline 0 &amp; 7 &amp; 8 &amp; 9 &amp; 0 \newline 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \end{bmatrix}$$</p>
 <p>If we were to now apply a $2 \times 2$ kernel, we would be able to convolve the corners and edges of the image. In general, if we add $P$ pixels on each side of a $J \times K$ image and convolve it with a $M \times M$ kernel, then the dimension of the feature map is $(J + 2P - M + 1) \times (K + 2P - M + 1)$. When $P = 0$, we say the feature map has &ldquo;valid&rdquo; padding and when $P$ is selected to make the feature map have the same dimensions as the input, we say it has &ldquo;same&rdquo; padding. For odd $M$, we can select $P = \frac{M-1}{2}$. Then, the $(J + 2P - M + 1) \times (K + 2P - M + 1)$ image will be $J \times K$ in size, the same as the original image.</p>
 <blockquote>
-<p>Note: Adding padding to images for even-sized kernels is not necessarily well-defined. It seems that Pytorch will do this by adding padding to the right and bottom of the matrix as described <a href="https://github.com/pytorch/pytorch/issues/3867">here</a>. Generally for computer vision tasks, we use odd-sized kernels so that the padding is symmetric on all sides and there is a well-defined central pixel (see the textbook by Bishop in the References below for more details).</p>
-</blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DIYConv2D</span>(nn<span style="color:#f92672">.</span>Module):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, in_channels, out_channels, kernel_size, padding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;valid&#39;</span>, stride<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span>__init__()
+<p>Note: Adding padding to images for even-sized kernels is not necessarily well-defined. It seems that Pytorch will do this by adding padding to the right and bottom of the matrix as described <a href="https://github.com/pytorch/pytorch/issues/3867">here</a>. Generally for computer vision tasks, we use odd-sized kernels so that the padding is symmetric on all sides and there is a well-defined central pixel (see the textbook by Bishop in the References below for more details).</p></blockquote>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DIYConv2D</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, in_channels, out_channels, kernel_size, padding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;valid&#39;</span>, stride<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span><span style="color:#a6e22e">__init__</span>()
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>out_channels <span style="color:#f92672">=</span> out_channels
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>in_channels <span style="color:#f92672">=</span> in_channels
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>kernel_size <span style="color:#f92672">=</span> kernel_size
@@ -373,11 +526,78 @@ In addition to the this convolution layer, I&rsquo;ve also created a <code>test_
 </span></span><span style="display:flex;"><span>test_conv_impl(<span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">64</span>, <span style="color:#ae81ff">7</span>, padding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;valid&#39;</span>)
 </span></span><span style="display:flex;"><span>test_conv_impl(<span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">64</span>, <span style="color:#ae81ff">7</span>, padding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;same&#39;</span>)
 </span></span><span style="display:flex;"><span>test_conv_impl(<span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">64</span>, <span style="color:#ae81ff">7</span>, padding<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)
-</span></span></code></pre></div><h4 id="stride">Stride<a hidden class="anchor" aria-hidden="true" href="#stride">#</a></h4>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="stride">Stride<a hidden class="anchor" aria-hidden="true" href="#stride">#</a></h4>
 <p>Sometimes, instead of padding, we wish to make the feature map smaller than the input rather than keep it of a similar size. We can do this by using a different <em>stride</em> when applying the kernel. Essentially, instead of moving the sliding window over by $1$ each time, we skip $S$ pixels. The resulting feature map has the size $(\lfloor \frac{J + 2P - M}{S} + 1 \rfloor) \times (\lfloor \frac{K + 2P - M}{S} + 1 \rfloor)$. The code below is not too different from the above; we just skip $S$ pixels in the loop.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DIYConv2D</span>(nn<span style="color:#f92672">.</span>Module):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, in_channels, out_channels, kernel_size, padding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;valid&#39;</span>, stride<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span>__init__()
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DIYConv2D</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, in_channels, out_channels, kernel_size, padding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;valid&#39;</span>, stride<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span><span style="color:#a6e22e">__init__</span>()
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>out_channels <span style="color:#f92672">=</span> out_channels
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>in_channels <span style="color:#f92672">=</span> in_channels
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>kernel_size <span style="color:#f92672">=</span> kernel_size
@@ -436,7 +656,9 @@ In addition to the this convolution layer, I&rsquo;ve also created a <code>test_
 </span></span><span style="display:flex;"><span>test_conv_impl(<span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">64</span>, <span style="color:#ae81ff">7</span>, padding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;valid&#39;</span>, stride<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
 </span></span><span style="display:flex;"><span>test_conv_impl(<span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">64</span>, <span style="color:#ae81ff">7</span>, padding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;same&#39;</span>)
 </span></span><span style="display:flex;"><span>test_conv_impl(<span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">64</span>, <span style="color:#ae81ff">7</span>, padding<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, stride<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>)
-</span></span></code></pre></div><h4 id="pooling">Pooling<a hidden class="anchor" aria-hidden="true" href="#pooling">#</a></h4>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="pooling">Pooling<a hidden class="anchor" aria-hidden="true" href="#pooling">#</a></h4>
 <p>This next aspect is separate from the convolution operation we have been writing. <em>Pooling</em> is essentially the convolution operation except instead of multiplying and summing with a kernel, we apply some other function. The two most common types of pooling are average pooling and max pooling. To illustrate what pooling is, we perform a $2 \times 2$ max pool operation on the following $3 \times 3$ matrix:</p>
 <p>$$\begin{bmatrix} 1 &amp; 2 &amp; 3 \newline 4 &amp; 5 &amp; 6 \newline 7 &amp; 8 &amp; 9 \end{bmatrix}$$</p>
 <p>The pooling operation is still like a sliding window, so we look at the first $2 \times 2$ submatrix:</p>
@@ -451,9 +673,32 @@ In addition to the this convolution layer, I&rsquo;ve also created a <code>test_
 <h4 id="training-and-evaluation">Training and Evaluation<a hidden class="anchor" aria-hidden="true" href="#training-and-evaluation">#</a></h4>
 <p>Now all that&rsquo;s left to do is train the network. The network below is a modified version of the LeNet5 network implemented in this Pytorch tutorial. It embodies many of the principles that we discussed above for a convolutional network. It uses max-pooling to be invariant to transformations and increases the number of filters to magnify the receptive field of earlier layers.
 The convolution-ReLU-maxpool trend is typical for most convolutional neural networks.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FashionClassifier</span>(nn<span style="color:#f92672">.</span>Module):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
-</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span>__init__()
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FashionClassifier</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self):
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span><span style="color:#a6e22e">__init__</span>()
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>conv1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">5</span>)
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>pool <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>MaxPool2d(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>conv2 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Conv2d(<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">5</span>)
@@ -470,14 +715,57 @@ The convolution-ReLU-maxpool trend is typical for most convolutional neural netw
 </span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>fc3(x)
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> x
 </span></span><span style="display:flex;"><span>        
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>batch_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">32</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>batch_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">32</span>
 </span></span><span style="display:flex;"><span>classifier <span style="color:#f92672">=</span> FashionClassifier()
 </span></span><span style="display:flex;"><span>classifier<span style="color:#f92672">.</span>train(<span style="color:#66d9ef">True</span>)
 </span></span><span style="display:flex;"><span>summary(classifier, input_size<span style="color:#f92672">=</span>(batch_size, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">28</span>))
-</span></span></code></pre></div><p>Since this is an image classification task, we use cross-entropy loss:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>loss_fn <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>CrossEntropyLoss()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Since this is an image classification task, we use cross-entropy loss:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>loss_fn <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>CrossEntropyLoss()
 </span></span><span style="display:flex;"><span>optimizer <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>optim<span style="color:#f92672">.</span>SGD(classifier<span style="color:#f92672">.</span>parameters(), lr<span style="color:#f92672">=</span><span style="color:#ae81ff">0.001</span>, momentum<span style="color:#f92672">=</span><span style="color:#ae81ff">0.9</span>)
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>epochs <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>epochs <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> epoch <span style="color:#f92672">in</span> range(epochs):
 </span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;Epoch </span><span style="color:#e6db74">{</span>epoch<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#e6db74">}</span><span style="color:#e6db74">:&#39;</span>)
 </span></span><span style="display:flex;"><span>    total_epoch_loss <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
@@ -496,14 +784,29 @@ The convolution-ReLU-maxpool trend is typical for most convolutional neural netw
 </span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39; batch </span><span style="color:#e6db74">{</span>i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> loss: </span><span style="color:#e6db74">{</span>total_epoch_loss <span style="color:#f92672">/</span> <span style="color:#ae81ff">1000</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
 </span></span><span style="display:flex;"><span>            total_epoch_loss <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
 </span></span><span style="display:flex;"><span>        i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>accuracy <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>accuracy <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> torch<span style="color:#f92672">.</span>no_grad():
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i, data <span style="color:#f92672">in</span> enumerate(test_dataset):
 </span></span><span style="display:flex;"><span>        x, y <span style="color:#f92672">=</span> data
 </span></span><span style="display:flex;"><span>        yhat <span style="color:#f92672">=</span> classifier(x<span style="color:#f92672">.</span>cuda())
 </span></span><span style="display:flex;"><span>        accuracy <span style="color:#f92672">+=</span> torch<span style="color:#f92672">.</span>argmax(yhat) <span style="color:#f92672">==</span> y
 </span></span><span style="display:flex;"><span>accuracy <span style="color:#f92672">/</span> len(test_dataset)
-</span></span></code></pre></div><p>If you run this in the notebook, then you should get roughly 85% accuracy on the dataset, which is not bad for a small network. Though this article explored convolutions for a simple image classification task, the convolution operation can be used for object detection, face recognition, and non-computer-vision tasks, such as audio/speech processing (in this case, the convolution would be one dimensional). Either way, the main reason to use convolutions in a network boils down to 1) parameter sharing, 2) sparse connections, and 3) for inference on images of different sizes without retraining.</p>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>If you run this in the notebook, then you should get roughly 85% accuracy on the dataset, which is not bad for a small network. Though this article explored convolutions for a simple image classification task, the convolution operation can be used for object detection, face recognition, and non-computer-vision tasks, such as audio/speech processing (in this case, the convolution would be one dimensional). Either way, the main reason to use convolutions in a network boils down to 1) parameter sharing, 2) sparse connections, and 3) for inference on images of different sizes without retraining.</p>
 <h3 id="references">References<a hidden class="anchor" aria-hidden="true" href="#references">#</a></h3>
 <ul>
 <li><a href="https://pytorch.org/tutorials/beginner/introyt/trainingyt.html">Modified LeNet5 network</a></li>
@@ -525,7 +828,7 @@ The convolution-ReLU-maxpool trend is typical for most convolutional neural netw
     </main>
     
 <footer class="footer">
-    <span>&copy; 2024 <a href="https://svaniksharma.github.io/">Svanik Sharma&#39;s Website</a></span>
+    <span>&copy; 2025 <a href="http://localhost:1313/">Svanik Sharma&#39;s Website</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

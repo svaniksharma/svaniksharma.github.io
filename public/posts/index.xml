@@ -2,44 +2,104 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Svanik Sharma&#39;s Website</title>
-    <link>https://svaniksharma.github.io/posts/</link>
+    <link>http://localhost:1313/posts/</link>
     <description>Recent content in Posts on Svanik Sharma&#39;s Website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 16 Jul 2024 07:07:07 +0100</lastBuildDate>
-    <atom:link href="https://svaniksharma.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 27 May 2025 07:07:07 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A Short GGML Tutorial</title>
+      <link>http://localhost:1313/posts/2025-05-27-a-short-ggml-tutorial/</link>
+      <pubDate>Tue, 27 May 2025 07:07:07 +0100</pubDate>
+      <guid>http://localhost:1313/posts/2025-05-27-a-short-ggml-tutorial/</guid>
+      <description>&lt;p&gt;I recently wanted to learn about &lt;a href=&#34;https://github.com/ggml-org/ggml&#34;&gt;GGML&lt;/a&gt;, a tensor and machine learning library behind popular open source versions of &lt;a href=&#34;https://github.com/ggml-org/llama.cpp&#34;&gt;LLaMA&lt;/a&gt; and &lt;a href=&#34;https://github.com/ggml-org/whisper.cpp&#34;&gt;Whisper&lt;/a&gt;. Trying to find good resources on GGML is hard, so I thought I&amp;rsquo;d write up some preliminary notes for anyone looking to get started.&lt;/p&gt;
+&lt;p&gt;Before reading the rest of this, please consider the following resources, especially the first link &amp;ndash; the examples in the GGML repository are a great starting point:&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Credible Intervals versus Confidence Intervals</title>
-      <link>https://svaniksharma.github.io/posts/2024-07-16-credible-intervals-versus-confidence-intervals/</link>
+      <link>http://localhost:1313/posts/2024-07-16-credible-intervals-versus-confidence-intervals/</link>
       <pubDate>Tue, 16 Jul 2024 07:07:07 +0100</pubDate>
-      <guid>https://svaniksharma.github.io/posts/2024-07-16-credible-intervals-versus-confidence-intervals/</guid>
-      <description>Suppose you have data $X_i | \mu, \sigma^2 \sim N(\mu, \sigma^2)$, for $i = 1, &amp;hellip;, n$, i.e, $n$ normally distributed data points with mean $\mu$ and variance $\sigma^2$ (or standard deviation $\sigma$). Assume you don&amp;rsquo;t know $\sigma^2$, which is usually the case anyway. You could estimate $\mu \approx \bar{X}$ and call it a day, but you probably want some measure of uncertainty, i.e, an interval estimate.
-Note: Throughout this article, I use the convention that uppercase variables are random variables and lowercase variables are fixed (observed) quantities.</description>
+      <guid>http://localhost:1313/posts/2024-07-16-credible-intervals-versus-confidence-intervals/</guid>
+      <description>&lt;p&gt;Suppose you have data $X_i | \mu, \sigma^2 \sim N(\mu, \sigma^2)$, for $i = 1, &amp;hellip;, n$, i.e, $n$ normally
+distributed data points with mean $\mu$ and variance $\sigma^2$ (or standard deviation $\sigma$). Assume you
+don&amp;rsquo;t know $\sigma^2$, which is usually the case anyway.
+You could estimate $\mu \approx \bar{X}$ and call it a day, but you probably want some measure of uncertainty, i.e, an interval estimate.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note&lt;/em&gt;: Throughout this article, I use the convention that uppercase variables are random variables and lowercase variables are fixed (observed)
+quantities.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Reverse Mode Autodifferentiation Explained</title>
-      <link>https://svaniksharma.github.io/posts/2024-01-14-reverse-mode-autodifferentiation-explained/</link>
+      <link>http://localhost:1313/posts/2024-01-14-reverse-mode-autodifferentiation-explained/</link>
       <pubDate>Sun, 14 Jan 2024 07:07:07 +0100</pubDate>
-      <guid>https://svaniksharma.github.io/posts/2024-01-14-reverse-mode-autodifferentiation-explained/</guid>
-      <description>Reverse Mode Autodifferentiation Explained This article is my attempt to explain reverse mode autodifferentiation to myself and hopefully to anyone else that finds this useful. (Link to notebook)
-Why autodifferentiation? The reason we prefer autodifferentiation over symbolic differentiation is due to its efficiency and simplicity. Instead of writing out explicit derivatives or parsing complex expressions and finding their symbolic derivatives, we can just compute a derivative at a particular value directly with the help of autodifferentiation.</description>
+      <guid>http://localhost:1313/posts/2024-01-14-reverse-mode-autodifferentiation-explained/</guid>
+      <description>&lt;h2 id=&#34;reverse-mode-autodifferentiation-explained&#34;&gt;Reverse Mode Autodifferentiation Explained&lt;/h2&gt;
+&lt;p&gt;This article is my attempt to explain reverse mode autodifferentiation to myself and hopefully to anyone else that finds this useful.
+(&lt;a href=&#34;https://github.com/svaniksharma/svaniksharma.github.io/tree/main/content/notebooks&#34;&gt;Link to notebook&lt;/a&gt;)&lt;/p&gt;
+&lt;h3 id=&#34;why-autodifferentiation&#34;&gt;Why autodifferentiation?&lt;/h3&gt;
+&lt;p&gt;The reason we prefer autodifferentiation over symbolic differentiation is due to its efficiency and simplicity. Instead of writing out explicit derivatives or parsing complex expressions and finding their symbolic derivatives, we can just compute a derivative at a particular value directly with the help of autodifferentiation.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Why convolutions are effective</title>
-      <link>https://svaniksharma.github.io/posts/2024-01-13-why-convolutions-are-effective/</link>
+      <link>http://localhost:1313/posts/2024-01-13-why-convolutions-are-effective/</link>
       <pubDate>Sun, 14 Jan 2024 07:07:07 +0100</pubDate>
-      <guid>https://svaniksharma.github.io/posts/2024-01-13-why-convolutions-are-effective/</guid>
-      <description>Convolutional neural networks have seen great success in computer vision tasks. However, why is this architecture so effective? This article hopes to elucidate the apparent efficacy of convolutional networks in many computer vision tasks. We&amp;rsquo;ll approach this by training a convolutional network on the Fashion MNIST dataset. (Link to notebook).
-A brief look at the dataset First, we make some necessary imports:
-import torch import torch.nn as nn import torch.nn.functional as F from torch.</description>
+      <guid>http://localhost:1313/posts/2024-01-13-why-convolutions-are-effective/</guid>
+      <description>&lt;p&gt;Convolutional neural networks have seen great success in computer vision tasks. However, why is this architecture so effective? This article hopes to elucidate the apparent efficacy of convolutional networks in many computer vision tasks. We&amp;rsquo;ll approach this by training a convolutional network on the Fashion MNIST dataset.
+(&lt;a href=&#34;https://github.com/svaniksharma/svaniksharma.github.io/tree/main/content/notebooks&#34;&gt;Link to notebook&lt;/a&gt;).&lt;/p&gt;
+&lt;h3 id=&#34;a-brief-look-at-the-dataset&#34;&gt;A brief look at the dataset&lt;/h3&gt;
+&lt;p&gt;First, we make some necessary imports:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code&gt;&lt;span style=&#34;white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 1
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 2
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 3
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 4
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 5
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 6
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 7
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 8
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt; 9
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;10
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;11
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;12
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;13
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;14
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;15
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;16
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;17
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; torch
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; torch.nn &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; nn
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; torch.nn.functional &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; F
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; torch.utils.data &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; DataLoader
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; torchvision
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; torchvision.transforms &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; ToTensor
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; matplotlib.pyplot &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; plt
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; numpy &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; np
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; torchinfo &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; summary
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;device_name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;None&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;cuda&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;is_available():
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    device_name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;cuda&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    device_name &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;cpu&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;device &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; torch&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;device(device_name)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;print(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Using device: &amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; device_name)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;Then, we load the dataset and display it:&lt;/p&gt;</description>
     </item>
     <item>
       <title>Optimizing Matrix Multiplication with Zig</title>
-      <link>https://svaniksharma.github.io/posts/2023-05-07-optimizing-matrix-multiplication-with-zig/</link>
+      <link>http://localhost:1313/posts/2023-05-07-optimizing-matrix-multiplication-with-zig/</link>
       <pubDate>Sun, 07 May 2023 07:07:07 +0100</pubDate>
-      <guid>https://svaniksharma.github.io/posts/2023-05-07-optimizing-matrix-multiplication-with-zig/</guid>
-      <description>I recently started playing with the Zig programming language and wanted to try it out for its speed. And what better way to do that than to try optimizing matrix multiplication? Since there are a plethora of resources to understand how to multiply matrices efficiently (see the Resources section below), I won&amp;rsquo;t be doing anything intense in this article (though maybe in the future I will).
-The naive matrix multiplication algorithm is given below in Zig:</description>
+      <guid>http://localhost:1313/posts/2023-05-07-optimizing-matrix-multiplication-with-zig/</guid>
+      <description>&lt;p&gt;I recently started playing with the &lt;a href=&#34;https://ziglang.org/&#34;&gt;Zig&lt;/a&gt; programming language and wanted to try it out for its speed.
+And what better way to do that than to try optimizing matrix multiplication? Since there are a plethora of resources to
+understand how to multiply matrices efficiently (see the Resources section below), I won&amp;rsquo;t be doing anything intense in this article
+(though maybe in the future I will).&lt;/p&gt;
+&lt;p&gt;The naive matrix multiplication algorithm is given below in Zig:&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
