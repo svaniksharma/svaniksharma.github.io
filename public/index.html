@@ -110,6 +110,21 @@
 
 <article class="first-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">What does `ggml_cont` actually do?
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>The following gist will be helpful for the latter part of this article:
+Inspecting ggml_cont Recently, I’ve been playing around with GGML. While doing so, I was looking through the examples, and I saw this in mnist_common.cpp:
+1 2 3 dense_in = ggml_reshape_2d(model.ctx_compute, ggml_cont(model.ctx_compute, ggml_permute(model.ctx_compute, dense_in, 1, 2, 0, 3)), (MNIST_HW/4)*(MNIST_HW/4)*(MNIST_CNN_NCB*2), model.nbatch_physical); This was on line 362. It preceded a dense matrix multiplication and addition for a fully-connected layer. It’s pretty clear what ggml_reshape_2d does. ggml_permute was a little confusing at first, but I found this article that discusses an analogous operation in NumPy that explains what the permutation does. However, ggml_cont was a little bit confusing. In ggml.h, all it says is:
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-05-30 07:07:07 +0100 +0100'>May 30, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to What does `ggml_cont` actually do?" href="http://localhost:1313/posts/2025-05-30-what-does-ggml_cont-do/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">A Short GGML Tutorial
     </h2>
   </header>

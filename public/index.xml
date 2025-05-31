@@ -6,8 +6,30 @@
     <description>Recent content on Svanik Sharma&#39;s Website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 28 May 2025 07:07:07 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 30 May 2025 07:07:07 +0100</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What does `ggml_cont` actually do?</title>
+      <link>http://localhost:1313/posts/2025-05-30-what-does-ggml_cont-do/</link>
+      <pubDate>Fri, 30 May 2025 07:07:07 +0100</pubDate>
+      <guid>http://localhost:1313/posts/2025-05-30-what-does-ggml_cont-do/</guid>
+      <description>&lt;p&gt;The following &lt;a href=&#34;https://gist.github.com/svaniksharma/15fa1b0dbd0aca853f6e6bef0011bdb0&#34;&gt;gist&lt;/a&gt;  will be helpful for the latter part of this article:&lt;/p&gt;
+&lt;h2 id=&#34;inspecting-ggml_cont&#34;&gt;Inspecting &lt;code&gt;ggml_cont&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;Recently, I&amp;rsquo;ve been playing around with GGML. While doing so, I was looking through the examples, and I saw &lt;a href=&#34;https://github.com/ggml-org/ggml/blob/62042b741f0a7ac8c5a33d8d98129a9dcb6bbdd9/examples/mnist/mnist-common.cpp#L362-L364&#34;&gt;this&lt;/a&gt;  in &lt;code&gt;mnist_common.cpp&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;
+&lt;table style=&#34;border-spacing:0;padding:0;margin:0;border:0;&#34;&gt;&lt;tr&gt;&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code&gt;&lt;span style=&#34;white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;1
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;2
+&lt;/span&gt;&lt;span style=&#34;white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td style=&#34;vertical-align:top;padding:0;margin:0;border:0;;width:100%&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dense_in &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; ggml_reshape_2d(model.ctx_compute,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            ggml_cont(model.ctx_compute, ggml_permute(model.ctx_compute, dense_in, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;)),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            (MNIST_HW&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(MNIST_HW&lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(MNIST_CNN_NCB&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;), model.nbatch_physical);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;This was on line 362. It preceded a dense matrix multiplication and addition for a fully-connected layer. It&amp;rsquo;s pretty clear what &lt;code&gt;ggml_reshape_2d&lt;/code&gt; does. &lt;code&gt;ggml_permute&lt;/code&gt; was a little confusing at first, but I found &lt;a href=&#34;https://stackoverflow.com/questions/32034237/how-does-numpys-transpose-method-permute-the-axes-of-an-array#32034565&#34;&gt;this&lt;/a&gt; article that discusses an analogous operation in NumPy that explains what the permutation does. However, &lt;code&gt;ggml_cont&lt;/code&gt; was a little bit confusing. In &lt;code&gt;ggml.h&lt;/code&gt;, all &lt;a href=&#34;https://github.com/ggml-org/ggml/blob/62042b741f0a7ac8c5a33d8d98129a9dcb6bbdd9/include/ggml.h#L1237-L1240&#34;&gt;it says is&lt;/a&gt;:&lt;/p&gt;</description>
+    </item>
     <item>
       <title>A Short GGML Tutorial</title>
       <link>http://localhost:1313/posts/2025-05-28-a-short-ggml-tutorial/</link>
