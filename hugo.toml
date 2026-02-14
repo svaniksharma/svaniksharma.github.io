@@ -1,8 +1,0 @@
-baseURL = 'https://svaniksharma.github.io'
-languageCode = 'en-us'
-title = "Svanik Sharma's Website"
-theme = 'papermod'
-math = true
-[markup]
-  [markup.highlight]
-    lineNos = true
