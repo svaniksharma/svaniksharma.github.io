@@ -1,7 +1,7 @@
 <script lang="ts">
 let { data } = $props();
-let firstData = data.summaries[0];
-let restData = data.summaries.slice(1);
+let firstData = $derived(data.summaries[0]);
+let restData = $derived(data.summaries.slice(1));
 </script>
 
 <style>
