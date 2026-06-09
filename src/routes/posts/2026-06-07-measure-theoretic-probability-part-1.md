@@ -82,3 +82,6 @@ contain $\mathcal{A}$. We have the two following facts:
     pairwise disjoint intervals in $(0, 1]$. Then, $\lambda(A) :=
        \sum_{n=1}^N \lambda(I_n) = \sum_{n=1}^N |I_n|$.
 
+
+# Solutions to Problems in Chapter 2
+
