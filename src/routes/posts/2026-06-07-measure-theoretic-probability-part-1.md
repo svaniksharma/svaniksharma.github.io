@@ -1,9 +1,11 @@
 ---
 title: 'Measure Theoretic Probability Part 1'
-date: 2026-06-07T07:07:07+01:00
+date: 2026-06-11T07:07:07+01:00
 slug: measure_theoretic_probability_part_1
 math: 'mathjax'
 ---
+
+UPDATE 06/11/2026: Started adding solutions to problems.
 
 I've recently been reading Billingsley's *Probability and Measure
 Theory*. I wanted to write down some notes I've been taking. In a
