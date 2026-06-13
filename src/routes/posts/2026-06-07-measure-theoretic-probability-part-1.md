@@ -1,6 +1,6 @@
 ---
 title: 'Measure Theoretic Probability Part 1'
-date: 2026-06-11T07:07:07+01:00
+date: 2026-06-07T07:07:07+01:00
 slug: measure_theoretic_probability_part_1
 math: 'mathjax'
 ---
@@ -155,4 +155,27 @@ subsets of elements from $1$ to $n$. Then, $\mathcal{F}_n \subset
 \mathcal{F}_{n+1}$. Let $A_n = \{n\}$. Then, $A_k \in \mathcal{F}_k$
 for all $k \in \mathbb{N}$. So we cannot say that $\cup_{n} A_n \in
 \cup_{n} \mathcal{F}_n$.
+
+
+## Problem 2.12
+
+Let $\mathcal{F}$ be a countably infinite $\sigma$ -field. A $\sigma$
+-field $\mathcal{F}$ satisfies (i) $\Omega \in \mathcal{F}$ , (ii) If
+$A \in \mathcal{F}$, $A^c \in \mathcal{F}$, (iii) For any sequence
+$\{A_n\}_{n=1}^\infty$, $\cup_{n=1}^\infty A_n \in \mathcal{F}$. Since
+$\mathcal{F}$ is countably infinite, we may enumerate the sets in
+$\mathcal{F}$ as $A_1, A_2, A_3, \dots$. Since we can choose to
+include an element in the union or not (i.e, we can choose $A_k$ or
+$\emptyset$), the cardinality of the countable unions of all sets in
+$\mathcal{F}$ will be $2^{|\mathbb{N}|}$ since there are $|\mathbb{N}|$
+such sets in $\mathcal{F}$. But all the possible countable unions of sets in
+$\mathcal{F}$ is itself in $\mathcal{F}$, so $\mathcal{F}$ has
+cardinality $2^{|\mathbb{N}|}$. Therefore, since $2^{|\mathbb{N}|}$ is
+strictly larger than $|\mathbb{N}|$, $\mathcal{F}$ is not countably
+infinite. We can show that fields can be countably infinite, even
+though $\sigma$ -fields can't: let $\mathcal{F}$ be the class of sets
+which are finite disjoint unions of subintervals of $\Omega = [0, 1)$
+with rational endpoints. This is a countably infinite field (since the
+rationals are countably infinite and this field is a subset of
+$\mathcal{B}_0$). However, it is not a $\sigma$ -field.
 
