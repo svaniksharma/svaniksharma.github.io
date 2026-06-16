@@ -121,6 +121,31 @@ TODO
 # Solutions to Problems in Chapter 2
 
 
+## Problem 2.2
+
+Let $x \in U_k$. Then, there exists indices $1 \le i_1 \le \dots \le
+i_k \le n$ such that $x \in \cap_{j=1}^k A_{ij}$. Note that we can
+write:
+$$
+
+\begin{align*}
+I_{n-k+1} &= \bigcap \bigcup_{j=1}^{n-k+1} A_{j} \\
+&= \bigcap \bigcup_{j \in [n] \setminus \{i_1, ..., i_{k-1}\}} A_{j}
+\end{align*}
+
+$$
+Basically, there is a one-to-one correspondence between the $n-k+1$
+tuples and removing a $k$ -tuple from an $n$ tuple (e.g, the numbers
+from $1, \dots, n$). Since $x$ belongs to $k$ sets and each term of
+the intersection only removes $k-1$ sets, $x$ must be in each union
+and hence $x \in I_{n-k+1}$ : if $x$ were not in one of the  $\bigcup_{j \in [n]
+\setminus \{i_1, \dots, i_{k-1}\}} A_j$, then $x$ would belong to less
+than $k$ sets, which contradicts the fact that $x \in U_k$. This shows
+that $U_k \subset I_{n-k+1}$. Now, suppose that $x \in I_{n-k+1}$. So,
+$x$ belongs to at least $k$ sets of the $n$ sets $A_1, \dots,
+A_n$. Therefore, $x \in U_k$.
+
+
 ## Problem 2.3
 
 Part A: First, $\Omega \in \mathcal{F}$. Then, if $A \in \mathcal{F}$, then
