@@ -184,6 +184,20 @@ for all $k \in \mathbb{N}$. So we cannot say that $\cup_{n} A_n \in
 \cup_{n} \mathcal{F}_n$.
 
 
+## Problem 2.8
+
+Let $\mathcal{C}$ be a class over $\mathcal{A}$ such that
+$\mathcal{C}$ is closed under formation of countable unions and
+intersections. We show $\sigma(\mathcal{A}) \subset \mathcal{C}$. We
+already know that since $\sigma(\mathcal{A})$ is a $\sigma$ -field, it
+contains all countable unions and intersections because of how it is
+defined. Since $A^c$ is a countable union of elements in
+$\mathcal{A}$, $A^c \in \mathcal{C}$ (note that $A^c \in
+\sigma(\mathcal{A})$ because $\sigma(\mathcal{A})$ is a field). This
+implies $\emptyset, \Omega \in \mathcal{C}$ as well. Hence,
+$\sigma(\mathcal{A}) \subset \mathcal{C}$.
+
+
 ## Problem 2.12
 
 Let $\mathcal{F}$ be a countably infinite $\sigma$ -field. A $\sigma$
