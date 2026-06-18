@@ -198,6 +198,23 @@ implies $\emptyset, \Omega \in \mathcal{C}$ as well. Hence,
 $\sigma(\mathcal{A}) \subset \mathcal{C}$.
 
 
+## Problem 2.11
+
+Part A: Let $\mathcal{A}$ be the class of sets for the form $(a, b]$ where $a,
+b \in \mathbb{Q}$. This generates $\mathcal{B}$, the $\sigma$ -field
+of Borel sets. For any irrational endpoints, we can always find a
+sequence of rational endpoints that converge to them.
+
+Part B: Let $\mathcal{F}$ be the countable and cocountable sets (so
+$\mathcal{F}$ is a $\sigma$ -field). Suppose $\Omega$ is countable. We
+show $\mathcal{F}$ is countably generated. All the countable sets in
+$\mathcal{F}$ countably generate $\mathcal{F}$ since the complement
+would be a subset of $\Omega$ which is countable. Therefore, all the
+subsets of $\Omega$ are countable and cocountable, so $\mathcal{F}$ is
+countably generated. We now show that $\mathcal{F}$ being countably
+generated implies that $\Omega$ is countable (TODO).
+
+
 ## Problem 2.12
 
 Let $\mathcal{F}$ be a countably infinite $\sigma$ -field. A $\sigma$
