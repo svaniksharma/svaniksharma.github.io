@@ -184,6 +184,121 @@ for all $k \in \mathbb{N}$. So we cannot say that $\cup_{n} A_n \in
 \cup_{n} \mathcal{F}_n$.
 
 
+## Problem 2.5
+
+Part A: Let $\{F_\alpha\}$ be the set of all fields in $\Omega$
+containing $\mathcal{A}$. Then, $f(\mathcal{A}) = \cap_\alpha
+F_\alpha$. Since $\Omega \in F_\alpha$ for all $\alpha$, $\Omega \in
+f(\mathcal{A})$. Let $B \in \cap_\alpha F_\alpha$. Then, $B \in
+F_\alpha$ for all $\alpha$, so $B^c \in F_\alpha$. This implies that
+$B^c \in F_\alpha$. Then, $B^c \in \cap_\alpha F_\alpha$, so $B^c \in
+f(\mathcal{A})$. Now, let $A_1, \dots, A_n \in \cap_\alpha
+F_\alpha$. Then, $A_k \in F_\alpha$ for all $\alpha$ and for all $k
+\in [n]$. Then, $\cup_{k=1}^n A_k \in F_\alpha$ for all $\alpha$. So,
+$\cup_{k=1}^n A_k \in \cap_\alpha F_\alpha$. Therefore,
+$f(\mathcal{A})$ is a field. Let $B \in \mathcal{A}$. Then, since $\mathcal{A}
+\subset F_\alpha$ for all $\alpha$, $B \in F_\alpha$ for all
+$\alpha$. Hence, $B \in \cap_\alpha F_\alpha = f(\mathcal{A})$. Now we
+show that $f(\mathcal{A})$ is the smallest field containing
+$\mathcal{A}$. Let $\mathcal{G}$ be a field and $\mathcal{A} \subset
+\mathcal{G}$. Then, $\mathcal{G} \in \{F_\alpha\}$. So, $f(\mathcal{A}) =
+\cap_\alpha F_\alpha \subset \mathcal{G}$.
+
+Part B: BACKLOG
+
+
+## Problem 2.6
+
+Part A: $f(\mathcal{A})$ consists of the intersection of all fields containing
+$\mathcal{A}$. Since these are fields, all finite unions of singletons
+will be present. So, $f(\mathcal{A})$ consists of all finite sets
+produced by the singletons. Moreover, it also consists of all cofinite
+sets since it is closed under complementation. So, $f(\mathcal{A})$ is
+the field in Example 2.3.
+
+Part B: Since $\mathcal{A} \subset \sigma(\mathcal{A})$,
+$\sigma(\mathcal{A}) \in \{F_\alpha\}_\alpha$ where the $F_\alpha$ are
+fields that contain $\mathcal{A}$. Therefore, $f(\mathcal{A}) =
+\cap_\alpha F_\alpha \subset \sigma(\mathcal{A})$. Suppose
+$\mathcal{A}$ is finite. Then, $\sigma(\mathcal{A})$ is the
+intersection of all $\sigma$ -fields containing $\mathcal{A}$. Let $A
+\in \sigma(\mathcal{A})$. All the fields $F_\alpha \supset
+\mathcal{A}$ contain only finite unions and intersections of elements
+of $\mathcal{A}$ since $\mathcal{A}$ is finite. So, $F_\alpha$ is also
+a $\sigma$ -field. Therefore, $\sigma(\mathcal{A}) \subset
+f(\mathcal{A})$. This implies $f(\mathcal{A}) =
+\sigma(\mathcal{A})$. Now we show that $\sigma(f(\mathcal{A})) =
+\sigma(\mathcal{A})$. Since $A \subset f(\mathcal{A}) \subset
+\sigma(f(\mathcal{A}))$ and $\sigma(f(\mathcal{A}))$ is a field,
+$\sigma(f(\mathcal{A}))$, $\sigma(\mathcal{A}) \subset
+\sigma(f(\mathcal{A}))$ by the minimality of $\sigma(\mathcal{A})$. We
+showed that $f(\mathcal{A}) \subset \sigma(\mathcal{A})$, and since
+$\sigma(\mathcal{A})$ is a field, $\sigma(f(\mathcal{A})) \subset
+\sigma(\mathcal{A})$ by the minimality of $\sigma(f(\mathcal{A}))$.
+
+Part C: Let $\mathcal{A}$ be countable. By 2.5 (b),  $f(\mathcal{A})$
+is the class of sets $\cup_{i=1}^m \cap_{j=1}^{n_i} A_{ij}$ where each
+$A_{ij} \in \mathcal{A}$ or $A_{ij}^c \in \mathcal{A}$ and where the
+$m$ sets $\cap_{j=1}^{n_i} A_{ij}$, $1 \le i \le m$, are disjoint. To
+construct all the sets in $f(\mathcal{A})$, we just need to choose
+elements of $\mathcal{A}$ and set $A_{ij}$ accordingly. Since there
+are countably many such elements of $\mathcal{A}$, there are countably
+many sets of $f(\mathcal{A})$ as well, since there are countably many
+finite unions and finite intersections of elements in $\mathcal{A}$.
+
+Part D: By 2.5 (b), $f(F_1 \cup F_2)$ will consist of sets of the form
+$\cup_{i=1}^m \cap_{j=1}^{n_i} A_{ij}$ where $A_{ij} \in F_1 \cup
+F_2$ or $A_{ij}^c \in F_1 \cup F_2$ and $\cap_{j=1}^{n_i} A_{ij}$, $i
+\in [m]$, are disjoint. Since each $A_{ij} \in F_1$ or $A_{ij}^c \in
+F_1$ or $A_{ij} \in F_2$ or $A_{ij}^c \in F_2$, we can write:
+$$
+
+\begin{align*}
+\cap_{j=1}^{n_i} A_{ij} \\
+&= \Bigl(\cap_{A_{ij} \in F_1} A_{ij}\Bigl) \cap \Bigl(\cap_{A_{ij} \in F_2} A_{ij}\Bigl) \cap \Bigl(\cup_{A_{ij}^c \in F_1} A_{ij}^c \Bigl)^c \cap \Bigl(\cup_{A_{ij}^c \in F_1} A_{ij}^c\Bigl)^c \\
+&= A \cap B
+\end{align*}
+
+$$
+
+where $A = \Bigl(\cap_{A_{ij} \in F_1} A_{ij}\Bigl) \cap
+\Bigl(\cup_{A_{ij}^c \in F_1} A_{ij}\Bigl)^c$ and $B$ is defined
+analogously with $F_2$ in the place of $F_1$.
+
+
+## Problem 2.7
+
+Using 2.5 (b), $f(\mathcal{F} \cup H)$ consists of sets of the form
+$\cup_{i=1}^m \cap_{j=1}^{n_i} A_{ij}$ where $A_{ij} \in \mathcal{F}
+\cup H$ or $A_{ij}^c \in \mathcal{F} \cup H$ and where the sets
+$\cap_{i=1}^{n_i} A_{ij}$ are disjoint. Then, we can write:
+$$
+
+\begin{align*}
+\cap_{j=1}^{n_i} A_{ij} &= \bigcap_{A_{ij} \in \mathcal{F}} A_{ij} \cap
+\bigcap_{A_{ij}^c \in \mathcal{F}} A_{ij} \cap \bigcap_{A_{ij} \in \{H\}} A_{ij}
+\cap \bigcap_{A_{ij}^c \in \{H\}} A_{ij} \\
+&= \Bigl(\bigcap_{A_{ij} \in \mathcal{F}} A_{ij} \cap \bigcap_{A_{ij}^c \in \mathcal{F}} A_{ij} \cap H\Bigl) \text{ or } \Bigl(\bigcap_{A_{ij} \in \mathcal{F}} A_{ij} \cap \bigcap_{A_{ij}^c \in \mathcal{F}} A_{ij}^c \cap H^c \Bigl)
+\end{align*}
+
+$$
+since if $A_{ij} = H$ and $A_{ik}^c = H$ for some $j, k \in [n_i]$,
+then the intersection is empty. Note that we can write:
+$$
+
+\begin{align*}
+\bigcap_{A_{ij} \in \mathcal{F}} A_{ij} \cap \bigcap_{A_{ij}^c \in \mathcal{F}} A_{ij} &= \bigcap_{A_{ij} \in \mathcal{F}} A_{ij} \cap \Bigl( \bigcup_{A_{ij}^c \in \mathcal{F}} A_{ij}^c \Bigl)^c \in \mathcal{F}
+\end{align*}
+
+$$
+So, that means that we can write the elements of $f(\mathcal{F} \cup
+H)$ as $(A \cap H) \cup (B \cap H^c)$, where $A$ and $B$ are the union
+of the sets above, $m$ where we take the union of
+the sets that have a nonempty intersection with $H$ and assign them to
+$A$ and the union of the sets that have nonempty intersection with
+$H^c$ and put them in $B$.
+
+
 ## Problem 2.8
 
 Let $\mathcal{C}$ be a class over $\mathcal{A}$ such that
@@ -196,6 +311,37 @@ $\mathcal{A}$, $A^c \in \mathcal{C}$ (note that $A^c \in
 \sigma(\mathcal{A})$ because $\sigma(\mathcal{A})$ is a field). This
 implies $\emptyset, \Omega \in \mathcal{C}$ as well. Hence,
 $\sigma(\mathcal{A}) \subset \mathcal{C}$.
+
+
+## Problem 2.9
+
+BACKLOG
+
+
+## Problem 2.10
+
+Part A: Let $\omega, \omega' \in \Omega$ and $\omega \ne
+\omega'$. Suppose for the sake of contradiction that all $A \in
+\mathcal{A}$, $I_A(\omega) = I_A(\omega')$. Consider the set
+$\{\omega\}$. Since $\sigma(\mathcal{A})$ contains every subset of
+$\Omega$, $\{\omega\} \in \sigma(\mathcal{A})$. First suppose that
+$\{\omega\} \in \mathcal{A}$. Then, because $\omega' \not\in
+\{\omega\}$, it follows that $I_{\{\omega\}}(\omega) = 1 \ne 0 =
+I_{\{\omega\}}(\omega')$. This contradicts our assumption, though, so
+we conclude that $\{\omega\} \not\in \mathcal{A}$. Define:
+$$
+
+\begin{align*}
+B &= \cap_{\omega \in A, A \in \sigma(\mathcal{A})} A \\
+&\supset \cap_{\omega \in A, A \in \mathcal{A}} A
+\end{align*}
+
+$$
+Note that $B = \{\omega\}$ since $\sigma(\mathcal{A})$ contains every
+subset of $\Omega$ and hence includes $\{\omega\}$. Let $C =
+\cap_{\omega \in A, A \in \mathcal{A}} A$. Since $\omega \in A$ for
+every $A$ in the intersection that defines $C$, $\omega' \in A$ as
+well. So, $\{\omega, \omega'\} \subset C$. But $C \subset B = \{\omega\}$. This is a contradiction.
 
 
 ## Problem 2.11
@@ -212,7 +358,7 @@ $\mathcal{F}$ countably generate $\mathcal{F}$ since the complement
 would be a subset of $\Omega$ which is countable. Therefore, all the
 subsets of $\Omega$ are countable and cocountable, so $\mathcal{F}$ is
 countably generated. We now show that $\mathcal{F}$ being countably
-generated implies that $\Omega$ is countable (TODO).
+generated implies that $\Omega$ is countable (BACKLOG for other direction).
 
 
 ## Problem 2.12
@@ -236,6 +382,164 @@ which are finite disjoint unions of subintervals of $\Omega = [0, 1)$
 with rational endpoints. This is a countably infinite field (since the
 rationals are countably infinite and this field is a subset of
 $\mathcal{B}_0$). However, it is not a $\sigma$ -field.
+
+
+## Problem 2.13
+
+Part A: Note that if $\Omega$ is infinite, every set is finite and
+cofinite, so $P$ is not well-defined. Now, let $A_1, \dots A_N$ be
+$\mathcal{F}$ -sets that are disjoint. We show that $P(\cup_{n=1}^N
+A_n) = \sum_{n=1}^N P(A_n)$. Suppose $\cup_{n=1}^N A_n$ is
+finite. Then, $P(\cup_{n=1}^N A_n) = 0$. Also, each of the $A_n$ must
+be finite, so $P(A_n) = 0$. Now, suppose $\cup_{n=1}^N A_n$ is
+cofinite. Then, $P(\cup_{n=1}^N A_n) = 1$. We show that exactly one of
+the $A_k$ is cofinite. We know that at least one of the $A_k$ is
+cofinite since otherwise $P(A_n) = 0$ for all $n$. Suppose WLOG $A_1$
+and $A_2$ are cofinite, for the sake of contradiction. Then, $A_1 \cap
+A_2 = \emptyset$. Also, $A_1^c and A_2^c are finite$. However, $A_1^c
+\cup A_2^c = \Omega$, which is infinite. This is a contradiction, so
+there is exactly one cofinite set, and $\sum_{n=1}^N P(A_n) = 1$.
+
+Part B: Let $\Omega = \mathbb{N}$. Let $A_n = \{n\}$ for all $n \in
+\mathbb{N}$. Then, $P(\cup_{n=1}^\infty A_n) = P(\Omega) =
+1$. However, $P(A_n) = 0$. So, $P$ is not countably additive.
+
+Part C: Suppose $\Omega$ is uncountable. We show that for disjoint
+$\mathcal{F}$ -sets $\{A_n\}_{n=1}^\infty$, $P(\cup_{n=1}^\infty A_n)
+= \sum_{n=1}^\infty P(A_n)$. Suppose first that $\cup_{n=1}^\infty
+A_n$ is finite. Then, $P(\cup_{n=1}^\infty A_n) = 0$. Each $A_n$ must
+be finite so that $\sum_{n=1}^\infty P(A_n) = 0$ (because each $P(A_n)
+= 0$). Now suppose $\cup_{n=1}^\infty A_n$ is cofinite, so that
+$P(\cup_{n=1}^\infty A_n) = 1$. For the sake of contradiction, suppose
+that $\sum_{n=1}^\infty P(A_n) = 0$. Then, since $P(A_n) = 0$ or $P(A_n) =
+1$, $P(A_n) = 0$ for all $n \in \mathbb{N}$. But this is only the case
+if $A_n$ is finite. Then, $\cup_{n=1}^\infty A_n$ is countably
+infinite, since it the union of countably many finite sets. Since
+$\Omega$ is uncountable, this implies that $\Omega \setminus
+\Bigl(\bigcup_{n=1}^\infty A_n\Bigl) = \cap_{n=1}^\infty A_n^c$ is
+uncountable. But $\cup_{n=1}^\infty A_n$ is cofinite, so
+$\cap_{n=1}^\infty A_n^c$ is finite. This is a contradiction, so
+$\cup_{n=1}^\infty P(A_n) = 1$.
+
+Part D: Let $\{A_n\}_{n=1}^\infty$ be a collection of disjoint
+$\mathcal{F}$ -sets. Suppose $\cup_{n=1}^\infty A_n$ is
+countable. Then, $P(\cup_{n=1}^\infty A_n) = 0$. Then each $A_n$ must
+be countable or finite since otherwise $\cup_{n=1}^\infty A_n$ would
+be uncountable. Then, $\sum_{n=1}^\infty P(A_n) = 0$ since each
+$P(A_n) = 0$. Now, suppose $P(\cup_{n=1}^\infty A_n) = 1$, so that
+$\cup_{n=1}^\infty A_n$ is cocountable. Suppose for the sake of
+contradiction that $\sum_{n=1}^\infty P(A_n) = 0$. Then, each $P(A_n)
+= 0$, so each $A_n$ is countable. However, this implies that
+$\cup_{n=1}^\infty A_n$ is countable since it is the union of
+countably many countable sets. So, it is both countable and
+cocountable. However, its complement $\Omega \setminus
+\Bigl(\bigcup_{n=1}^\infty A_n\Bigl) = \cap_{n=1}^\infty A_n^c$ is
+also countable. Then, if we take the union of both $\cup_{n=1}^\infty
+A_n$ and its complement, since the union is of countably many
+countable sets, we find that $\Omega$ is countable. This contradicts
+the fact that $\Omega$ is uncountable.
+
+
+## Problem 2.14
+
+We show that $\mathcal{F}$ is a $\sigma$ -field. Note that $\emptyset$
+is a nowhere-dense set because for every open interval $I$, take any
+open interval $J \subset I$. Then, $J \cap \emptyset = \emptyset$. So,
+$\emptyset$ is of the first category. Then, $(0, 1]^c = \emptyset$, so
+$(0, 1] \in \mathcal{F}$ provided that $\mathcal{F}$ is closed under
+complements, which we show now: let $B = A^c$. Since $B^c = A$, $B^c$
+is either of the first category or a complement of a set of the first
+category, so $B$ must be as well, which implies $A^c \in
+\mathcal{F}$. Finally, let $\{A_n\}_{n=1}^\infty$ be a sequence of
+disjoint $\mathcal{F}$ -sets. Let $A = \cup_{n=1}^\infty A_n$. We can
+write $A = B \cup C$ where $B$ consists of all $A_n$'s that are of the
+first category and $C$ consists of all $A_n$'s that are complements of
+sets of the first category. Then, $B$ is a countable union of
+nowhere-dense sets (since each term in its union is a countable union
+of nowhere-dense sets), so $B \in \mathcal{F}$. Write $C = \cup_n A_n$
+where each $A_n$ is a complement of a set of the first category. Let
+$A_n = B_n^c$, where $B_n$ is of the first category. So, $C =
+\Bigl(\bigcap_n B_n\Bigl)^c$. We can write each $B_n =
+\cup_{m=1}^\infty C_{n,m}$ where $C_{n,m}$ is nowhere dense. Then,
+$\cap_n \cup_{m=1}^\infty C_{n,m}$ can be written as a union of
+intersections of nowhere-dense sets using the distributive property,
+and since the intersections are nowhere dense (intersections of
+nowhere-dense sets are nowhere-dense), the union is countable and of
+nowhere-dense sets. So, $C \in \mathcal{F}$.
+
+Now, we show that $P(\cup_{n=1}^\infty A_n) = \sum_{n=1}^\infty
+P(A_n)$ where $A_n \cap A_m \ne \emptyset$ for $n \ne m$ and $P(A_n) =
+0$ or $1$ if $A_n$ is of the first category or complement of a first
+category set. Suppose that $P(\cup_{n=1}^\infty A_n) = 0$. Then,
+$\cup_{n=1}^\infty A_n$ is of the first category. For every open
+interval $I$, there exists subinterval $J \subset I$ such that $J \cap
+\bigcup_{n=1}^\infty A_n = \bigcup_{n=1}^\infty (J \cap A_n) =
+\emptyset$. This implies $J \cap A_n = \emptyset$ for all $n \in
+\mathbb{N}$. Therefore, each $A_n$ is of the first category, so
+$\sum_{n=1}^\infty P(A_n) = 0$. Suppose that $P(\cup_{n=1}^\infty A_n)
+= 1$. So, $\cup_{n=1}^\infty A_n$ is a complement of a set of the
+first category. We show there exists exactly one $A_m$ such that
+$P(A_m) = 1$. We know there is at least one $A_m$ that is a complement
+of a set of the first category (otherwise $\cup_{n=1}^\infty A_n$
+would be of the first category, which contradicts our assumption). Now
+suppose there is more than one set that is a complement of a set of
+the first category. Write $\cup_{n=1}^\infty A_n = \bigcup_{n \in I}
+A_n \cup \bigcup_{n \in I^c} A_n$ where $I \subset \mathbb{N}$ and
+consists of the indices $n$ for which $A_n$ is a complement of a set
+of the first category. Then, let $A_n = B_n^c$ where $B_n$ is a set of
+the first category. Recall that $A_n \cap A_m = B_n^c \cap B_m^c =
+\emptyset$ for all $n \ne m$. So, $\cap_{n \in I} B_n^c =
+\emptyset$. So, $\cup_{n \in I} B_n = (0, 1]$. Since $B_n$ is a set of
+the first category for all $n \in I$, $(0, 1]$ must be of the first
+category as well. But we know that $\emptyset = (0, 1]$ is a
+complement of a set of the first category. So, there is at most one
+set which is a complement of a set of the first category. That is,
+$\sum_{n=1}^\infty P(A_n) = 1$.
+
+
+## Problem 2.15
+
+Let $\{A_n\}_{k=1}^m$ be a sequence of $\mathcal{B}_0$ sets that are
+pairwise disjoint. We show that $P(\cup_{k=1}^m A_k) = \sum_{k=1}^m
+P(A_k)$. First, suppose $P(\cup_{k=1}^m A_k) = 0$. Then, for every
+$\epsilon > 0$, $(\frac{1}{2}, \frac{1}{2} + \epsilon] \not\subset
+\cup_{k=1}^m A_k$. This implies that $(\frac{1}{2}, \frac{1}{2} +
+\epsilon] \not\subset A_k$ for all $k \in [m]$. Therefore, $P(A_k) =
+0$, so $\sum_{k=1}^m P(A_k) = 0$. Now suppose that $P(\cup_{k=1}^m
+A_k) = 1$. Then, for some $\epsilon_A > 0$, $(\frac{1}{2},
+\frac{1}{2} + \epsilon] \subset A = \cup_{k=1}^m A_k$. Since each
+$A_k$ is a finite disjoint union of intervals, we can write $A$ as a
+finite disjoint union of intervals. Then, WLOG, we can take each $A_k$
+to be an interval in $\mathcal{B}_0$. Let $A_k = (a_k, b_k]$, where
+each $a_k < b_k$ for all $k \in [m]$. Let $a_i = \min_{1 \le k \le m}
+a_k$. Then, $a_i \le \frac{1}{2}$, because if $a_i > \frac{1}{2}$,
+then $a_k > \frac{1}{2}$ for all $k \in [m]$, which would imply that
+$(\frac{1}{2}, \frac{1}{2} + \epsilon_A] \not\subset A$ because
+$(\frac{1}{2}, a_i] \not\subset A$. Let $\epsilon = b_i -
+\frac{1}{2} > 0$. Then, $(\frac{1}{2}, \frac{1}{2} + \epsilon] \subset
+(a_i, b_i]$. Since the sets $A_k$ are disjoint, $A_i$ is the only set
+containing $(\frac{1}{2}, \frac{1}{2} + \epsilon]$, so $\sum_{k=1}^m
+P(A_k) = 1$. Let $A_n = (\frac{1}{2} + \frac{1}{2^{n+1}},
+\frac{1}{2} + \frac{1}{2^n}]$. The collection $\{A_n\}_{n=1}^\infty$
+is disjoint but $\cup_{n=1}^\infty A_n = (\frac{1}{2}, 1]$. So,
+$P(\cup_{n=1}^\infty A_n) = 1$, but $P(A_n) = 0$ for all $n \in
+\mathbb{N}$, so $\sum_{n=1}^\infty P(A_n) = 0$.
+
+
+## Problem 2.16
+
+Part A: Consider the sets $\{A_n\}_{n=1}^\infty$. For all $n \in
+\mathbb{N}$, $A_t \subset A_n$ for all $0 < t \le n$. So,
+$\cup_{n=1}^\infty A_n = \cup_{t > 0} A_t = A$. Furthermore, we can
+see that $A_n \uparrow A$ since $A_n \subset A_{n+1}$. We can apply
+Theorem 2.1(i) to get that $P(A_n) \uparrow P(A)$. Since $t
+\rightarrow \infty$ as $n \rightarrow \infty$, $P(A_t) \uparrow
+P(A)$. Note that if $\mathcal{F}$ is a $\sigma$ -field, then
+$\cup_{t > 0} A_t = \cup_{n=1}^\infty A_n \in \mathcal{F}$.
+
+Part B: Based on part A, $P(A_t) \uparrow P(A)$ implies that $1 -
+P(A_t^c) \uparrow 1 - P(A^c)$. This implies that $P(A_t^c) \downarrow
+P(A^c)$. This extends Theorem 2.1(ii).
 
 
 ## Problem 2.17
@@ -284,4 +588,97 @@ P(\cup_{k} A_k) = \sum_k P(A_k)
 \end{align*}
 
 $$
+
+
+## Problem 2.18
+
+Part A: Let $\{A_k\}_{k=1}^N$ and $A_k \cap A_j = \emptyset$ for all
+$k \ne j$. Then:
+$$
+
+\begin{align*}
+D(\cup_{k=1}^\infty A_k) &= \lim_{n \rightarrow \infty} P_n(\cup_{k=1}^N A_k) \\
+&= \lim_{n \rightarrow \infty} \sum_{k=1}^\infty P_n(A_k) & \text{$P$ is a probability measure} \\
+&= \sum_{k=1}^N \lim_{n \rightarrow \infty} P_n(A_k) \\
+&= \sum_{k=1}^N D(A_k)
+\end{align*}
+
+$$
+This shows finite additivity of $D$. To show $D$ is not countably
+additive, consider the singletons $\{n\}$ for all $n \in \mathbb{N} =
+\Omega$. Then $D(\{n\}) = \lim_{m \rightarrow \infty} \frac{I_{m <
+n}}{n} = 0$. However, $\cup_{n=1}^\infty \{n\} = \Omega$ and $D(\Omega
+= 1)$.
+
+Part B: We have that $D(\emptyset) = \lim_n P_n(\emptyset) = \lim_n 0
+= 0$. And, $D(\Omega) = \lim_n P_n(\Omega) = \lim_n 1 = 1$. Let $A \in
+\mathcal{D}$. Then, $D(A) = \lim_{n \rightarrow \infty} P_n(A)$. Since
+$P_n(A)$ is a discrete probability measure, $P_n(A^c) = 1 -
+P_n(A)$. So, $D(A^c) = \lim_{n \rightarrow \infty} P_n(A^c) = \lim_{n
+\rightarrow \infty} (1 - P_n(A)) = 1 - \lim_{n \rightarrow \infty}
+P_n(A) = 1 - D(A)$ exists whenever $D(A)$ exists, so $A^c \in
+\mathcal{D}$. Let $B \subset A$, with $A, B \in \mathcal{D}$. Then:
+$$
+
+\begin{align*}
+D(A \setminus B) &= \lim_{n \rightarrow \infty} P_n(A \setminus B) \\
+&= \lim_{n \rightarrow \infty} \frac{\#\{m: 1 \le m \le n: m \in A \setminus B \}}{n} \\
+&= \lim_{n \rightarrow \infty} (P_n(A) - P_n(B)) \\
+&= D(A) - D(B)
+\end{align*}
+
+$$
+Now, let $A$ and $B$ be disjoint $\mathcal{D}$ -sets. Then, $D(A \cup
+B) = \lim_{n \rightarrow \infty} P_n(A \cup B) = \lim_{n \rightarrow
+\infty} P_n(A) + \lim_{n \rightarrow \infty} P_n(B)$ since $P_n$ is a
+probability measure. If the two limits in the last sum exist, then $A
+\cup B \in \mathcal{D}$. Now, let $\{n\}$ be the singletons where
+$\Omega = \mathbb{N}$. As shown in Part (A), this shows that $D$ is
+not countably additive. Now, we show that $D$ is not closed under
+finite unions that are not disjoint. Let $A$ be the even integers. Let
+$C_k = \{m: 2^k < m \le 2^{k+1}\}$. Let $B$ consist of the even
+integers in $\bigcup_{j \in \mathbb{N}} C_{2j - 1}$ and of the odd
+integers in $\bigcup_{j \in \mathbb{N}} C_{2j}$, which we denote $E$
+and $F$, respectively, so that $B = E \cup F$. Then, $A \cap E = A$
+and $A \cap F = \emptyset$. So, $A \cap B = A \cap \bigcup_{j \in
+\mathbb{N}} C_{2j-1}$. Because the $A \cap C_{2j-1}$ are disjoint for
+all $j \in \mathbb{N}$, we get that:
+$$
+
+\begin{align*}
+P_{2j-1}\Bigl(A \cap B \Bigl) &= \frac{1}{2^{2j-1}} \sum_{k=1}^j \#\Bigl(A \cap C_{2k-1}\Bigl) \\
+P_{2j}\Bigl(A \cap B \Bigl) &= \frac{1}{2^{2j}} \sum_{k=1}^j \#\Bigl(A \cap C_{2k}\Bigl)
+\end{align*}
+
+$$
+However, using the Ratio test:
+$$
+
+\begin{align*}
+\limsup_{j \rightarrow \infty} \frac{P_{2j}\Bigl(A \cap B \Bigl)}{P_{2j-1}\Bigl(A \cap B \Bigl)} = 2 > 1
+\end{align*}
+
+$$
+So it diverges. Then, $A \cap B \not\in \mathcal{D}$. Note that $A \in
+\mathcal{D}$ and $B \in \mathcal{D}$ (because $D(B) = \frac{1}{2}$).
+
+
+## Problem 2.19
+
+BACKLOG
+
+
+## Problem 2.20
+
+BACKLOG
+
+
+## Problem 2.21
+
+BACKLOG
+
+
+## Problem 2.22
+
+BACKLOG
 
