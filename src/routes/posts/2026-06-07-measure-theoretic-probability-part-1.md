@@ -5,7 +5,9 @@ slug: measure_theoretic_probability_part_1
 math: 'mathjax'
 ---
 
-UPDATE 06/11/2026: Started adding solutions to problems.
+-   UPDATE 06/11/2026: Started adding solutions to problems.
+-   UPDATE 06/19/2026: Added majority of solutions. Problems marked with
+    TODO have a solution that is pending to be written. Problems marked with BACKLOG are problems that I'm still working on.
 
 I've recently been reading Billingsley's *Probability and Measure
 Theory*. I wanted to write down some notes I've been taking. In a
@@ -661,6 +663,51 @@ $$
 $$
 So it diverges. Then, $A \cap B \not\in \mathcal{D}$. Note that $A \in
 \mathcal{D}$ and $B \in \mathcal{D}$ (because $D(B) = \frac{1}{2}$).
+
+Part C: TODO
+
+Part D: BACKLOG
+
+Part E:
+
+$$
+
+\begin{align}
+\frac{\varphi(n)}{n} &= \frac{1}{n} \cdot \# \{1 \le m \le n: \gcd(m, n) = 1\} \\
+&= \frac{1}{n} \cdot \# \{1 \le m \le n: p_i | m \text{ for some } i \in [r]\} \\
+&= \frac{1}{n} \cdot \# \{1 \le m \le n: m \in \cup_{i=1}^r M_{p_i}\} \\
+&= \sum_{i=1}^r P_n(M_{p_i}) - \sum_{1 \le i < j \le r} P_n(M_{p_i} \cap M_{p_j}) + \dots + (-1)^{r+1} P_n(M_{p_1} \cap \dots \cap M_{p_r})
+\end{align}
+
+$$
+where this last formula follows from the inclusion-exclusion
+principle. Since $p_i | n$, $P_n(M_{p_i}) = \frac{1}{n} \cdot
+\frac{n}{p_i} = \frac{1}{p_i}$. Since the $p_i$ are relatively prime
+with each other, $M_{p_i} \cap M_{p_j} = M_{p_i p_j}$, and
+$P_n(M_{p_i} \cap M_{p_j}) = \frac{1}{p_i p_j}$. We show that the sum
+in (4) reduces to $\prod_{i=1}^r \Bigl(1 - \frac{1}{p_i}\Bigl)$. TODO
+
+Part F: BACKLOG
+
+Part G: Suppose that $B$ has density. Then:
+$$
+
+\begin{align*}
+D(B) &= \lim_{n \rightarrow \infty} P_n(B) \\
+&= \lim_{n \rightarrow \infty} \frac{1}{n} \cdot \# \{1 \le m' \le n: m' \in B\} \\
+&= \lim_{n \rightarrow \infty} \frac{1}{n} \cdot \# \{1 \le m + 1 \le n: m \in A\} \\
+&= \lim_{n \rightarrow \infty} \frac{1}{n} \cdot \# \{0 \le m \le n-1: m \in A\} \\
+&= \lim_{n \rightarrow \infty} \frac{1}{n} \cdot \# \{1 \le m \le n-1: m \in A\} & \text{ $0 \not\in A \subset \mathbb{N}$ } \\
+&= \lim_{n \rightarrow \infty} \frac{1}{n-1} \cdot \# \{1 \le m \le n-1: m \in A\} \cdot \Bigl(1 - \frac{1}{n} \Bigl) \\
+&= \Bigl(\lim_{n \rightarrow \infty} P_n(A)\Bigl) \cdot 1 \\
+&= D(A)
+\end{align*}
+
+$$
+provided that $D(A)$ exists (and taking $n \ge 2$). Then, $B$ has
+density if and only if $A$ has density.
+
+Part G: 
 
 
 ## Problem 2.19
