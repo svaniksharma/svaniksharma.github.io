@@ -664,7 +664,61 @@ $$
 So it diverges. Then, $A \cap B \not\in \mathcal{D}$. Note that $A \in
 \mathcal{D}$ and $B \in \mathcal{D}$ (because $D(B) = \frac{1}{2}$).
 
-Part C: TODO
+Part C:
+
+$f(M)$ is the intersection of all fields containing $M$. Let $A \in
+f(M)$. Problem 2.5 tells us that $A = \cup_{i=1}^n \cap_{j=1}^{n_i}
+A_{ij}$ where each $A_{ij} \in M$ or $A_{ij}^c \in M$ and
+$\cap_{j=1}^{n_i} A_{ij}$ are pairwise disjoint for all $i \in
+[n]$. For each $\cap_{j=1}^{n_i} A_{ij}$, write $\cap_{j=1}^{n_i}
+A_{ij} = \bigcap_{j \in S_i} A_{ij} \cap \bigcap_{j \in [n] \setminus
+S_i} A_{ij}$ where $S_i = \{j: 1 \le j \le n_i, A_{ij} \in M\}$.  Note
+that:
+$$
+
+\begin{align*}
+\bigcap_{j \in S_i} A_{ij} \cap \bigcap_{j \in [n] \setminus S_i} A_{ij} &= \Bigl(\bigcap_{j \in S_i} A_{ij}\Bigl) \setminus \Bigl( \bigcup_{j \in [n] \setminus S_i} A_{ij}^c \Bigl)
+\end{align*}
+
+$$
+We can write the first term as $M_a = \bigcap_{j \in S_i} A_{ij}$
+since each $A_{ij}$ is an $M$ set and a finite intersection of $M$
+sets is still an $M$ set (in particular, $M_a \cap M_b =
+M_{\text{lcm}(a, b)}$). Furthermore, all $M$ sets are $\mathcal{D}$
+sets. Next, note that $\bigcup_{j \in [n] \setminus S_i} A_{ij}^c$ is
+a union of $M$ -sets, so we will write it was $\cup_{j=1}^m M_{b_j}$
+where $b_j$, $1 \le j \le m$, are integers. We now observe two
+important facts:
+
+-   If $b_j | a$, then $M_{b_j} \supset M_a$, so $M_a \setminus M_{b_j}
+      = \emptyset$. Then $M_a \setminus \bigcup_{j=1}^m M_{b_j} =
+      \bigcap_{j=1}^k M_a \setminus M_{b_j} = \emptyset$, which is a
+    $\mathcal{D}$ set. So, for a nonempty set, $b_j$ doesn't divide $a$.
+-   If $b_j | b_k$ for some $j, k \in [m]$, then $M_{b_j} \supset
+      M_{b_k}$. So, in the union $\cup_{l=1}^m M_{b_l}$, $M_{b_j} \cup
+      M_{b_k} = M_{b_j}$. WLOG, we can assume that $b_j$ doesn't divide
+    $b_k$ for any $j \ne k$.
+
+With these facts, since $b_j$ doesn't divide $a$, $M_a \setminus
+M_{b_j} = M_a \setminus M_{\text{lcm}(a, b_j)}$. Note that
+$M_{\text{lcm}(a, b_j)} \subset M_a$, so $M_a \setminus
+\Bigl(\cup_{j=1}^m M_\text{lcm}(a, b_j) \Bigl)$ is a proper
+difference and hence is a $\mathcal{D}$ set. So, $\bigcap_{j=1}^{n_i} A_{ij}$ is
+a $\mathcal{D}$ set and so is $\bigcup_{i=1}^m \bigcap_{j=1}^{n_i}
+A_{ij}$ since it is a finite disjoint union. Therefore, $f(M) \subset
+\mathcal{D}$.
+
+We can also use this to conclude that $D$ is completely determined on
+$f(M)$ by the values $M_a = \{ka: k \in \mathbb{N}\} = \{m \in
+\mathbb{N}: m | a\}$. Suppose $D'$ is another measure that assigns
+$D'(M_a) = D(M_a) = \frac{1}{a}$ and is structurally identical to $D$
+(e.g, finitely additive, not countably additive, etc). Then, for any
+$A \in f(M)$, $D(A) = \sum_{i=1}^n D(\cap_{j=1}^{n_i} A_{ij}) =
+\sum_{i=1}^n D'(\cap_{j=1}^{n_i} A_{ij}) = D'(\cup_{i=1}^n
+\cap_{j=1}^{n_i}) A_{ij}$, since $\cap_{j=1}^{n_i} A_{ij}$ is a
+proper difference between an $M$ -set and a union of $M$ -sets and
+hence we can compute it as $D(M_a) - D(\cup_{j=1}^{m} M_{b_j}) =
+D'(M_a) - D'(\cup_{j=1}^m M_{b_j})$.
 
 Part D: BACKLOG
 
@@ -673,10 +727,10 @@ Part E:
 $$
 
 \begin{align}
-\frac{\varphi(n)}{n} &= \frac{1}{n} \cdot \# \{1 \le m \le n: \gcd(m, n) = 1\} \\
-&= \frac{1}{n} \cdot \# \{1 \le m \le n: p_i | m \text{ for some } i \in [r]\} \\
-&= \frac{1}{n} \cdot \# \{1 \le m \le n: m \in \cup_{i=1}^r M_{p_i}\} \\
-&= \sum_{i=1}^r P_n(M_{p_i}) - \sum_{1 \le i < j \le r} P_n(M_{p_i} \cap M_{p_j}) + \dots + (-1)^{r+1} P_n(M_{p_1} \cap \dots \cap M_{p_r})
+\frac{\varphi(n)}{n} &= 1 - \frac{1}{n} \cdot \# \{1 \le m \le n: \gcd(m, n) = 1\} \\
+&= 1 - \frac{1}{n} \cdot \# \{1 \le m \le n: p_i | m \text{ for some } i \in [r]\} \\
+&= 1 - \frac{1}{n} \cdot \# \{1 \le m \le n: m \in \cup_{i=1}^r M_{p_i}\} \\
+&= 1 - \Bigl[\sum_{i=1}^r P_n(M_{p_i}) - \sum_{1 \le i < j \le r} P_n(M_{p_i} \cap M_{p_j}) + \dots + (-1)^{r+1} P_n(M_{p_1} \cap \dots \cap M_{p_r})\Bigl]
 \end{align}
 
 $$
@@ -685,7 +739,33 @@ principle. Since $p_i | n$, $P_n(M_{p_i}) = \frac{1}{n} \cdot
 \frac{n}{p_i} = \frac{1}{p_i}$. Since the $p_i$ are relatively prime
 with each other, $M_{p_i} \cap M_{p_j} = M_{p_i p_j}$, and
 $P_n(M_{p_i} \cap M_{p_j}) = \frac{1}{p_i p_j}$. We show that the sum
-in (4) reduces to $\prod_{i=1}^r \Bigl(1 - \frac{1}{p_i}\Bigl)$. TODO
+in (4) reduces to $\prod_{i=1}^r \Bigl(1 - \frac{1}{p_i}\Bigl)$. For
+$r = 2$, we have that:
+$$
+
+\begin{align*}
+1 - P_n(M_{p_1} \cup M_{p_2}) &= 1 - \Bigl(P_n(M_{p_1}) + P(M_{p_2}) - P_n(M_{p_1} \cap M_{p_2})\Bigl) \\
+&= 1 - \Bigl(\frac{1}{p_1} + \frac{1}{p_2} - \frac{1}{p_1 p_2}\Bigl) \\
+&= \Bigl(1 - \frac{1}{p_1}\Bigl) \Bigl(1 - \frac{1}{p_2}\Bigl).
+\end{align*}
+
+$$
+Now, suppose the proposition holds for $r \ge 2$. Let $p_{r+1}$ be a
+prime which is coprime to all the other $p_i$, $i \in [r]$. Then:
+$$
+
+\begin{align}
+1 - P_n(\bigcup_{i=1}^r M_{p_i} \cup M_{p_{r+1}}) &= 1 - P_n\Bigl(\bigcup_{i=1}^r M_{p_i}\Bigl) - \frac{1}{p_{r+1}} + P_n\Bigl(\bigcup_{i=1}^r (M_{p_i} \cap M_{p_{r+1}})\Bigl) \\
+&= 1 - P_n\Bigl(\bigcup_{i=1}^r M_{p_i}\Bigl) - \frac{1}{p_{r+1}} + \Bigl\{ \sum_{i=1}^r P_n(M_{p_i} \cap M_{p_{r+1}}) - \sum_{1 \le i < j \le r} P_n(M_{p_i} \cap M_{p_j} \cap M_{p_{r+1}}) + \dots + (-1)^{r + 1} P_n\Bigl(\bigcap_{i=1}^{r+1} M_{p_i}\Bigl)\Bigl\} \\
+&= 1 - \prod_{i=1}^r \Bigl(1 - \frac{1}{p_i}\Bigl) - \frac{1}{p_{r+1}} + \frac{1}{p_{r+1}} \cdot \Bigl\{ \sum_{i=1}^r P_n(M_{p_i}) - \sum_{1 \le i < j \le r} P_n(M_{p_i} \cap M_{p_j}) + \dots + (-1)^{r + 1} P_n\Bigl(\bigcap_{i=1}^{r} M_{p_i}\Bigl)\Bigl\} \\
+&= 1 - \prod_{i=1}^r \Bigl(1 - \frac{1}{p_i} \Bigl) - \frac{1}{p_{r+1}} + \frac{1}{p_{r+1}} \prod_{i=1}^r \Bigl(1 - \frac{1}{p_i}\Bigl) \\
+&= \prod_{i=1}^{r+1} \Bigl(1 - \frac{1}{p_i}\Bigl)
+\end{align}
+
+$$
+where (7) to (8) used the fact that we can factor out $\frac{1}{p_r}$
+from the sum since $P(M_{a} \cap M_{b}) = \frac{1}{a b}$
+whenever $a$ and $b$ are relatively prime.
 
 Part F: BACKLOG
 
@@ -707,7 +787,7 @@ $$
 provided that $D(A)$ exists (and taking $n \ge 2$). Then, $B$ has
 density if and only if $A$ has density.
 
-Part G: 
+Part G:
 
 
 ## Problem 2.19
