@@ -398,7 +398,7 @@ cofinite. Then, $P(\cup_{n=1}^N A_n) = 1$. We show that exactly one of
 the $A_k$ is cofinite. We know that at least one of the $A_k$ is
 cofinite since otherwise $P(A_n) = 0$ for all $n$. Suppose WLOG $A_1$
 and $A_2$ are cofinite, for the sake of contradiction. Then, $A_1 \cap
-A_2 = \emptyset$. Also, $A_1^c$ and A<sub>2</sub><sup>c</sup> are finite. However, $A_1^c
+A_2 = \emptyset$. Also, $A_1^c$ and $A_2^c$ are finite. However, $A_1^c
 \cup A_2^c = \Omega$, which is infinite. This is a contradiction, so
 there is exactly one cofinite set, and $\sum_{n=1}^N P(A_n) = 1$.
 
