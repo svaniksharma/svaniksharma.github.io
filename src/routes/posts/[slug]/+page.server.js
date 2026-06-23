@@ -15,19 +15,20 @@ async function processMarkdown(markdown) {
     const result = await unified()
         .use(remarkParse)
         .use(remarkMath)
-        .use(remarkRehype)
+        .use(remarkRehype, { allowDangerousHtml: true })
         .use(rehypeMathjax, { tex: { tags: "ams" } })
         .use(rehypeHighlight)
-        .use(rehypeStringify)
+        .use(rehypeStringify, { allowDangerousHtml: true })
         .process(markdown);
     return String(result);
 }
 
 export async function load({ params }) {
     const post = postMeta.find((post) => post.slug == params.slug);
+    const processedMarkdown = await processMarkdown(post.markdown);
     return {
         date: parseDate(post.date),
         title: post.title,
-        markdown: await processMarkdown(post.markdown),
+        markdown: processedMarkdown,
     };
 }
