@@ -3,9 +3,16 @@
 </script>
 
 <svelte:head>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
   <link rel="stylesheet" href="https://latex.vercel.app/style.css">
+  <script>
+   MathJax = {
+	   tex: {
+		   inlineMath: {'[+]': [['$', '$']]}
+	   }
+   };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
 </svelte:head>
 
 <style>
@@ -27,16 +34,6 @@
     font-size: 0.95rem;
   }
 </style>
-<!-- <div class="container-fluid">
-	 <div class="row justify-content-center">
-     <div class="col-xl-6 col-lg-8 col-md-10 col-12">
-     <article class="blog-post">
-     <h1 class="blog-title">{data.title}</h1>
-     <p class="blog-date text-muted">{data.date}</p>
-     </article>
-     </div>
-	 </div>
-	 </div> -->
 <h1 class="blog-title">{data.title}</h1>
 <p class="blog-date text-muted">{data.date}</p>
-{@html data.markdown}
+{@html data.postContent}
