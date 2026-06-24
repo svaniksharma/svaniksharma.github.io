@@ -15,15 +15,12 @@
 .heading-title {
 	font-weight: 700;
 }
-.main-title {
-	padding-left: 17.0rem;
-}
 </style>
 
-<div class="container-fluid">
+<header class="text-center pt-3">
 	<a href="/" class="text-decoration-none text-dark">
-  <h4 class="heading-title main-title pt-3">Svanik Sharma's Website</h4>
+		<h4 class="heading-title">Svanik Sharma's Website</h4>
 	</a>
-</div>
+</header>
 
 {@render children()}
