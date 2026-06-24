@@ -1,8 +1,14 @@
 import sanitizeHtml from "sanitize-html";
+import removeMd from "remove-markdown";
 import sbd from "sbd";
-import { getHtmlPostMetadata, parseDate } from "./utilities.js";
+import {
+    getHtmlPostMetadata,
+    getMarkdownPostMetadata,
+    parseDate,
+} from "./utilities.js";
 
-const postMeta = getHtmlPostMetadata();
+let postMeta = getHtmlPostMetadata();
+postMeta = postMeta.concat(getMarkdownPostMetadata());
 
 function processText(str, maxLength = 8000) {
     const sentences = sbd.sentences(str, {
@@ -20,7 +26,7 @@ function processText(str, maxLength = 8000) {
 
 function getSummary(post) {
     if (post.isMarkdown) {
-        // TODO
+        return processText(removeMd(post.postContent));
     } else {
         return processText(
             sanitizeHtml(post.postContent, {

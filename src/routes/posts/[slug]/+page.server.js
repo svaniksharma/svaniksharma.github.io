@@ -1,4 +1,8 @@
-import { getHtmlPostMetadata, parseDate } from "../../utilities";
+import {
+    getHtmlPostMetadata,
+    getMarkdownPostMetadata,
+    parseDate,
+} from "../../utilities";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkMath from "remark-math";
@@ -9,7 +13,8 @@ import rehypeStringify from "rehype-stringify";
 
 export const prerender = true;
 
-const postMeta = getHtmlPostMetadata();
+let postMeta = getHtmlPostMetadata();
+postMeta = postMeta.concat(getMarkdownPostMetadata());
 
 async function processMarkdown(markdown) {
     const result = await unified()
