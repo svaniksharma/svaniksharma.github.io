@@ -1,4 +1,4 @@
-import { getPostMetadata, parseDate } from "../../utilities";
+import { getHtmlPostMetadata, parseDate } from "../../utilities";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkMath from "remark-math";
@@ -9,7 +9,7 @@ import rehypeStringify from "rehype-stringify";
 
 export const prerender = true;
 
-const postMeta = getPostMetadata();
+const postMeta = getHtmlPostMetadata();
 
 async function processMarkdown(markdown) {
     const result = await unified()
@@ -25,10 +25,10 @@ async function processMarkdown(markdown) {
 
 export async function load({ params }) {
     const post = postMeta.find((post) => post.slug == params.slug);
-    const processedMarkdown = await processMarkdown(post.markdown);
+    //const processedMarkdown = await processMarkdown(post.markdown);
     return {
         date: parseDate(post.date),
         title: post.title,
-        markdown: processedMarkdown,
+        postContent: post.postContent,
     };
 }

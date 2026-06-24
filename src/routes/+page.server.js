@@ -1,8 +1,8 @@
-import removeMd from "remove-markdown";
+import sanitizeHtml from "sanitize-html";
 import sbd from "sbd";
-import { getPostMetadata, parseDate } from "./utilities.js";
+import { getHtmlPostMetadata, parseDate } from "./utilities.js";
 
-const postMeta = getPostMetadata("./posts/*.md");
+const postMeta = getHtmlPostMetadata();
 
 function processText(str, maxLength = 8000) {
     const sentences = sbd.sentences(str, {
@@ -26,7 +26,12 @@ export function load() {
                 title: post.title,
                 slug: post.slug,
                 date: parseDate(post.date),
-                summary: processText(removeMd(post.markdown)),
+                summary: processText(
+                    sanitizeHtml(post.postContent, {
+                        allowedTags: [],
+                        allowedAttributes: {},
+                    }),
+                ),
             })),
     };
 }

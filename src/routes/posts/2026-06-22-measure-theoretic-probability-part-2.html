@@ -1,0 +1,237 @@
+---
+title: 'Measure Theoretic Probability Part 2'
+date: 2026-06-22T07:07:07+01:00
+slug: measure_theoretic_probability_part_2
+math: 'mathjax'
+---
+
+<p>
+This is a continuation of my previous notes on measure theory and
+probability. Here, we will prove that, given a probability measure
+space \((\Omega, \mathcal{F}, P)\), there exists a unique extension of
+\(P\) to \(\sigma(F)\) (i.e, a probability measure on \(\sigma(F)\) ).
+</p>
+
+
+<div id="outline-container-org177dccb" class="outline-2">
+<h2 id="org177dccb">Theorem Statement</h2>
+<div class="outline-text-2" id="text-org177dccb">
+<p>
+The theorem we will prove is: "A probability measure on a field has a
+unique extension to the generated \(\sigma\) -field". Specifically:
+Suppose \(P\) is a probability measure on a field \(F_0\) of subsets of
+\(\Omega\). Put \(F = \sigma(F_0)\). Then there exists a probability
+measure \(Q\) on \(F\) such that \(Q(A) = P(A)\) for all \(A \in
+F_0\). Further, if \(Q'\) is another probability measure on \(F\) such that
+\(Q'(A) = P(A)\) for all \(A \in F_0\), then \(Q(A) = Q'(A)\) for all \(A \in
+F\). 
+</p>
+</div>
+</div>
+
+<div id="outline-container-org879158d" class="outline-2">
+<h2 id="org879158d">Defining \(P^*\)</h2>
+<div class="outline-text-2" id="text-org879158d">
+<p>
+For every subset of \(A\):
+</p>
+
+
+<p>
+\[ \begin{align*}
+P^*(A) = \inf \sum_n P(A_n)
+\end{align*} \]
+where the infimum is performed over all finite and infinite
+collections \(\{A_n\}_n\) such that \(A \subset \cup_n A_n\). We say that
+a set \(A\) is \(P^*\) -measurable if:
+</p>
+
+<p>
+\[ \begin{align*}
+P^*(A \cap E) + P^*(A^c \cap E) = P^*(E)
+\end{align*} \]
+</p>
+
+<p>
+\(P^*\) has the following properties, which we subsequently prove:
+</p>
+
+<ol class="org-ol">
+<li>\(P^*(\emptyset) = 0\)</li>
+<li>(<b>Nonnegativity</b>) \(P^*(A) \ge 0\) for every \(A \subset \Omega\)</li>
+<li>(<b>Monotonicity</b>) If \(A \subset B\), then \(P^*(A) \le P^*(B)\)</li>
+<li>(<b>Countable Subadditivity</b>) \(P^*(\cup_n A_n) \le \sum_n P^*(A_n)\)</li>
+</ol>
+
+<p>
+We can first show (2). \(\sum_n P(A_n) \ge 0\) since \(P(A_n) \ge 0\) for
+every \(A_n \in \mathcal{F}_0\) and where the \(\{A_n\}_n\) form a cover
+of \(A\). So, \(P^*(A) = \inf \sum_n P(A_n) \ge 0\). Next we show (1). Using
+(2), \(0 \le P^*(\emptyset) \le P(\emptyset) = 0\) since \(\emptyset \in
+\mathcal{F}_0\). So, \(P^*(\emptyset) = 0\). We now show \(3\). Since \(A
+\subset B\), then every cover of \(B\) is also a cover of \(A\). That is,
+the set of all covers of \(A\) includes the set of all covers of
+\(B\). Then, \(\inf \sum_n P(A_n) \le \inf \sum_n P(B_n)\), which implies
+that \(P^*(A) \le P^*(B)\). Let's show \(4\). We need to show that
+\(P^*(\cup_n A_n) \le \sum_n P^*(A_n)\) where \(A_n \cap A_m = \emptyset\)
+for \(n \ne m\). Let \(\epsilon > 0\) be arbitrary. Then, there exists a
+cover \(\{A_{n, m} \}_m\) of \(A_n\) such that:
+</p>
+\begin{align*}
+\sum_m P(A_{n,m}) &\le P^*(A_n) + \frac{\epsilon}{2^n} \\
+\sum_n \sum_m P(A_{n,m}) &\le \sum_n P^*(A_n) + \epsilon & \text{ sum over $n$ } \\
+P^*(\cup_n A_n) &\le \sum_n \sum_m P(A_{n,m}) \le \sum_n P^*(A_n) + \epsilon & \text{ $\cup_n A_n \subset \cup_n \cup_m A_{n,m}$ }
+\end{align*}
+</div>
+</div>
+
+<div id="outline-container-orgf136786" class="outline-2">
+<h2 id="orgf136786">Important Lemmas</h2>
+<div class="outline-text-2" id="text-orgf136786">
+<p>
+We will prove a few lemmas that will be important for proving the
+first part of the theorem, which is that there exists an extension of
+the probability measure \(P\) to \(\sigma(F_0)\). We define the class \(M\)
+to be the collection of sets that are \(P^*\) measurable. \(A\) is \(P^*\)
+measurable if:
+\[
+P^*(A \cap E) + P^*(A^c \cap E) = P^*(E) \text{ for all $E \subset
+\Omega$ }
+\]
+</p>
+
+<div class="lemma" id="orgfbc27f5">
+<p>
+The class \(M\) is a field.
+</p>
+
+</div>
+
+<div class="proof" id="orgdd3d9a7">
+<p>
+We will need to prove 3 things:
+</p>
+
+<ol class="org-ol">
+<li>\(\Omega \in M\)</li>
+<li>If \(A \in M\), then \(A^c \in M\)</li>
+<li>If \(A, B \in M\), then \(A \cup B \in M\)</li>
+</ol>
+
+<p>
+First we prove (1):
+\[
+P^*(\Omega \cap E) + P^*(\Omega^c \cap E) = P^*(E) + P^*(\emptyset) = P^*(E)
+\]
+Next we prove (2): Let \(A \in M\). Then we can write:
+</p>
+\begin{align*}
+P^*(E) &= P^*(A \cap E) + P^*(A^c \cap E) \\
+P^*(E) &= P^*(A^c \cap E) + P^*((A^c)^c \cap E)
+\end{align*}
+<p>
+The last line implies that \(A^c \in M\). Now we prove (3):
+</p>
+\begin{align*}
+P^*(E) &= P^*(A \cap E) + P^*(A^c \cap E) \\
+&= P^*(A \cap B \cap E) + P^*(A \cap B^c \cap E) + P^*(A^c \cap B \cap E) + P^*(A^c \cap B^c \cap E) & \text{ $B$ is $P^*$ -measurable (see below) }\\
+&\ge P^*(\{(A \cap B) \cup (A \setminus B) \cup (B \setminus A)\} \cap E) + P^*((A \cup B)^c \cap E) & \text{ countable subadditivity } \\
+&= P^*((A \cup B) \cap E) + P^*((A \cup B)^c \cap E)
+\end{align*}
+<p>
+The second line follows from the fact that \(B\) is \(P^*\) -measurable,
+so \(P^*(A \cap E) = P^*(A \cap E \cap B) + P^*(A \cap E \cap
+B^c)\) because \(A \cap E \subset \Omega\).
+</p>
+
+</div>
+
+<div class="lemma" id="org98c4588">
+<p>
+Let \(\{A_n\}_n\) be a disjoint sequence (finite or infinite) sequence of \(M\) -sets. For each \(E \subset \Omega\), \(P^*(E \cap \Bigl(\cup_n A_n\Bigl)) = \sum_n P^*(E \cap A_n)\)
+</p>
+
+</div>
+
+<div class="proof" id="org4395943">
+<p>
+The approach we take is to first prove the lemma for finitely many
+\(A_n\). Then, we extend it to infinite sequences. First, let \(n =
+2\). Suppose \(A_1 \cup A_2 = \Omega\). So, \(A_1 = A_2^c\). So:
+</p>
+\begin{align*}
+P^*(E \cap A_1) + P^*(E \cap A_2) = P^*(E \cap A_2^c) + P^*(E \cap A_2) = P^*(E) = P^*(E \cap (A_1 \cup A_2))
+\end{align*}
+<p>
+Now, suppose \(A_1 \cup A_2 \ne \Omega\). Then, \(A_1 \in M\) and \(A_2 \in
+M\), so \(A_1 \cup A_2 \in M\) (by Lemma \(3.1\)). Hence:
+</p>
+\begin{align*}
+P^*(A_1 \cap E) + P^*(A_1^c \cap E) &= P^*(E) \\
+P^*(A_1 \cap A_2 \cap E) + P^*(A_1 \cap A_2^c \cap E) + P^*(A_1^c \cap A_2 \cap E) + P^*(A_1^c \cap A_2^c \cap E) &= P^*(E) \\
+P^*(\emptyset) + P^*(A_1 \cap E) + P^*(A_2 \cap E) + P^*(A_1^c \cap A_2^c \cap E) &= P^*(E) & A_1 \cap A_2 = \emptyset \implies A_1 \cap A_2^c = A_1, A_1^c \cap A_2 = A_2 \\
+P^*(A_1 \cap E) + P^*(A_2 \cap E) &= P^*(E) - P^*(E \cap (A_1 \cup A_2)^c) \\
+&\le P^*(E \cap (A_1 \cup A_2)) & \text{ countable subadditivity }
+\end{align*}
+<p>
+Since it holds for \(n = 2\), we can extend it for all \(n \ge 2\), since
+\(\cup_{k=1}^n A_k = \Bigl(\cup_{k=1}^{n-1} A_k\Bigl) \cup
+A_{n}\). Then, we can take \(n \rightarrow \infty\) to obtain the result
+for infinite sequences.
+</p>
+
+</div>
+
+<div class="lemma" id="orgf4c2143">
+<p>
+The class \(M\) is a \(\sigma\) -field and \(P^*\) restricted to \(M\) is countably additive
+</p>
+
+</div>
+
+<p>
+Let \(\{A_n\}_{n=1}^\infty \in M\), \(A_n \cap A_m == \emptyset\) for all
+\(n \ne m\). We want to show \(P^*(\cup_{n=1}^\infty) A_n =
+\sum_{n=1}^\infty P^*(A_n)\)
+</p>
+
+
+<div class="lemma" id="org666afbb">
+<p>
+\(F_0 \subset M\)
+</p>
+
+</div>
+
+<p>
+Let \(A \in F_0\). We want to show that \(P^*(A \cap E) + P^*(A^c \cap E)
+\le P^*(E) \forall E \subset \Omega\). Let \(\epsilon > 0\). Then, there
+exists a cover of \(F_0\) -sets \(\{A_n\}_n\) such that \(\sum_n P(A_n) \le
+P^*(E) + \epsilon\). Since \(A_n \in F_0\), \(A \cap A_n \in F_0\). Also,
+\(E \subset \cup_n A_n\), which means \(A \cap E \subset \cup_n (A \cap
+A_n)\) and \(A^c \cap E \subset \cup_n (A^c \cap A_n)\). So:
+</p>
+\begin{align*}
+P^*(A \cap E) + P^*(A^c \cap E) &\le
+\sum_n P(A \cap A_n) + \sum_n P(A^c \cap A_n) \\
+&= \sum_n P(A_n) \le P^*(E) + \epsilon & \text{ finite additivity }
+\end{align*}
+
+<div class="lemma" id="org5baf5d6">
+<p>
+\(P^*(A) = P(A) \forall A \in F_0\)
+</p>
+
+</div>
+
+<p>
+We know from the definition of \(P^*\) that \(P^*(A) \le P(A)\). We show
+that \(P^*(A) \ge P(A)\). Let \(\{A_n\}_n\) be a cover of \(A\). Then, \(A_n
+\in F_0\) such that \(\sum_n P(A_n) \le P^*(A) + \epsilon\). Since \(A
+\subset \cup_n A_n\), \(A \subset \cup_n (A \cap A_n)\), and \(A \cap A_n
+\subset A_n\), \(\sum_n P(A \cap A_n) \le \sum_n P(A_n)\) by
+monotonicity. By countable subadditivity, \(P(A) = P(A \cap \cup_n A_n)
+\le \sum_n P(A \cap A_n)\).
+</p>
+</div>
+</div>
