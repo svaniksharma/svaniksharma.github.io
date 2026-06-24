@@ -25,10 +25,12 @@ async function processMarkdown(markdown) {
 
 export async function load({ params }) {
     const post = postMeta.find((post) => post.slug == params.slug);
-    //const processedMarkdown = await processMarkdown(post.markdown);
+    const processedContent = !post.isMarkdown
+        ? post.postContent
+        : await processMarkdown(post.postContent);
     return {
         date: parseDate(post.date),
         title: post.title,
-        postContent: post.postContent,
+        postContent: processedContent,
     };
 }

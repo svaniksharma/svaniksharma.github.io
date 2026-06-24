@@ -6,7 +6,7 @@ export function getHtmlPostMetadata() {
         query: "?raw",
         import: "default",
     });
-    return getPostMetadata(htmlPosts);
+    return getPostMetadata(htmlPosts, false);
 }
 
 export function getMarkdownPostMetadata() {
@@ -15,10 +15,10 @@ export function getMarkdownPostMetadata() {
         query: "?raw",
         import: "default",
     });
-    return getPostMetadata(markdownPosts);
+    return getPostMetadata(markdownPosts, true);
 }
 
-function getPostMetadata(posts) {
+function getPostMetadata(posts, isMarkdown) {
     const parsedPosts = Object.entries(posts).map(([path, content]) => {
         const { data, content: postContent } = matter(content);
         return { path, frontmatter: data, postContent };
@@ -30,6 +30,7 @@ function getPostMetadata(posts) {
             postMeta.push({
                 ...postData.frontmatter,
                 postContent: postData.postContent,
+                isMarkdown: isMarkdown,
             });
         }
     }

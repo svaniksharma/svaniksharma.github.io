@@ -18,6 +18,19 @@ function processText(str, maxLength = 8000) {
     return result;
 }
 
+function getSummary(post) {
+    if (post.isMarkdown) {
+        // TODO
+    } else {
+        return processText(
+            sanitizeHtml(post.postContent, {
+                allowedTags: [],
+                allowedAttributes: {},
+            }),
+        );
+    }
+}
+
 export function load() {
     return {
         summaries: postMeta
@@ -26,12 +39,7 @@ export function load() {
                 title: post.title,
                 slug: post.slug,
                 date: parseDate(post.date),
-                summary: processText(
-                    sanitizeHtml(post.postContent, {
-                        allowedTags: [],
-                        allowedAttributes: {},
-                    }),
-                ),
+                summary: getSummary(post),
             })),
     };
 }
