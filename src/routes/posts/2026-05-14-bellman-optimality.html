@@ -9,9 +9,9 @@ math: 'mathjax'
 I just wanted to write some notes down on Bellman optimality equations in detail, since some of the sources I have read don't write the details out.
 </p>
 
-<div id="outline-container-org072be83" class="outline-2">
-<h2 id="org072be83">Bellman Optimality Equations</h2>
-<div class="outline-text-2" id="text-org072be83">
+<div id="outline-container-orgd12bef5" class="outline-2">
+<h2 id="orgd12bef5">Bellman Optimality Equations</h2>
+<div class="outline-text-2" id="text-orgd12bef5">
 <p>
 For a policy \(\pi\), we will determine:
 </p>
@@ -23,10 +23,9 @@ For a policy \(\pi\), we will determine:
 </ol>
 </div>
 
-
-<div id="outline-container-org735c59f" class="outline-3">
-<h3 id="org735c59f">Iterated Expectation</h3>
-<div class="outline-text-3" id="text-org735c59f">
+<div id="outline-container-orge25c889" class="outline-3">
+<h3 id="orge25c889">Iterated Expectation</h3>
+<div class="outline-text-3" id="text-orge25c889">
 <p>
 The subsequent derivations rely on iterated expectations. In particular, given random variables \(X\), \(Y\), \(Z\), we need to prove:
 </p>
@@ -51,9 +50,9 @@ We will assume these variables are continuous (in the discrete case replace inte
 </div>
 
 
-<div id="outline-container-org98eec5d" class="outline-3">
-<h3 id="org98eec5d">Computing \(v_\pi\) in terms of \(q_\pi\)</h3>
-<div class="outline-text-3" id="text-org98eec5d">
+<div id="outline-container-org2714c71" class="outline-3">
+<h3 id="org2714c71">Computing \(v_\pi\) in terms of \(q_\pi\)</h3>
+<div class="outline-text-3" id="text-org2714c71">
 \begin{align*}
 v_\pi(s) &= \mathbb{E}_\pi[G_t | S_t = s] \\
 &= \mathbb{E}[\mathbb{E}_\pi[G_t | S_t = s, A_t] | S_t = s] \\
@@ -64,9 +63,9 @@ v_\pi(s) &= \mathbb{E}_\pi[G_t | S_t = s] \\
 </div>
 
 
-<div id="outline-container-orgab08c13" class="outline-3">
-<h3 id="orgab08c13">Computing \(q_\pi\) in terms of \(v_\pi\)</h3>
-<div class="outline-text-3" id="text-orgab08c13">
+<div id="outline-container-orgb42cb78" class="outline-3">
+<h3 id="orgb42cb78">Computing \(q_\pi\) in terms of \(v_\pi\)</h3>
+<div class="outline-text-3" id="text-orgb42cb78">
 \begin{align*}
 q_\pi(s, a) &= \mathbb{E}_\pi[G_t | S_t = s, A_t = a] \\
 &= \mathbb{E}_\pi [R_{t+1} + \gamma G_{t+1} | S_t = s, A_t = a] \\
@@ -80,9 +79,9 @@ q_\pi(s, a) &= \mathbb{E}_\pi[G_t | S_t = s, A_t = a] \\
 </div>
 
 
-<div id="outline-container-orgb914817" class="outline-3">
-<h3 id="orgb914817">Computing \(v_\pi\) in terms of \(v_\pi\)</h3>
-<div class="outline-text-3" id="text-orgb914817">
+<div id="outline-container-orgb043a2d" class="outline-3">
+<h3 id="orgb043a2d">Computing \(v_\pi\) in terms of \(v_\pi\)</h3>
+<div class="outline-text-3" id="text-orgb043a2d">
 \begin{align*}
 v_\pi(s) &= \sum_{a \in \mathcal{A}(s)} \pi(a|s) q_\pi(a|s) & \text{Based on first section} \\
 &= \sum_{a \in \mathcal{A}(s)} \pi(a|s) \mathbb{E}_\pi[G_t | S_t = s, A_t = a] \\
@@ -96,9 +95,9 @@ v_\pi(s) &= \sum_{a \in \mathcal{A}(s)} \pi(a|s) q_\pi(a|s) & \text{Based on fir
 </div>
 </div>
 
-<div id="outline-container-org795fea8" class="outline-3">
-<h3 id="org795fea8">Computing \(q_\pi\) in terms of \(q_\pi\)</h3>
-<div class="outline-text-3" id="text-org795fea8">
+<div id="outline-container-org85a634d" class="outline-3">
+<h3 id="org85a634d">Computing \(q_\pi\) in terms of \(q_\pi\)</h3>
+<div class="outline-text-3" id="text-org85a634d">
 \begin{align*}
 q_\pi(s, a) &= \sum_{s', r} p(s', r | s, a) \Bigl[r + \gamma v_\pi(s')\Bigl] & \text{Based on second section} \\
 &= \sum_{s', r} p(s', r | s, a) \Bigl[r + \gamma \sum_{a' \in \mathcal{A}(s')} \pi(a'|s') q_\pi(s', a')\Bigl] & \text{Based on first section} \\ 

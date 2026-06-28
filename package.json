@@ -38,6 +38,7 @@
 		"latex.css": "^1.14.0",
 		"rehype-katex-svelte": "^1.2.0",
 		"rehype-mathjax": "^7.1.0",
+		"rehype-parse": "^9.0.1",
 		"sanitize-html": "^2.17.5"
 	}
 }

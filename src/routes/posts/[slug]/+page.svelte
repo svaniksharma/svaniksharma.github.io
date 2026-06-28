@@ -12,7 +12,7 @@
 	   }
    };
   </script>
-  <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+  <script id="MathJax-script" src="/MathJax-4.1.2/tex-mml-chtml.js"></script>
 </svelte:head>
 
 <style>
