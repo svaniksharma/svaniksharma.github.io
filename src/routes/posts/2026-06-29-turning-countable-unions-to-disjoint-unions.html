@@ -1,0 +1,59 @@
+---
+title: 'Turning Countable Unions to Disjoint Unions'
+date: 2026-06-29T07:07:07+01:00
+slug: turning_countable_unions_to_disjoint_unions
+math: 'mathjax'
+---
+
+<p>
+A common trick I've seen while studying measure-theoretic probability
+is to convert a countable union into a disjoint countable union. I
+think it recurs enough that it's worth proving here:
+</p>
+
+<div class="lemma" id="thm-1"><p>
+Let \(\{B_k\}_{k=1}^\infty\) be a collection of sets that are not
+disjoint. Let \(A_1 = B_1\) and \(A_k = B_k \setminus \cup_{j=1}^{k-1}
+B_j\) for \(k > 1\). Then:
+</p>
+<ol class="org-ol">
+<li>\(\cup_{k=1}^\infty A_k = \cup_{k=1}^\infty B_k\)</li>
+<li>\(A_m \cap A_n = \emptyset\) for all \(m \ne n\)</li>
+</ol>
+</div>
+
+<div class="proof" id="proof-1"><p>
+We first prove (1). First, suppose that \(x \in \cup_{k=1}^\infty
+A_k\). Then, \(x \in A_j\) for some \(j \in \mathbb{N}\). Since \(A_j = B_j
+\setminus \cup_{k=1}^{j-1} B_k\), \(x \in B_j\). Then, \(x \in
+\cup_{k=1}^\infty B_k\). Consequently, \(\cup_{k=1}^\infty A_k \subset
+\cup_{k=1}^\infty B_k\). Now, we show that \(\cup_{k=1}^\infty B_k
+\subset \cup_{k=1}^\infty A_k\). Let \(x \in \cup_{k=1}^\infty B_k\). So,
+\(x \in B_j\) for some \(j \in \mathbb{N}\). There are two cases:
+</p>
+<ul class="org-ul">
+<li>\(x \in B_j \setminus \cup_{k=1}^{j-1} B_k\)</li>
+<li>\(x \not\in B_j \setminus \cup_{k=1}^{j-1} B_k\)</li>
+</ul>
+<p>
+In the first case, \(x \in A_j\), so \(x \in \cup_{k=1}^\infty A_k\). In
+the second case, we do the following: define \(S = \{k \in [j-1]: x \in
+B_k\}\). Then, since \(S\) is finite, we can compute \(i = \min S\). So, \(x
+\in B_i \setminus \cup_{k=1}^{i-1} B_k\) since \(i\) is the smallest
+index for which \(x\) is contained in one of the \(B_k\)'s. Then, \(x \in
+A_i\), so \(x \in \cup_{k=1}^\infty A_k\). In either case,
+\(\cup_{k=1}^\infty B_k \subset \cup_{k=1}^\infty A_k\).
+</p>
+
+<p>
+This proves (1). Now we prove (2). WLOG, suppose \(m < n\). We can write:
+</p>
+\begin{align*}
+A_m \cap A_n &= \Bigl(B_m \cap \bigcap_{k=1}^{m-1} B_k^c\Bigl) \cap \Bigl(B_n \cap \bigcap_{k=1}^{n-1} B_k^c \Bigl)
+\end{align*}
+<p>
+Since \(m < n\), \(B_m^c\) is contained in the intersection
+\(\bigcap_{k=1}^{n-1} B_k^c\), so the intersection is empty, i.e, \(A_m
+\cap A_n = \emptyset\).
+</p>
+</div>
