@@ -1,0 +1,579 @@
+---
+title: 'Measure Theoretic Probability Part 2'
+date: 2026-06-30T07:07:07+01:00
+slug: measure_theoretic_probability_part_2
+math: 'mathjax'
+---
+
+<p>
+This is a continuation of my previous notes on measure theory and
+probability. Here, we will prove that, given a probability measure
+space \((\Omega, \mathcal{F}, P)\), there exists a unique extension of
+\(P\) to \(\sigma(F)\) (i.e, a probability measure on \(\sigma(F)\) ).
+</p>
+
+<div id="outline-container-orga2ae2b3" class="outline-2">
+<h2 id="orga2ae2b3">Theorem Statement</h2>
+<div class="outline-text-2" id="text-orga2ae2b3">
+<p>
+The theorem we will prove is: "A probability measure on a field has a
+unique extension to the generated \(\sigma\) -field". Specifically:
+Suppose \(P\) is a probability measure on a field \(F_0\) of subsets of
+\(\Omega\). Put \(F = \sigma(F_0)\). Then there exists a probability
+measure \(Q\) on \(F\) such that \(Q(A) = P(A)\) for all \(A \in
+F_0\). Further, if \(Q'\) is another probability measure on \(F\) such that
+\(Q'(A) = P(A)\) for all \(A \in F_0\), then \(Q(A) = Q'(A)\) for all \(A \in
+F\). 
+</p>
+</div>
+</div>
+
+<div id="outline-container-org60bba3e" class="outline-2">
+<h2 id="org60bba3e">Defining \(P^*\)</h2>
+<div class="outline-text-2" id="text-org60bba3e">
+<p>
+For every subset of \(A\):
+</p>
+
+
+<p>
+\[ \begin{align*}
+P^*(A) = \inf \sum_n P(A_n)
+\end{align*} \]
+where the infimum is performed over all finite and infinite
+collections \(\{A_n\}_n\) such that \(A \subset \cup_n A_n\). We say that
+a set \(A\) is \(P^*\) -measurable if:
+</p>
+
+<p>
+\[ \begin{align*}
+P^*(A \cap E) + P^*(A^c \cap E) = P^*(E)
+\end{align*} \]
+</p>
+
+<p>
+\(P^*\) has the following properties, which we subsequently prove:
+</p>
+
+<ol class="org-ol">
+<li>\(P^*(\emptyset) = 0\)</li>
+<li>(<b>Nonnegativity</b>) \(P^*(A) \ge 0\) for every \(A \subset \Omega\)</li>
+<li>(<b>Monotonicity</b>) If \(A \subset B\), then \(P^*(A) \le P^*(B)\)</li>
+<li>(<b>Countable Subadditivity</b>) \(P^*(\cup_n A_n) \le \sum_n P^*(A_n)\)</li>
+</ol>
+
+<p>
+We can first show (2). \(\sum_n P(A_n) \ge 0\) since \(P(A_n) \ge 0\) for
+every \(A_n \in \mathcal{F}_0\) and where the \(\{A_n\}_n\) form a cover
+of \(A\). So, \(P^*(A) = \inf \sum_n P(A_n) \ge 0\). Next we show (1). Using
+(2), \(0 \le P^*(\emptyset) \le P(\emptyset) = 0\) since \(\emptyset \in
+\mathcal{F}_0\). So, \(P^*(\emptyset) = 0\). We now show \(3\). Since \(A
+\subset B\), then every cover of \(B\) is also a cover of \(A\). That is,
+the set of all covers of \(A\) includes the set of all covers of
+\(B\). Then, \(\inf \sum_n P(A_n) \le \inf \sum_n P(B_n)\), which implies
+that \(P^*(A) \le P^*(B)\). Let's show \(4\). We need to show that
+\(P^*(\cup_n A_n) \le \sum_n P^*(A_n)\) where \(A_n \cap A_m = \emptyset\)
+for \(n \ne m\). Let \(\epsilon > 0\) be arbitrary. Then, there exists a
+cover \(\{A_{n, m} \}_m\) of \(A_n\) such that:
+</p>
+\begin{align*}
+\sum_m P(A_{n,m}) &\le P^*(A_n) + \frac{\epsilon}{2^n} \\
+\sum_n \sum_m P(A_{n,m}) &\le \sum_n P^*(A_n) + \epsilon & \text{ sum over $n$ } \\
+P^*(\cup_n A_n) &\le \sum_n \sum_m P(A_{n,m}) \le \sum_n P^*(A_n) + \epsilon & \text{ $\cup_n A_n \subset \cup_n \cup_m A_{n,m}$ }
+\end{align*}
+</div>
+</div>
+
+<div id="outline-container-orgd9e80f4" class="outline-2">
+<h2 id="orgd9e80f4">Important Lemmas</h2>
+<div class="outline-text-2" id="text-orgd9e80f4">
+<p>
+We will prove a few lemmas that will be important for proving the
+first part of the theorem, which is that there exists an extension of
+the probability measure \(P\) to \(\sigma(F_0)\). We define the class \(M\)
+to be the collection of sets that are \(P^*\) measurable. \(A\) is \(P^*\)
+measurable if:
+\[
+P^*(A \cap E) + P^*(A^c \cap E) = P^*(E) \text{ for all $E \subset \Omega$ }
+\]
+</p>
+
+<div class="lemma" id="thm-1"><p>
+The class \(M\) is a field.
+</p>
+</div>
+
+<div class="proof" id="proof-1"><p>
+We will need to prove 3 things:
+</p>
+
+<ol class="org-ol">
+<li>\(\Omega \in M\)</li>
+<li>If \(A \in M\), then \(A^c \in M\)</li>
+<li>If \(A, B \in M\), then \(A \cup B \in M\)</li>
+</ol>
+
+<p>
+First we prove (1):
+\[
+P^*(\Omega \cap E) + P^*(\Omega^c \cap E) = P^*(E) + P^*(\emptyset) = P^*(E)
+\]
+Next we prove (2): Let \(A \in M\). Then we can write:
+</p>
+\begin{align*}
+P^*(E) &= P^*(A \cap E) + P^*(A^c \cap E) \\
+P^*(E) &= P^*(A^c \cap E) + P^*((A^c)^c \cap E)
+\end{align*}
+<p>
+The last line implies that \(A^c \in M\). Now we prove (3):
+</p>
+\begin{align*}
+P^*(E) &= P^*(A \cap E) + P^*(A^c \cap E) \\
+&= P^*(A \cap B \cap E) + P^*(A \cap B^c \cap E) + P^*(A^c \cap B \cap E) + P^*(A^c \cap B^c \cap E) & \text{ $B$ is $P^*$ -measurable (see below) }\\
+&\ge P^*(\{(A \cap B) \cup (A \setminus B) \cup (B \setminus A)\} \cap E) + P^*((A \cup B)^c \cap E) & \text{ countable subadditivity } \\
+&= P^*((A \cup B) \cap E) + P^*((A \cup B)^c \cap E)
+\end{align*}
+<p>
+The second line follows from the fact that \(B\) is \(P^*\) -measurable,
+so \(P^*(A \cap E) = P^*(A \cap E \cap B) + P^*(A \cap E \cap
+B^c)\) because \(A \cap E \subset \Omega\).
+</p>
+</div>
+
+<div class="lemma" id="thm-2"><p>
+Let \(\{A_n\}_n\) be a disjoint sequence (finite or infinite) sequence of \(M\) -sets. For each \(E \subset \Omega\), \(P^*(E \cap \Bigl(\cup_n A_n\Bigl)) = \sum_n P^*(E \cap A_n)\)
+</p>
+</div>
+
+<div class="proof" id="proof-2"><p>
+The approach we take is to first prove the lemma for finitely many
+\(A_n\). Then, we extend it to infinite sequences. First, let \(n =
+2\). Suppose \(A_1 \cup A_2 = \Omega\). So, \(A_1 = A_2^c\). So:
+</p>
+\begin{align*}
+P^*(E \cap A_1) + P^*(E \cap A_2) = P^*(E \cap A_2^c) + P^*(E \cap A_2) = P^*(E) = P^*(E \cap (A_1 \cup A_2))
+\end{align*}
+<p>
+Now, suppose \(A_1 \cup A_2 \ne \Omega\). Then, \(A_1 \in M\) and \(A_2 \in
+M\), so \(A_1 \cup A_2 \in M\) (by Lemma \(3.1\)). Hence:
+</p>
+\begin{align*}
+P^*(A_1 \cap E) + P^*(A_1^c \cap E) &= P^*(E) \\
+P^*(A_1 \cap A_2 \cap E) + P^*(A_1 \cap A_2^c \cap E) + P^*(A_1^c \cap A_2 \cap E) + P^*(A_1^c \cap A_2^c \cap E) &= P^*(E) \\
+P^*(\emptyset) + P^*(A_1 \cap E) + P^*(A_2 \cap E) + P^*(A_1^c \cap A_2^c \cap E) &= P^*(E) & A_1 \cap A_2 = \emptyset \implies A_1 \cap A_2^c = A_1, A_1^c \cap A_2 = A_2 \\
+P^*(A_1 \cap E) + P^*(A_2 \cap E) &= P^*(E) - P^*(E \cap (A_1 \cup A_2)^c) \\
+&\le P^*(E \cap (A_1 \cup A_2)) & \text{ countable subadditivity }
+\end{align*}
+<p>
+Since it holds for \(n = 2\), we can extend it for all \(n \ge 2\), since
+\(\cup_{k=1}^n A_k = \Bigl(\cup_{k=1}^{n-1} A_k\Bigl) \cup
+A_{n}\). Then, we can take \(n \rightarrow \infty\) to obtain the result
+for infinite sequences.
+</p>
+</div>
+
+<div class="lemma" id="thm-3"><p>
+The class \(M\) is a \(\sigma\) -field and \(P^*\) restricted to \(M\) is countably additive
+</p>
+</div>
+
+<p>
+Let \(\{A_n\}_{n=1}^\infty \in M\), \(A_n \cap A_m = \emptyset\) for all
+\(n \ne m\). We want to show \(P^*(\cup_{n=1}^\infty) A_n =
+\sum_{n=1}^\infty P^*(A_n)\). By <a href="#thm-2">Lemma 2</a>:
+</p>
+\begin{align*}
+P^*(\cup_{n=1}^\infty A_n) &= P^*(\Omega \cap \bigcup_{n=1}^\infty A_n) \\
+&= \sum_{n=1}^\infty P^*(\Omega \cap A_n) \\
+&= \sum_{n=1}^\infty P^*(A_n)
+\end{align*}
+<p>
+Therefore, \(P^*\) is countably additive on \(M\). We show that if \(A_n
+\in M\) for all \(n \in \mathbb{N}\), then \(\cup_{n=1}^\infty A_n \in
+M\). We want to show that:
+\[P^*(E \cap \bigcup_{n=1}^\infty A_n) + P^*(E \cap
+\bigcap_{n=1}^\infty A_n^c) \le P^*(E)\].
+First, we show that this is true for countable disjoint unions. Let
+\(A_m \cap A_n = \emptyset\) for all \(m \ne n\). Let \(F_n = \cup_{k=1}^n
+A_k\). Then:
+</p>
+\begin{align*}
+P^*(E \cap F_n) + P^*(E \cap F_n^c) &= P^*(E) & \text{$F_n \in M$ since $M$ closed under finite unions} \\
+\sum_{k=1}^n P^*(E \cap A_k) + P^*(E \cap F_n^c) &\le P^*(E) & \text{Lemma 2}
+\end{align*}
+<p>
+Now, \(F_n \subset \cup_{n=1}^\infty A_n\), which implies that
+\(\cap_{n=1}^\infty A_n^c \subset F_n^c\). So, \(P^*(E \cap
+\bigcap_{k=1}^\infty A_k^c) \le P^*(E \cap F_n^c)\) by
+monotonicity. So:
+</p>
+\begin{align*}
+\sum_{k=1}^n P^*(E \cap A_k) + P^*(E \cap
+\bigcap_{k=1}^\infty A_k^c) &\le P^*(E) \\
+\lim_{n \rightarrow \infty} \Bigl[ \sum_{k=1}^n P^*(E \cap A_k) + P^*(E \cap
+\bigcap_{k=1}^\infty A_k^c) \Bigl] &\le \lim_{n \rightarrow \infty} P^*(E) \\
+\sum_{k=1}^\infty P^*(E \cap A_k) + P^*(E \cap
+\bigcap_{k=1}^\infty A_k^c) &\le P^*(E) \\
+P^*(E \cap \bigcup_{n=1}^\infty A_n) + P^*(E \cap \bigcap_{k=1}^\infty A_k^c) &\le P^*(E)
+\end{align*}
+<p>
+This proves the theorem for countable disjoint unions. To show it for
+arbitrary unions, we can define \(B_1 = A_1\) and \(B_k =
+A_k \setminus \bigcup_{j=1}^{k-1} A_j\). Then, \(\cup_{k=1}^\infty B_k =
+\cup_{k=1}^\infty A_k\) and the \(\{B_k\}_{k=1}^\infty\) are
+disjoint. So, we can apply the preceding result of countable disjoint
+unions to the \(B_k\)'s and obtain the same result.
+</p>
+
+<div class="lemma" id="thm-4"><p>
+\(F_0 \subset M\)
+</p>
+</div>
+
+<div class="proof" id="proof-3"><p>
+Let \(A \in F_0\). We want to show that \(P^*(A \cap E) + P^*(A^c \cap E)
+\le P^*(E) \forall E \subset \Omega\). Let \(\epsilon > 0\). Then, there
+exists a cover of \(F_0\) -sets \(\{A_n\}_n\) such that \(\sum_n P(A_n) \le
+P^*(E) + \epsilon\). Since \(A_n \in F_0\), \(A \cap A_n \in F_0\). Also,
+\(E \subset \cup_n A_n\), which means \(A \cap E \subset \cup_n (A \cap
+A_n)\) and \(A^c \cap E \subset \cup_n (A^c \cap A_n)\). So:
+</p>
+\begin{align*}
+P^*(A \cap E) + P^*(A^c \cap E) &\le
+\sum_n P(A \cap A_n) + \sum_n P(A^c \cap A_n) \\
+&= \sum_n P(A_n) \le P^*(E) + \epsilon & \text{ finite additivity }
+\end{align*}
+</div>
+
+
+<div class="lemma" id="thm-5"><p>
+\(P^*(A) = P(A) \forall A \in F_0\)
+</p>
+</div>
+
+<div class="proof" id="proof-4"><p>
+We know from the definition of \(P^*\) that \(P^*(A) \le P(A)\). We show
+that \(P^*(A) \ge P(A)\). Let \(\{A_n\}_n\) be a cover of \(A\). Then, \(A_n
+\in F_0\) such that \(\sum_n P(A_n) \le P^*(A) + \epsilon\). Since \(A
+\subset \cup_n A_n\), \(A \subset \cup_n (A \cap A_n)\), and \(A \cap A_n
+\subset A_n\), \(\sum_n P(A \cap A_n) \le \sum_n P(A_n)\) by
+monotonicity. By countable subadditivity, \(P(A) = P(A \cap \cup_n A_n)
+\le \sum_n P(A \cap A_n) \le \sum_n P(A_n) \le P^*(A) + \epsilon\). 
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgcc87b4c" class="outline-2">
+<h2 id="orgcc87b4c">Proof of Existence</h2>
+<div class="outline-text-2" id="text-orgcc87b4c">
+<div class="theorem" id="thm-6"><p>
+There exists a probability measure \(Q\) on \(F = \sigma(F_0)\) such that
+\(Q(A) = P(A)\) for all \(A \in F_0\).
+</p>
+</div>
+
+
+<div class="proof" id="proof-5"><p>
+We take \(Q = P^*\) and show it is a probability measure on \(F\) first.
+We know by <a href="#thm-3">Lemma 3</a> that \(M\) is a \(\sigma\) -field. By <a href="#thm-4">Lemma 4</a>, \(F_0
+\subset M\), so \(F = \sigma(F_0) \subset M\) by minimality of
+\(\sigma(F_0)\). We also know by <a href="#thm-3">Lemma 3</a> that \(Q\) restricted to \(M\)
+(and, therefore, to \(F\)) is countably additive. Combined with the
+basic properties of \(P^*\) we prove at the start of these notes
+(non-negativity) and the fact that \(P^*(\Omega) = P(\Omega) = 1\), this
+shows that \(Q\) is a probability measure on \(F\). <a href="#thm-5">Lemma 5</a> shows that
+\(Q(A) = P^*(A) = P(A)\) for all \(A \in F_0\), which is the second part
+of this theorem. 
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgcd61fa4" class="outline-2">
+<h2 id="orgcd61fa4">Proof of Uniqueness</h2>
+<div class="outline-text-2" id="text-orgcd61fa4">
+<p>
+To prove uniqueness, we need some extra definitions:
+</p>
+
+<div class="definition" id="def-1"><p>
+A \(\pi\) -system is any class of sets \(\mathcal{P}\) where \(A, B \in
+\mathcal{P}\) implies \(A \cap B \in \mathcal{P}\).
+</p>
+</div>
+
+<div class="definition" id="def-2"><p>
+A \(\lambda\) -system is any class of sets \(\mathcal{L}\) which satisfies
+the following criteria:
+</p>
+<ol class="org-ol">
+<li>\(\Omega \in \mathcal{L}\)</li>
+<li>If \(A \in \mathcal{L}\), then \(A^c \in \mathcal{L}\)</li>
+<li>Let \(\{A_n\}_{n=1}^\infty\) be a collection of \(\mathcal{L}\) -sets
+where \(A_n \cap A_m = \emptyset\) for all \(n \ne m\). Then,
+\(\cup_{n=1}^\infty A_n \in \mathcal{L}\).</li>
+</ol>
+</div>
+
+<p>
+There is a small modification we can do to the definition above that
+will be useful for proving later results:
+</p>
+<div class="lemma" id="thm-7"><p>
+Given (1) and (3) hold in <a href="#def-2">\(\lambda\) -system definition</a>, condition (2)
+is equivalent to the following (which we'll denote (2')): If \(A, B \in
+\mathcal{L}\) and \(B \subset A\), \(A \setminus B \in \mathcal{L}\).
+</p>
+</div>
+<div class="proof" id="proof-6"><p>
+First, we show that \((2') \implies (2)\). Since \(\Omega \in
+\mathcal{L}\) in <a href="#def-2">definition of \(\lambda\) -system</a>, if \(A \in
+\mathcal{L}\), then \(A \subset \Omega\) and \(A^c = \Omega \setminus A
+\in \mathcal{L}\). Now, we show that \((2) \implies (2')\). Suppose \(A, B
+\in \mathcal{L}\) and \(B \subset A\):
+</p>
+\begin{align*}
+A \setminus B = A \cap B^c = (A^c \cup B)^c
+\end{align*}
+<p>
+Note that \(B \cap A^c = \emptyset\) since \(B \cap A = A\). Then, \(A^c
+\cup B\) is a disjoint union, so by (3) in <a href="#def-2">definition of \(\lambda\)
+-system</a>, \(A^c \cup B \in \mathcal{L}\). By (2), \(A \setminus B = (A^c
+\cup B)^c \in \mathcal{L}\).
+</p>
+</div>
+
+<p>
+The next lemma relates \(\lambda\) -systems and \(\pi\) -systems to
+\(\sigma\) -fields:
+</p>
+<div class="lemma" id="thm-8"><p>
+If a class \(\mathcal{F}\) is a \(\lambda\) -system and a \(\pi\) -system,
+then it is a \(\sigma\) -field.
+</p>
+</div>
+<div class="proof" id="proof-7"><p>
+We have to show the following properties:
+</p>
+<ol class="org-ol">
+<li>\(\Omega \in \mathcal{F}\)</li>
+<li>If \(A \in \mathcal{F}\), then \(A^c \in \mathcal{F}\)</li>
+<li>Let \(A, B \in \mathcal{F}\). Then, \(A \cap B \in \mathcal{F}\).</li>
+<li>Let \(\{B_n\}_{n=1}^\infty\) be a collection of \(\mathcal{F}\)
+-sets. Then, \(\cup_{n=1}^\infty B_n \in \mathcal{F}\).</li>
+</ol>
+
+<p>
+(1) and (2) follow from <a href="#def-2">definition of \(\lambda\) -system</a>. Also, (3)
+follows from <a href="#def-1">definition of \(\pi\) -system</a>. For (4), we can write \(A_1 =
+B_1\) and \(A_k = B_k \setminus \cup_{j=1}^{k-1} B_{j}\), and so by
+<a href="turning_countable_unions_to_disjoint_unions#thm-1">Turning Countable Unions to Disjoint Unions</a> we see that the
+\(\{A_k\}_k\) are disjoint and \(\cup_{k=1}^\infty B_k =
+\cup_{k=1}^\infty A_k \in \mathcal{F}\). 
+</p>
+</div>
+
+<div class="theorem" id="thm-9"><p>
+If \(\mathcal{P}\) is a \(\pi\) -system and \(\mathcal{L}\) is a \(\lambda\)
+-system and \(\mathcal{P} \subset \mathcal{L}\), then \(\sigma(\mathcal{P})
+\subset \mathcal{L}\).
+</p>
+</div>
+<div class="proof" id="proof-8"><p>
+The proof for this is a little intricate, so I'll lay out the strategy
+for showing it. Let \(M\) be the minimal \(\lambda\) -system containing
+\(\mathcal{P}\).  Since \(\mathcal{P} \subset \mathcal{L}\) AND
+\(\mathcal{L}\) is a \(\lambda\) -system, \(\mathcal{M} \subset
+\mathcal{L}\). If we can show that \(M\) is also a \(\pi\) -system,
+then <a href="#thm-8">Lemma 8</a> shows that \(M\) is a \(\sigma\) -field. By minimality of
+\(\sigma(\mathcal{P})\), because \(\mathcal{P} \subset M \subset
+\mathcal{L}\), \(\sigma(\mathcal{P}) \subset M \subset
+\mathcal{L}\). We lay out the steps to showing that \(M\) is a \(\pi\)
+-system:
+</p>
+<ol class="org-ol">
+<li>Define \(L_a = \{B \subset \Omega: A \cap B \in M\}\) where \(A \in
+   M\). Show that \(L_a\) is a \(\lambda\) -system.</li>
+<li>Show that \(M \subset L_A\).</li>
+<li>Show that if \(B \in M\), too, then \(\mathcal{P} \subset B\).</li>
+<li>By minimality of \(M\) as a \(\lambda\) -system and the fact \(L_B\) is a \(\lambda\) -system (as
+shown in step 1), \(M \subset L_B\).</li>
+<li>Then, for any \(C \in M\), \(C \in L_B\), which implies that \(B \cap C
+   \in M\). This shows that \(M\) is closed under finite intersections,
+so by <a href="#def-1">definition of \(\pi\) -system</a>, \(M\) is a \(\pi\) -system.</li>
+</ol>
+
+<p>
+We now fill in the details for steps 1,2,3. First, we show that \(L_A\) is
+a \(\lambda\) -system. We show the 3 properties in <a href="#def-2">definition of
+\(\lambda\) -system</a>. First, \(A \cap \Omega \in A\), so \(\Omega \in
+L_A\). To show \(L_A\) is closed under complementation, we can apply
+<a href="#thm-7">Lemma 7</a> and prove the equivalent statement that if \(B_1, B_2 \in L_A\)
+and \(B_1 \subset B_2\), then \(B_2 \setminus B_1 \in L_A\). We already
+know that \(A \cap B_1 \in M\) and \(A \cap B_2 \in M\) and that \(A \cap
+B_1 \subset A \cap B_2\), so applying <a href="#thm-7">Lemma 7</a> to \(M\), \(A \cap (B_2
+\setminus B_1) = (A \cap B_2) \setminus (A \cap B_1) \in M\). Let
+\(\{B_n\}_n\) be a collection of disjoint sets such that \(B_n \in L_A\). Then, \(A
+\cap B_m \in M\). So:
+</p>
+\begin{align*}
+A \cap \cup_{n=1}^\infty B_n &= \cup_{n=1}^\infty \Bigl(A \cap B_n \Bigl) \\
+\end{align*}
+<p>
+Note that \(B_n \cap B_m = \emptyset\) for all \(n \ne m\). Then, \(A \cap
+B_n\) and \(A \cap B_m\) are disjoint as well. So, by property 3 of
+<a href="#def-2">definition of \(\lambda\) -system</a>, \(\cup_{n=1}^\infty \Bigl(A \cap
+B_n\Bigl) \in M\).
+</p>
+
+<p>
+Now, we show that step 2. If \(A, B \in \mathcal{P}\), then \(A \cap B
+\in \mathcal{P} \subset M\). Then, \(B \in L_A\). Hence, \(B \in
+\mathcal{P} \implies B \in L_A\). So, \(\mathcal{P} \subset L_A\). Since \(M\) is the
+minimal \(\lambda\) -system containing \(\mathcal{P}\), it follows that \(M
+\subset L_A\).
+</p>
+
+<p>
+Step 3: If \(A \in \mathcal{P}\), then \(M \subset L_A\). That is, if \(A
+\in P\) and \(B \in M\), then \(B \in L_A\). This also implies \(A \in L_B\)
+because \(B \cap A = A \cap B \in M\). In other words, \(A \in
+\mathcal{P}\) and \(B \in M\) implies \(A \in L_B\). So, \(\mathcal{P}
+\subset L_B\). By minimality of \(M\), \(M \subset L_B\). So, if \(C \in M\),
+then \(C \in L_B\), which implies \(B \cap C \in M\). By <a href="#def-1">definition of
+\(\pi\) -system</a>, \(M\) is a \(\pi\) -system.
+</p>
+</div>
+
+<p>
+Now, we can prove uniqueness with the following theorem:
+</p>
+<div class="theorem" id="thm-10"><p>
+Let \(P_1\), \(P_2\) be 2 probability measures on \(\sigma(\mathcal{P})\)
+where \(\mathcal{P}\) is a \(\pi\) -system. Suppose \(P_1\) and \(P_2\) agree
+on \(\mathcal{P}\). Then, they agree on \(\sigma(\mathcal{P})\).
+</p>
+</div>
+<div class="proof" id="proof-9"><p>
+The strategy we use is to construct a \(\lambda\) -system that \(P_1\) and
+\(P_2\) agree on and then apply <a href="#thm-9">Theorem 9</a> to show that \(P_1\) and \(P_2\)
+agree on \(\sigma(\mathcal{P})\). In this case, we show that \(L = \{B
+\in \sigma(\mathcal{P}): P_1(B) = P_2(B)\}\) is a \(\lambda\) -system:
+</p>
+<ol class="org-ol">
+<li>Since \(P_1\) and \(P_2\) are probability measures on
+\(\sigma(\mathcal{P})\) and \(\Omega \in \sigma(\mathcal{P})\),
+\(P_1(\Omega) = P_2(\Omega) = 1\). So, \(\Omega \in L\).</li>
+<li>Suppose \(B \in L\). Then, \(P_1(B^c) = 1 - P_1(B) = 1 - P_2(B) =
+   P_2(B^c)\). Also, \(B^c \in \sigma(\mathcal{P})\) because \(B \in
+   \sigma(\mathcal{P})\) so \(B^c \in L\).</li>
+<li><p>
+Let \(\{B_n\}_n\) be a collection of \(L\) -sets that are
+disjoint. Then, \(\cup_n B_n \in \sigma(\mathcal{P})\),
+so we can compute \(P_1(\cup_n B_n)\):
+</p>
+\begin{align*}
+   P_1(\cup_n B_n) &= \sum_n P_1(B_n) & \text{ countable additivity } \\
+                   &= \sum_n P_2(B_n) & \text{ $P_1(B_n) = P_2(B_n)$ } \\
+                   &= P_2(\cup_n B_n) & \text{ countable additivity }
+\end{align*}
+<p>
+So, \(\cup_n B_n \in L\).
+</p></li>
+</ol>
+</div>
+
+<p>
+Since every field is a \(\pi\) -system, this theorem applies for \(F_0\)
+and \(F = \sigma(F_0)\) since \(F_0\) is a field.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6f6d7c3" class="outline-2">
+<h2 id="org6f6d7c3">Monotone Classes</h2>
+<div class="outline-text-2" id="text-org6f6d7c3">
+<div class="definition" id="def-3"><p>
+A class \(\mathcal{M}\) of subsets of \(\Omega\) is called <b>monotone</b> if
+it is closed under the formation of monotone unions and intersections:
+</p>
+<ol class="org-ol">
+<li>\(A_n \in \mathcal{M}\) for all \(n \in \mathbb{N}\) and \(A_n \uparrow
+   A\) implies \(A \in \mathcal{M}\).</li>
+<li>\(A_n \in \mathcal{M}\) for all \(n \in \mathbb{N}\) and \(A_n \downarrow
+   A\) implies \(A \in \mathcal{M}\).</li>
+</ol>
+</div>
+
+<p>
+Before we continue, there is a fact that is mentioned in the proof of
+the monotone class theorem (which is similar to <a href="#thm-9">the \(\pi\) - \(\lambda\)
+theorem</a>) that we will prove here:
+</p>
+
+<div class="lemma" id="thm-11"><p>
+If \(\mathcal{F}\) is a monotone field, it is a \(\sigma\) -field.
+</p>
+</div>
+<div class="proof" id="proof-10"><p>
+\(\mathcal{F}\) is a monotone field. Then:
+</p>
+<ol class="org-ol">
+<li>\(\Omega \in \mathcal{F}\)</li>
+<li>If \(A \in \mathcal{F}\), \(A^c \in \mathcal{F}\)</li>
+<li>If \(A, B \in \mathcal{F}\), \(A \cap B \in \mathcal{F}\)</li>
+<li>If \(\{A_n\}_n\) is a sequence of sets where \(A_n \in \mathcal{F}\)
+for all \(n\) and \(A_n \uparrow A\) (\(A_n \downarrow A\)), \(A \in
+   \mathcal{F}\).</li>
+</ol>
+
+<p>
+We see that (1), (2), and (3) are also properties of a \(\sigma\)
+-field. Now suppose that \(\{B_n\}_{n=1}^\infty\) is a sequence of sets
+where \(B_n \in \mathcal{F}\) for all \(n \in \mathbb{N}\). We want to
+show that \(\cup_{n=1}^\infty B_n \in \mathcal{F}\). Let \(A_n \in
+\cup_{k=1}^n B_k\) for all \(n \in \mathbb{N}\). Then, \(A_n \subset
+A_{n+1}\). Let \(B = \cup_{n=1}^\infty B_n\). Also, \(\cup_{n=1}^\infty
+A_n = \cup_{n=1}^\infty \cup_{k=1}^n B_k = \cup_{k=1}^\infty \cup_{n =
+k}^\infty B_k = \cup_{k=1}^\infty B_k\). So, \(B \in \mathcal{F}\)
+because \(A_n \uparrow A\) and \(A_n \in \mathcal{F}\) for all \(n\)
+by combining (2) and (3).
+</p>
+</div>
+
+
+<p>
+We have the following monotone class theorem:
+</p>
+<div class="theorem" id="thm-12"><p>
+If \(\mathcal{F}_0\) is a field and \(\mathcal{M}\) is a monotone class,
+then \(\mathcal{F}_0 \subset \mathcal{M}\) implies
+\(\sigma(\mathcal{F}_0) \subset \mathcal{M}\).
+</p>
+</div>
+<div class="proof" id="proof-11"><p>
+TODO
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgb48d470" class="outline-2">
+<h2 id="orgb48d470">Completeness</h2>
+<div class="outline-text-2" id="text-orgb48d470">
+<p>
+TODO
+</p>
+</div>
+</div>
+
+<div id="outline-container-org727a0bf" class="outline-2">
+<h2 id="org727a0bf">Nonmeasurable Sets</h2>
+<div class="outline-text-2" id="text-org727a0bf">
+<p>
+TODO
+</p>
+</div>
+</div>
