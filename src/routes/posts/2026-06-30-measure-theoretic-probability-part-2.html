@@ -12,9 +12,9 @@ space \((\Omega, \mathcal{F}, P)\), there exists a unique extension of
 \(P\) to \(\sigma(F)\) (i.e, a probability measure on \(\sigma(F)\) ).
 </p>
 
-<div id="outline-container-orga2ae2b3" class="outline-2">
-<h2 id="orga2ae2b3">Theorem Statement</h2>
-<div class="outline-text-2" id="text-orga2ae2b3">
+<div id="outline-container-orgff9dc9b" class="outline-2">
+<h2 id="orgff9dc9b">Theorem Statement</h2>
+<div class="outline-text-2" id="text-orgff9dc9b">
 <p>
 The theorem we will prove is: "A probability measure on a field has a
 unique extension to the generated \(\sigma\) -field". Specifically:
@@ -28,9 +28,9 @@ F\).
 </div>
 </div>
 
-<div id="outline-container-org60bba3e" class="outline-2">
-<h2 id="org60bba3e">Defining \(P^*\)</h2>
-<div class="outline-text-2" id="text-org60bba3e">
+<div id="outline-container-orgc36dbce" class="outline-2">
+<h2 id="orgc36dbce">Defining \(P^*\)</h2>
+<div class="outline-text-2" id="text-orgc36dbce">
 <p>
 For every subset of \(A\):
 </p>
@@ -84,9 +84,9 @@ P^*(\cup_n A_n) &\le \sum_n \sum_m P(A_{n,m}) \le \sum_n P^*(A_n) + \epsilon & \
 </div>
 </div>
 
-<div id="outline-container-orgd9e80f4" class="outline-2">
-<h2 id="orgd9e80f4">Important Lemmas</h2>
-<div class="outline-text-2" id="text-orgd9e80f4">
+<div id="outline-container-org8c9511b" class="outline-2">
+<h2 id="org8c9511b">Important Lemmas</h2>
+<div class="outline-text-2" id="text-org8c9511b">
 <p>
 We will prove a few lemmas that will be important for proving the
 first part of the theorem, which is that there exists an extension of
@@ -264,9 +264,9 @@ monotonicity. By countable subadditivity, \(P(A) = P(A \cap \cup_n A_n)
 </div>
 </div>
 
-<div id="outline-container-orgcc87b4c" class="outline-2">
-<h2 id="orgcc87b4c">Proof of Existence</h2>
-<div class="outline-text-2" id="text-orgcc87b4c">
+<div id="outline-container-orgf1142c7" class="outline-2">
+<h2 id="orgf1142c7">Proof of Existence</h2>
+<div class="outline-text-2" id="text-orgf1142c7">
 <div class="theorem" id="thm-6"><p>
 There exists a probability measure \(Q\) on \(F = \sigma(F_0)\) such that
 \(Q(A) = P(A)\) for all \(A \in F_0\).
@@ -290,9 +290,9 @@ of this theorem.
 </div>
 </div>
 
-<div id="outline-container-orgcd61fa4" class="outline-2">
-<h2 id="orgcd61fa4">Proof of Uniqueness</h2>
-<div class="outline-text-2" id="text-orgcd61fa4">
+<div id="outline-container-orgdf268b3" class="outline-2">
+<h2 id="orgdf268b3">Proof of Uniqueness</h2>
+<div class="outline-text-2" id="text-orgdf268b3">
 <p>
 To prove uniqueness, we need some extra definitions:
 </p>
@@ -491,9 +491,9 @@ and \(F = \sigma(F_0)\) since \(F_0\) is a field.
 </div>
 </div>
 
-<div id="outline-container-org6f6d7c3" class="outline-2">
-<h2 id="org6f6d7c3">Monotone Classes</h2>
-<div class="outline-text-2" id="text-org6f6d7c3">
+<div id="outline-container-org9e75d4e" class="outline-2">
+<h2 id="org9e75d4e">Monotone Classes</h2>
+<div class="outline-text-2" id="text-org9e75d4e">
 <div class="definition" id="def-3"><p>
 A class \(\mathcal{M}\) of subsets of \(\Omega\) is called <b>monotone</b> if
 it is closed under the formation of monotone unions and intersections:
@@ -553,25 +553,134 @@ then \(\mathcal{F}_0 \subset \mathcal{M}\) implies
 </p>
 </div>
 <div class="proof" id="proof-11"><p>
-TODO
+This proof is similar to the proof of <a href="#thm-9">the \(\pi\) - \(\lambda\) theorem</a> Let
+\(m(\mathcal{F}_0)\) be the minimal monotone class containing
+\(\mathcal{F}_0\). Then, \(m(\mathcal{F}_0) \subset \mathcal{M}\). If we
+show that \(m(\mathcal{F}_0)\) is a field, then by <a href="#thm-11">Lemma 11</a> it is a
+\(\sigma\) -field. By the minimality of \(\sigma\) -fields, because
+\(\mathcal{F}_0 \subset m(\mathcal{F}_0) \subset \mathcal{M}\), that
+means that \(\sigma(\mathcal{F}_0) \subset m(\mathcal{F}_0) \subset
+\mathcal{M}\). So, we show now that \(m(\mathcal{F}_0)\) is a field. Like
+before, we will construct sets (like \(L_A\)) to obtain the requisite
+properties:
 </p>
-</div>
-</div>
-</div>
-
-
-<div id="outline-container-orgb48d470" class="outline-2">
-<h2 id="orgb48d470">Completeness</h2>
-<div class="outline-text-2" id="text-orgb48d470">
+<ol class="org-ol">
+<li>\(\Omega \in m(\mathcal{F}_0)\): Since \(\mathcal{F}_0 \subset
+   m(\mathcal{F}_0)\) and \(\Omega \in \mathcal{F}_0\), \(\Omega \in m(\mathcal{F}_0)\).</li>
+<li>If \(A \in m(\mathcal{F}_0)\), \(A^c \in m(\mathcal{F}_0)\): Let \(G =
+   \{A : A^c \in m(\mathcal{F}_0)\}\). If we show that
+\(m(\mathcal{F}_0) \subset G\), then \(A \in m(\mathcal{F}_0)\), which
+implies that \(A \in G\), and this means \(A^c \in
+   m(\mathcal{F}_0)\). First, we show that \(G\) is monotone. Let
+\(\{A_n\}_n\) be a collection of \(G\) -sets so that \(A_n \uparrow
+   A\). Then, \(A_n^c \in m(\mathcal{F}_0)\), and \(A_n^c \downarrow
+   A^c\). Because \(m(\mathcal{F}_0)\) is monotone, \(A^c \in
+   m(\mathcal{F}_0)\). This means \(A \in G\). This establishes \(G\) is
+monotone (the proof is analogous for \(A_n \downarrow A\)). We now
+show that \(\mathcal{F}_0 \subset G\). Let \(A \in
+   \mathcal{F}_0\). Then, \(A^c \in \mathcal{F}_0\). Because
+\(\mathcal{F}_0 \subset m(\mathcal{F}_0)\), \(A^c \in
+   m(\mathcal{F}_0)\). That is, \(A \in G\). Because \(\mathcal{F}_0
+   \subset G\) and \(G\) is monotone, then \(m(\mathcal{F}_0) \subset G\)
+by its minimality.</li>
+<li><p>
+If \(A, B \in m(\mathcal{F}_0)\), \(A \cup B \in m(\mathcal{F}_0)\):
+Let:
+</p>
+\begin{align*}
+   G_1 &= \{A: A \cup B \in m(\mathcal{F}_0) \forall B \in \mathcal{F}_0\} \\
+   G_2 &= \{B: A \cup B \in m(\mathcal{F}_0) \forall A \in m(\mathcal{F}_0) \}
+\end{align*}
 <p>
-TODO
+First, we show \(G_1\) and \(G_2\) are monotone.
 </p>
+<ul class="org-ul">
+<li>\(G_1\) is monotone: Let \(A_n \in G_1\) for all \(n \in \mathbb{N}\)
+and \(A_n \uparrow A\). WTS \(A = \cup_{n=1}^\infty A_n \in G_1\). We
+know \(A_n \cup B \in m(\mathcal{F}_0)\) for all \(B \in
+     \mathcal{F}_0\). Because \(m(\mathcal{F}_0)\) is monotone and \(A_n
+     \cup B \subset A_{n+1} \cup B\) and \(\cup_{n=1}^\infty (A_n \cup
+     B) = A \cup B\), \(A \cup B \in m(\mathcal{F}_0)\). So, \(A \in
+     G_1\). The proof is analogous for \(A_n \downarrow A\).</li>
+<li>\(G_2\) is monotone: Let \(B_n \in G_2\) for all \(n\) and \(B_n
+     \uparrow B\). WTS \(B = \cup_{n=1}^\infty B_n \in G_2\). We know \(A
+     \cup B_n \in m(\mathcal{F}_0)\). Since \(m(\mathcal{F}_0)\) is
+monotone and \(A \cup B_n \subset A \cup B_{n+1}\),
+\(\cup_{n=1}^\infty (A \cup B_n) = A \cup B \in
+     m(\mathcal{F}_0)\). So, \(B \in m(\mathcal{F}_0)\). The proof is
+analogous for \(B_n \downarrow B\).</li>
+</ul>
+
+<p>
+Since \(\mathcal{F}_0 \subset G_1\), \(m(\mathcal{F}_0) \subset
+   G_1\) by minimality (\(G_1\) is monotone). If \(B \in \mathcal{F}_0\)
+and \(A \in m(\mathcal{F}_0)\), then because \(m(\mathcal{F}_0)
+   \subset G_1\), \(A \in G_1\). And, \(B \in \mathcal{F}_0 \subset
+   m(\mathcal{F}_0) \subset G_1\). So, \(A \cup B \in
+   m(\mathcal{F}_0)\). That is, \(B \in G_2\). Equivalently,
+\(\mathcal{F}_0 \subset G_2\). By minimality of \(m(\mathcal{F}_0)\)
+and the fact \(G_2\) is monotone, \(m(\mathcal{F}_0) \subset G_2\). In
+other words, if \(A, B \in m(\mathcal{F}_0)\), then \(A \cup B \in m(\mathcal{F}_0)\).
+</p></li>
+</ol>
+</div>
 </div>
 </div>
 
-<div id="outline-container-org727a0bf" class="outline-2">
-<h2 id="org727a0bf">Nonmeasurable Sets</h2>
-<div class="outline-text-2" id="text-org727a0bf">
+
+<div id="outline-container-org7b00e31" class="outline-2">
+<h2 id="org7b00e31">Completeness</h2>
+<div class="outline-text-2" id="text-org7b00e31">
+<div class="definition" id="def-4"><p>
+We say a probability space \((\Omega, \mathcal{F}, P)\) is <b>complete</b> if
+\(A \subset B\), \(B \in \mathcal{F}\), and \(P(B) = 0\) imply that \(A \in \mathcal{F}\).
+</p>
+</div>
+
+<p>
+The following statement is made in the book, but it's not immediately
+obvious (to me, at least):
+</p>
+<div class="lemma" id="thm-13"><p>
+Suppose \((\Omega, \mathcal{F}, P)\) is complete. Let \(A \in
+\mathcal{F}\), \(A \Delta A' \subset B \in \mathcal{F}\), and \(P(B) =
+0\). Then, \(A' \in \mathcal{F}\) and \(P(A') = P(A)\).
+</p>
+</div>
+<div class="proof" id="proof-12"><p>
+We show first that \(A' \in \mathcal{F}\). By completeness, \(A \Delta A'
+\in \mathcal{F}\). By monotonicity and non-negativity of \(P\), it
+follows that \(P(A \Delta A') = 0\). Since \(A \in \mathcal{F}\) and \(A
+\Delta A' \in \mathcal{F}\), their difference, \(\Bigl(A \Delta A'\Bigl)
+\setminus A = A' \setminus A \in \mathcal{F}\). Using this fact, we can
+also deduce that \(\Bigl(A \Delta A'\Bigl) \setminus \Bigl(A' \setminus
+A\Bigl) = A \setminus A' \in \mathcal{F}\). Once more, we can use these
+facts to obtain that \(A \setminus (A \setminus A') = A \cap A' \in
+\mathcal{F}\). Then, we get that \(A' = (A' \cap A) \cup (A' \cap A^c)\),
+which is a finite union of two \(\mathcal{F}\) -sets, implying that \(A'
+\in \mathcal{F}\). Further, \(A = (A \cap A') \cup (A \cap
+(A')^c)\). Note that both \(A'\) and \(A\) are written as the union of two
+disjoint \(\mathcal{F}\) -sets, so by finite additivity of \(P\):
+</p>
+\begin{align*}
+P(A') &= P(A' \cap A) + P(A' \cap A^c) = P(A' \cap A) \\
+P(A) &= P(A \cap A') + P(A \cap (A')^c) = P(A \cap A') = P(A' \cap A) \\
+&\implies P(A) &= P(A')
+\end{align*}
+<p>
+P(A' &cap; A<sup>c</sup>) = 0 and \(P(A \cap (A')^c) = 0\) because they are two
+disjoint sets whose union is \((A' \cap A^c) \cup (A \cap (A')^c) = (A'
+\setminus A) \cup (A \setminus A') = A \Delta A'\), and \(P(A \Delta A')
+= 0\).
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org28eb414" class="outline-2">
+<h2 id="org28eb414">Nonmeasurable Sets</h2>
+<div class="outline-text-2" id="text-org28eb414">
 <p>
 TODO
 </p>
