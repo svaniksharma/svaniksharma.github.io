@@ -9,6 +9,9 @@
    MathJax = {
 	   tex: {
 		   inlineMath: {'[+]': [['$', '$']]}
+	   },
+	   output: {
+		   displayOverflow: 'scroll'
 	   }
    };
   </script>
