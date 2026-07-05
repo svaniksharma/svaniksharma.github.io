@@ -12,9 +12,9 @@ space \((\Omega, \mathcal{F}, P)\), there exists a unique extension of
 \(P\) to \(\sigma(F)\) (i.e, a probability measure on \(\sigma(F)\) ).
 </p>
 
-<div id="outline-container-orgff9dc9b" class="outline-2">
-<h2 id="orgff9dc9b">Theorem Statement</h2>
-<div class="outline-text-2" id="text-orgff9dc9b">
+<div id="outline-container-org221dda8" class="outline-2">
+<h2 id="org221dda8">Theorem Statement</h2>
+<div class="outline-text-2" id="text-org221dda8">
 <p>
 The theorem we will prove is: "A probability measure on a field has a
 unique extension to the generated \(\sigma\) -field". Specifically:
@@ -28,9 +28,9 @@ F\).
 </div>
 </div>
 
-<div id="outline-container-orgc36dbce" class="outline-2">
-<h2 id="orgc36dbce">Defining \(P^*\)</h2>
-<div class="outline-text-2" id="text-orgc36dbce">
+<div id="outline-container-org07453c0" class="outline-2">
+<h2 id="org07453c0">Defining \(P^*\)</h2>
+<div class="outline-text-2" id="text-org07453c0">
 <p>
 For every subset of \(A\):
 </p>
@@ -84,9 +84,9 @@ P^*(\cup_n A_n) &\le \sum_n \sum_m P(A_{n,m}) \le \sum_n P^*(A_n) + \epsilon & \
 </div>
 </div>
 
-<div id="outline-container-org8c9511b" class="outline-2">
-<h2 id="org8c9511b">Important Lemmas</h2>
-<div class="outline-text-2" id="text-org8c9511b">
+<div id="outline-container-org716a0b9" class="outline-2">
+<h2 id="org716a0b9">Important Lemmas</h2>
+<div class="outline-text-2" id="text-org716a0b9">
 <p>
 We will prove a few lemmas that will be important for proving the
 first part of the theorem, which is that there exists an extension of
@@ -264,9 +264,9 @@ monotonicity. By countable subadditivity, \(P(A) = P(A \cap \cup_n A_n)
 </div>
 </div>
 
-<div id="outline-container-orgf1142c7" class="outline-2">
-<h2 id="orgf1142c7">Proof of Existence</h2>
-<div class="outline-text-2" id="text-orgf1142c7">
+<div id="outline-container-org57346e3" class="outline-2">
+<h2 id="org57346e3">Proof of Existence</h2>
+<div class="outline-text-2" id="text-org57346e3">
 <div class="theorem" id="thm-6"><p>
 There exists a probability measure \(Q\) on \(F = \sigma(F_0)\) such that
 \(Q(A) = P(A)\) for all \(A \in F_0\).
@@ -290,9 +290,9 @@ of this theorem.
 </div>
 </div>
 
-<div id="outline-container-orgdf268b3" class="outline-2">
-<h2 id="orgdf268b3">Proof of Uniqueness</h2>
-<div class="outline-text-2" id="text-orgdf268b3">
+<div id="outline-container-org4298bab" class="outline-2">
+<h2 id="org4298bab">Proof of Uniqueness</h2>
+<div class="outline-text-2" id="text-org4298bab">
 <p>
 To prove uniqueness, we need some extra definitions:
 </p>
@@ -491,9 +491,9 @@ and \(F = \sigma(F_0)\) since \(F_0\) is a field.
 </div>
 </div>
 
-<div id="outline-container-org9e75d4e" class="outline-2">
-<h2 id="org9e75d4e">Monotone Classes</h2>
-<div class="outline-text-2" id="text-org9e75d4e">
+<div id="outline-container-orgbbd2d48" class="outline-2">
+<h2 id="orgbbd2d48">Monotone Classes</h2>
+<div class="outline-text-2" id="text-orgbbd2d48">
 <div class="definition" id="def-3"><p>
 A class \(\mathcal{M}\) of subsets of \(\Omega\) is called <b>monotone</b> if
 it is closed under the formation of monotone unions and intersections:
@@ -628,9 +628,9 @@ other words, if \(A, B \in m(\mathcal{F}_0)\), then \(A \cup B \in m(\mathcal{F}
 </div>
 
 
-<div id="outline-container-org7b00e31" class="outline-2">
-<h2 id="org7b00e31">Completeness</h2>
-<div class="outline-text-2" id="text-org7b00e31">
+<div id="outline-container-orgc27a569" class="outline-2">
+<h2 id="orgc27a569">Completeness</h2>
+<div class="outline-text-2" id="text-orgc27a569">
 <div class="definition" id="def-4"><p>
 We say a probability space \((\Omega, \mathcal{F}, P)\) is <b>complete</b> if
 \(A \subset B\), \(B \in \mathcal{F}\), and \(P(B) = 0\) imply that \(A \in \mathcal{F}\).
@@ -674,15 +674,35 @@ disjoint sets whose union is \((A' \cap A^c) \cup (A \cap (A')^c) = (A'
 = 0\).
 </p>
 </div>
-</div>
-</div>
 
-
-<div id="outline-container-org28eb414" class="outline-2">
-<h2 id="org28eb414">Nonmeasurable Sets</h2>
-<div class="outline-text-2" id="text-org28eb414">
 <p>
-TODO
+The important point about complete sets here is that for any
+probability space, \((\Omega, \mathcal{F}, P)\), we can enlarge the
+\(\sigma\) -field and extend the probability measure \(P\) to get a
+complete probability space, as we now show: consider the extension
+\(P^*\) and take \(\mathcal{F}_0 = \mathcal{F} =
+\sigma(\mathcal{F}_0)\). Let \(\mathcal{M}\) be the \(\sigma\) -field of
+\(P^*\) -measurable sets. By <a href="#thm-3">Lemma 3</a>, \(P^*\) restricted to \(\mathcal{M}\)
+is a probability measure. We now show this space is complete. Let \(A
+\subset B\), \(B \in \mathcal{M}\), and \(P^*(B) = 0\). We prove that \(A
+\in \mathcal{M}\). Let \(E \subset \Omega\). Then:
+</p>
+\begin{align*}
+P^*(A \cap E) + P^*(A^c \cap E) \le P^*(B) + P^*(E) = P^*(E)
+\end{align*}
+<p>
+where we applied monotonicity to both terms (\(A \cap E \subset B\) and
+\(A^c \cap E \subset E\)).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org07be804" class="outline-2">
+<h2 id="org07be804">Nonmeasurable Sets</h2>
+<div class="outline-text-2" id="text-org07be804">
+<p>
+We consider the <i>Vitali construction</i>, which produces a set in \((0,
+1]\) that is not a Borel set (i.e, a set not in \(\mathcal{B}\)).
 </p>
 </div>
 </div>
