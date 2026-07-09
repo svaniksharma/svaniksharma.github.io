@@ -12,9 +12,9 @@ space \((\Omega, \mathcal{F}, P)\), there exists a unique extension of
 \(P\) to \(\sigma(F)\) (i.e, a probability measure on \(\sigma(F)\) ).
 </p>
 
-<div id="outline-container-org4348dd0" class="outline-2">
-<h2 id="org4348dd0">Theorem Statement</h2>
-<div class="outline-text-2" id="text-org4348dd0">
+<div id="outline-container-org1611b37" class="outline-2">
+<h2 id="org1611b37">Theorem Statement</h2>
+<div class="outline-text-2" id="text-org1611b37">
 <p>
 The theorem we will prove is: "A probability measure on a field has a
 unique extension to the generated \(\sigma\) -field". Specifically:
@@ -28,9 +28,9 @@ F\).
 </div>
 </div>
 
-<div id="outline-container-orgb438c65" class="outline-2">
-<h2 id="orgb438c65">Defining \(P^*\)</h2>
-<div class="outline-text-2" id="text-orgb438c65">
+<div id="outline-container-org11dcd26" class="outline-2">
+<h2 id="org11dcd26">Defining \(P^*\)</h2>
+<div class="outline-text-2" id="text-org11dcd26">
 <p>
 For every subset of \(A\):
 </p>
@@ -84,9 +84,9 @@ P^*(\cup_n A_n) &\le \sum_n \sum_m P(A_{n,m}) \le \sum_n P^*(A_n) + \epsilon & \
 </div>
 </div>
 
-<div id="outline-container-orgc1e7cc1" class="outline-2">
-<h2 id="orgc1e7cc1">Important Lemmas</h2>
-<div class="outline-text-2" id="text-orgc1e7cc1">
+<div id="outline-container-orgb1275df" class="outline-2">
+<h2 id="orgb1275df">Important Lemmas</h2>
+<div class="outline-text-2" id="text-orgb1275df">
 <p>
 We will prove a few lemmas that will be important for proving the
 first part of the theorem, which is that there exists an extension of
@@ -264,9 +264,9 @@ monotonicity. By countable subadditivity, \(P(A) = P(A \cap \cup_n A_n)
 </div>
 </div>
 
-<div id="outline-container-org5b64384" class="outline-2">
-<h2 id="org5b64384">Proof of Existence</h2>
-<div class="outline-text-2" id="text-org5b64384">
+<div id="outline-container-orgffccf1d" class="outline-2">
+<h2 id="orgffccf1d">Proof of Existence</h2>
+<div class="outline-text-2" id="text-orgffccf1d">
 <div class="theorem" id="thm-6"><p>
 There exists a probability measure \(Q\) on \(F = \sigma(F_0)\) such that
 \(Q(A) = P(A)\) for all \(A \in F_0\).
@@ -290,9 +290,9 @@ of this theorem.
 </div>
 </div>
 
-<div id="outline-container-org09d102c" class="outline-2">
-<h2 id="org09d102c">Proof of Uniqueness</h2>
-<div class="outline-text-2" id="text-org09d102c">
+<div id="outline-container-org54489ac" class="outline-2">
+<h2 id="org54489ac">Proof of Uniqueness</h2>
+<div class="outline-text-2" id="text-org54489ac">
 <p>
 To prove uniqueness, we need some extra definitions:
 </p>
@@ -491,9 +491,9 @@ and \(F = \sigma(F_0)\) since \(F_0\) is a field.
 </div>
 </div>
 
-<div id="outline-container-org530eacd" class="outline-2">
-<h2 id="org530eacd">Monotone Classes</h2>
-<div class="outline-text-2" id="text-org530eacd">
+<div id="outline-container-org87856b6" class="outline-2">
+<h2 id="org87856b6">Monotone Classes</h2>
+<div class="outline-text-2" id="text-org87856b6">
 <div class="definition" id="def-3"><p>
 A class \(\mathcal{M}\) of subsets of \(\Omega\) is called <b>monotone</b> if
 it is closed under the formation of monotone unions and intersections:
@@ -628,9 +628,9 @@ other words, if \(A, B \in m(\mathcal{F}_0)\), then \(A \cup B \in m(\mathcal{F}
 </div>
 
 
-<div id="outline-container-org0bf9a0b" class="outline-2">
-<h2 id="org0bf9a0b">Completeness</h2>
-<div class="outline-text-2" id="text-org0bf9a0b">
+<div id="outline-container-org4dd2455" class="outline-2">
+<h2 id="org4dd2455">Completeness</h2>
+<div class="outline-text-2" id="text-org4dd2455">
 <div class="definition" id="def-4"><p>
 We say a probability space \((\Omega, \mathcal{F}, P)\) is <b>complete</b> if
 \(A \subset B\), \(B \in \mathcal{F}\), and \(P(B) = 0\) imply that \(A \in \mathcal{F}\).
@@ -703,12 +703,120 @@ sets, and \(\lambda\) is still called the Lebesgue measure.
 </div>
 </div>
 
-<div id="outline-container-org6cac064" class="outline-2">
-<h2 id="org6cac064">Nonmeasurable Sets</h2>
-<div class="outline-text-2" id="text-org6cac064">
+<div id="outline-container-orgd7825a0" class="outline-2">
+<h2 id="orgd7825a0">Nonmeasurable Sets</h2>
+<div class="outline-text-2" id="text-orgd7825a0">
 <p>
 We consider the <i>Vitali construction</i>, which produces a set in \((0,
-1]\) that is not a Borel set (i.e, a set not in \(\mathcal{B}\)).
+1]\) that is not a Borel set (i.e, a set not in \(\mathcal{B}\)). Define,
+for \(x, y \in (0, 1]\):
+\[
+x \oplus y = \begin{cases}
+x + y & 0 < x + y \le 1 \\
+x + y - 1 & x + y > 1
+\end{cases}
+\]
+</p>
+
+<p>
+Let \(\mathcal{L}\) be the class of Borel sets \(A\) such that \(A \bigoplus x
+\in \mathcal{B}\) and \(\lambda(A \bigoplus x) = \lambda(A)\) for some \(x
+\in (0, 1]\). We show that \(\mathcal{L}\) is a \(\lambda\) -system:
+</p>
+<ol class="org-ol">
+<li>Choose \(x = 1\). Then, \((0, 1] \oplus 1 = (0, 1]\) and \(\lambda((0,
+   1]) = \lambda((0, 1] \oplus 1)\).</li>
+<li><p>
+Suppose \(A \in \mathcal{L}\). We show that \(A^c \in
+   \mathcal{L}\). Since \(A \in \mathcal{B}\), \(A^c \in \mathcal{B}\)
+since it is a \(\sigma\) -algebra. Note that \((A \oplus x)^c = A^c
+   \oplus x\). Since \(A \oplus x \in \mathcal{B}\), \((A \oplus x)^c \in
+   \mathcal{B}\). Putting this together, \(A^c \oplus x \in
+   \mathcal{B}\). Next, \(\lambda(A) = \lambda(A \oplus x)\). Since
+\(\Omega = (0, 1]\) and \(\lambda(A^c) = \lambda(\Omega \setminus A) =
+   1 - \lambda(A)\), we get that:
+</p>
+\begin{align*}
+\lambda(A^c) &= 1 - \lambda(A) \\
+             &= 1 - \lambda(A \oplus x) \\
+             &= \lambda((A \oplus x)^c) \\
+             &= \lambda(A^c \oplus x)
+\end{align*}
+<p>
+Therefore, \(A^c \in \mathcal{L}\).
+</p></li>
+<li><p>
+Let \(A_n \in \mathcal{L}\) and \(A_n \cap A_m = \emptyset\) for all \(m
+   \ne n\). Then, \(A_n \in \mathcal{B}\) and \(\cup_n A_n \in
+   \mathcal{B}\) since \(\mathcal{B}\) is a \(\sigma\) -algebra. Because,
+\(A \oplus x \in \mathcal{B}\), it follows that \(\cup_n (A_n \oplus
+   x) = (\cup_n A_n) \oplus x \in \mathcal{B}\). Next:
+</p>
+\begin{align*}
+\lambda((\cup_n A_n) \oplus x) &= \lambda(\cup_n (A_n \oplus x)) \\
+                               &= \sum_n \lambda(A_n \oplus x) & \text{ countable additivity } \\
+                               &= \sum_n \lambda(A_n) & \text{ translation-invariance } \\
+                               &= \sum_n \lambda(A_n) \\
+                               &= \lambda(\cup_n A_n) & \text{ countable additivity }
+\end{align*}</li>
+</ol>
+
+<p>
+Since \(\mathcal{L}\) is a \(\lambda\) -system containing \(\mathcal{I}\),
+the class of intervals in \((0, 1]\), and \(\mathcal{I}\) is a field
+(hence a \(\pi\) -system), it follows by the <a href="#thm-9">\(\pi-\lambda\) theorem</a> that
+\(\mathcal{B} = \sigma(I) \subset \mathcal{L}\).
+Define an equivalence relation \(\sim\) on \((0, 1]\) so that \(x \sim
+y\) if there exists \(r \in (0, 1]\) such that \(x \oplus r = y\). Let \(H\)
+be a subset of \((0, 1]\) consist of exactly one representative from
+each equivalence class (this set exists because of the axiom of
+choice). Since \(\mathbb{Q}\) is countable, consider the sets \(H \oplus
+r\) for rational \(r\). First, we show these sets are disjoint: Suppose
+\(H \oplus r_1\) and \(H \oplus r_2\) have a comment element \(h_r\). Then,
+there exists \(h_1 \in H \oplus r_1\) such that \(h_r = h_1 \oplus r_1\)
+and \(h_2 \in H \oplus r_2\) such that \(h_r = h_2 \oplus r_2\). Hence:
+</p>
+\begin{align*}
+h_1 \oplus r_1 &= h_2 \oplus r_2
+\end{align*}
+<p>
+If this is the case, then:
+</p>
+\begin{align*}
+h_1 + r_1 &= h_2 + r_2 & \text{ or } \\
+h_1 + r_1 &= h_2 + r_2 - 1 & \text{ or } \\
+h_1 + r_1 - 1 &= h_2 + r_2 & \text{ or } \\
+h_1 + r_1 - 1 &= h_2 + r_2 - 1 \\
+\end{align*}
+<p>
+Either way, this would imply that \(h_1 \sim h_2\). But, \(H\) contains
+exactly <b><b>one</b></b> representative from each equivalence class, so we
+cannot have \(h_1 \ne h_2\), which implies that \(h_1 = h_2\). But this
+would imply that \(r_1 = r_2\). Hence, the sets are actually the
+same. Therefore, two distinct sets \(H \oplus r_1\) and \(H \oplus r_2\)
+are disjoint. Therefore, we can write \((0, 1] = \cup_{r \in
+\mathbb{Q}} H \oplus r\) because for every \(y \in (0, 1]\), then there
+exists some \(r \in \mathbb{Q}\) so that \(h \oplus r = y\) for some \(h
+\in H\) since \(H\) contains one member from each equivalence class. Now,
+suppose that \(H\) were in \(\mathcal{B}\). Then, \(\lambda((0, 1]) =
+\sum_r \lambda(H \oplus r)\) since the \(H \oplus r\) are disjoint and
+the union is countable because \(\mathcal{Q}\) is countable. However, we
+know that \(H \in \mathcal{B}\) implies \(H \in \mathcal{L}\), which means
+that \(\lambda(H) = \lambda(H \oplus r)\). So, the sum \(\sum_r
+\lambda(H) = \lambda((0, 1]) = 1\). Since \(\lambda(H) \ge 0\) and the
+sum is over a countably infinite quantity, either \(\lambda(H) = 0\)
+(which means \(1 = 0\)) or \(\lambda(H) > 0\) in which case we have a
+divergent sum (and so it cannot equal \(1\)). This means \(H\) is not a
+Borel set.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org73cf590" class="outline-2">
+<h2 id="org73cf590">Problems</h2>
+<div class="outline-text-2" id="text-org73cf590">
+<p>
+TODO
 </p>
 </div>
 </div>
