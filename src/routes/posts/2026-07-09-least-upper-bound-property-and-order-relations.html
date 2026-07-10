@@ -1,0 +1,91 @@
+---
+title: 'Least Upper Bound Property and Order Relations'
+date: 2026-07-09T07:07:07+01:00
+slug: least_upper_bound_property_and_order_relations
+math: 'mathjax'
+---
+
+<p>
+I was reading the beginning section of Munkres' <i>Topology</i> on Set
+Theory and Logic since the early chapters (and some of the subsequent
+ones) of <i>Probability and Measure</i> by Billingsley uses a decent amount
+of set theory. Here I prove the following theorem (which was two
+exercises in Munkres' book):
+</p>
+
+<div class="theorem" id="thm-1"><p>
+An ordered set \(A\) has the least upper bound property if and only if
+\(A\) has the greatest lower bound property.
+</p>
+</div>
+
+<p>
+Before proceeding, we will need the following lemma:
+</p>
+
+<div class="lemma" id="thm-2"><p>
+Let \(C\) be a relation on \(A\). Let \(D\) be a relation on \(A\) that is
+defined so that \((b, a) \in D\) only if \((a, b) \in C\). Then:
+</p>
+<ol class="org-ol">
+<li>\(C\) is symmetric if and only if \(C = D\).</li>
+<li>If \(C\) is an order relation, \(D\) is an order relation.</li>
+</ol>
+</div>
+<div class="proof" id="proof-1"><ol class="org-ol">
+<li>Suppose \(C\) is symmetric. Let \((a, b) \in C\). We show \((a, b) \in
+   D\). The symmetry of \(C\) implies that \((b, a) \in C\). By hypothesis,
+this means that \((a, b) \in D\). Hence, \(C \subset D\). Next, let
+\((a, b) \in D\). We show that \((a, b) \in C\). By the definition of
+\(D\), \((b, a) \in C\). By symmetry, \((a, b) \in C\). Therefore, \(D
+   \subset C\). Since \(C \subset D\) and \(D \subset C\), \(C = D\). Now,
+suppose that \(C = D\). We show \(C\) is symmetric. If \((a, b) \in C\),
+then \((a, b) \in D\) since \(C = D\). However, \((a, b) \in C\) implies
+that \((b, a) \in D\). Since \(C = D\), \((b, a) \in C\). So, \(C\) is
+symmetric.</li>
+<li>First, we show comparability. Let \(x \ne y\). Then, \((x, y) \in C\)
+or \((y, x) \in C\). If \((x, y) \in C\) <i>and</i> \((y, x) \n C\), then (1)
+implies that \(C = D\), which would mean \(D\) is an order
+relation. However, if this is not the case, then \((x, y) \in D\) or
+\((y, x) \in D\). Now we show nonreflexivity. For contradiction,
+suppose that \((x, x) \in D\). Then this would imply \((x, x) \in
+   C\). But \(C\) is an order relation, so \((x, x) \not\in C\). This is a
+contradiction, so \((x, x) \not\in D\). Suppose \((x, y) \in D\) and
+\((y, z) \in D\). Then, by the definition of \(D\), \((y, x) \in C\) and
+\((z, y) \in C\). Because \(C\) is an order relation, \(C\) is
+transitive, so \((z, x) \in C\). But this is true if and only if \((x,
+   z) \in D\), meaning \(D\) is transitive. \(D\) is an order relation.</li>
+</ol>
+</div>
+
+<p>
+Now, we can proceed with the proof of <a href="#thm-1">Theorem 1</a>
+</p>
+<div class="proof" id="proof-2"><p>
+First, we show that \(A\) having the least upper bound property implies
+that it has the greatest lower bound property. Let \(A_0 \subset A\),
+\(A_0 \ne \emptyset\), and \(A\) is bounded below. Let $L = \{a &isin; A:
+\text{$a$ is a lower bound for $A_0$}\}$. Since \(A_0 \ne \emptyset\),
+there exists \(a_0 \in A_0\) such that \(l \le a_0\) for all \(l \in
+L\). Then, \(L \subset A\), \(L \ne \emptyset\), and \(L\) is bounded
+above. By the least upper bound property of \(A\), \(L\) has a least upper
+bound: there exists \(l^* \in A\) so that \(l \le l^*\) for all \(l \in
+L\). Every \(a_0 \in A_0\) satisfies \(l^* \le a_0\) since \(a_0\) are all
+upper bounds for \(L\). This means that \(l^* \in L\). Hence, \(l^*\) is the
+greatest element of all the lower bounds for \(A_0\), implying that it
+is the greatest lower bound of \(A_0\).
+Next, we show that \(A\) having the greatest lower bound property
+implies that it has the least upper bound property. Suppose \(A\) is an
+ordered set having the greatest lower bound property. We show that it
+has the least upper bound property. Suppose the order relation on \(A\)
+is given by \(C\). We can define a relation \(D\) so that \((x, y) \in D\)
+if and only if \((x, y) \in C\). By <a href="#thm-2">Lemma 2</a>, \(D\) is an order
+relation. This leads to the following series of implications:
+</p>
+\begin{align*}
+&\text{$A$ has the greatest lower bound property w.r.t $C$} \\
+&\implies \text{$A$ has the least upper bound property w.r.t $D$} \\
+&\implies \text{$A$ has the greatest lower bound property w.r.t $D$} & \text{ the first direction of Theorem 1 } \\
+&\implies \text{$A$ has the least upper bound property w.r.t $C$}
+\end{align*}
+</div>
