@@ -1,5 +1,5 @@
 *** TODO [#1] Write Chapter 3 notes + problems (by July 12)
-*** TODO [#2] Write Chapter 4 notes + problems (by July 12)
-*** TODO [#3] Write Chapter 5 notes + problems (by July 12)
+*** TODO [#2] Write Chapter 4 notes + problems (by July 14)
+*** TODO [#3] Write Chapter 5 notes + problems (by July 14)
 *** TODO [#2] Write Chapter 2 remainder of backlog problems (by July 15)
-*** TODO [#3] Write well-ordering articlei (by July 12)
+*** TODO [#3] Write well-ordering article (by July 12)
