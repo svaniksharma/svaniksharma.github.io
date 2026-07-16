@@ -1,0 +1,61 @@
+---
+title: 'Axiom of Choice and Well Ordered Sets'
+date: 2026-07-16T07:07:07+01:00
+slug: axiom_of_choice_and_well_ordered_sets
+math: 'mathjax'
+---
+
+<p>
+I've been working through some more problems through Set Theory and
+Logic. Below, I state some theorems and lemmas associated with the
+axiom of choice and well-ordered sets (along with the maximum
+principle). I will add proofs for some theorems and lemmas.
+</p>
+
+<div id="outline-container-orgb0c5d3b" class="outline-2">
+<h2 id="orgb0c5d3b">Axiom of Choice</h2>
+<div class="outline-text-2" id="text-orgb0c5d3b">
+<div class="definition" id="def-1"><p>
+Given a collection \(\mathcal{A}\) of disjoint nonempty sets, there
+exists a set \(C\) consisting of exactly one element from each element
+of \(\mathcal{A}\). This is equivalent to the following two conditions:
+</p>
+<ol class="org-ol">
+<li>\(C \subset \cup_{A \in \mathcal{A}} A\)</li>
+<li>\(C \cap A\) has exactly one element.</li>
+</ol>
+</div>
+
+<p>
+The following lemma derives immediately from the axiom of choice,
+which establishes the existence of a choice function:
+</p>
+
+<div class="lemma" id="thm-1"><p>
+Given a collection \(\mathcal{B}\) of nonempty sets (not necessarily
+disjoint), there exists a function:
+</p>
+\begin{align*}
+c: \mathcal{B} \rightarrow \bigcup_{B \in \mathcal{B}} B
+\end{align*}
+<p>
+such that \(c(B) \in B\) for each \(B \in \mathcal{B}\).
+</p>
+</div>
+
+<p>
+We will use the axiom of choice and this lemma frequently.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc46687c" class="outline-2">
+<h2 id="orgc46687c">Well Ordering</h2>
+<div class="outline-text-2" id="text-orgc46687c">
+<div class="definition" id="def-2"><p>
+A set \(A\) with an order relation \(<\) is said to be <b>well-ordered</b> if
+every nonempty set of \(A\) has a smallest element.
+</p>
+</div>
+</div>
+</div>
