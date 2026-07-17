@@ -12,9 +12,9 @@ axiom of choice and well-ordered sets (along with the maximum
 principle). I will add proofs for some theorems and lemmas.
 </p>
 
-<div id="outline-container-orgb0c5d3b" class="outline-2">
-<h2 id="orgb0c5d3b">Axiom of Choice</h2>
-<div class="outline-text-2" id="text-orgb0c5d3b">
+<div id="outline-container-org1c27af4" class="outline-2">
+<h2 id="org1c27af4">Axiom of Choice</h2>
+<div class="outline-text-2" id="text-org1c27af4">
 <div class="definition" id="def-1"><p>
 Given a collection \(\mathcal{A}\) of disjoint nonempty sets, there
 exists a set \(C\) consisting of exactly one element from each element
@@ -49,12 +49,146 @@ We will use the axiom of choice and this lemma frequently.
 </div>
 </div>
 
-<div id="outline-container-orgc46687c" class="outline-2">
-<h2 id="orgc46687c">Well Ordering</h2>
-<div class="outline-text-2" id="text-orgc46687c">
+<div id="outline-container-org3ef43b2" class="outline-2">
+<h2 id="org3ef43b2">Well Ordering</h2>
+<div class="outline-text-2" id="text-org3ef43b2">
 <div class="definition" id="def-2"><p>
 A set \(A\) with an order relation \(<\) is said to be <b>well-ordered</b> if
 every nonempty set of \(A\) has a smallest element.
+</p>
+</div>
+
+<div class="theorem" id="thm-2"><p>
+If \(A\) is a set, there exists an order relation on \(A\) that is a
+well-ordering.
+</p>
+</div>
+
+<p>
+Since \(A\) can be an arbitrary set, <a href="#thm-3">Theorem 3</a> says that it holds for
+uncountable sets (like \(X^\omega\) and \(\mathbb{R}\)). Hence, we get the
+following corollary:
+</p>
+
+<div class="theorem" id="thm-3"><p>
+There exists an uncountable set that has a well-ordering.
+</p>
+</div>
+
+<p>
+The following have to do with "sections" of a well-ordered set:
+</p>
+
+<div class="definition" id="def-3"><p>
+Let \(X\) be a well-ordered set. Given \(\alpha \in X\), let \(S_\alpha\)
+denote the set \(S_\alpha = \{x | x \in X \text{ and } x < \alpha
+\}\). It is called the <b>section</b> of \(X\) by \(\alpha\).
+</p>
+</div>
+
+<div class="lemma" id="thm-4"><p>
+There exists a well-ordered set \(A\) having a largest element \(\Omega\),
+such that the section \(S_\Omega\) of \(A\) by \(\Omega\) is uncountable but
+every other section of \(A\) is countable.
+</p>
+</div>
+
+<div class="theorem" id="thm-5"><p>
+If \(A\) is a countable subset of \(S_\Omega\), then \(A\) has an upper
+bound in \(S_\Omega\).
+</p>
+</div>
+
+<p>
+We prove the following:
+</p>
+
+<div class="theorem" id="thm-6"><p>
+Every well-ordered set has the least upper bound property.
+</p>
+</div>
+<div class="proof" id="proof-1"><p>
+Let \(A\) be a well-ordered set. Let \(S \subset A\), \(S \ne \emptyset\),
+and \(S\) is bounded above. Note that since \(A\) is well-ordered and \(S\)
+is a subset of \(A\) nor is it empty, \(S\) has a smallest element (which
+we denote \(x\)). Then, \(x\) is the greatest lower bound for \(S\). Since
+\(S\) is an arbitrary set, we have shown that every nonempty subset of
+\(S\) has the greatest lower bound property. By <a href="least_upper_bound_property_and_order_relations#thm-1">a theorem proven about
+the least upper bound property</a>, it follows that the greatest lower
+bound property implies the least upper bound property. Hence, \(A\) has
+the least upper bound property. 
+</p>
+</div>
+
+<div class="theorem" id="thm-7"><p>
+Let \(\mathbb{Z}_{-}\) denote the set of negative integers with the
+usual ordering. Then, a simply-ordered set \(A\) fails to be
+well-ordered if and only if there exists some subset contained in it
+that has the same order type as \(\mathbb{Z}_{-}\).
+</p>
+</div>
+<div class="proof" id="proof-2"><p>
+Suppose \(A\) is a simply ordered set that is not well-ordered. There
+exists a nonempty subset \(S\) so that \(S\) has no smallest element. If
+\(S\) is finite, it would be well-ordered since every nonempty finite
+ordered set has the order type of a section of the positive integers,
+which contradicts the fact that \(S\) is not well-ordered. So, \(S\) is
+infinite. By axiom of choice, we can define a function \(f: \mathbb{Z}
+\rightarrow S_*\) as follows: choose \(x_1 \in S\) arbitrarily. Let
+\(f(-1) = x_1\). Since \(S\) is infinite and \(S\) has no smallest element,
+choose \(x_2 < x_1\) (where \(<\) refers to the simple order on \(A\)) and
+let \(f(-2) = x_2\). In general, define \(f(-1) = x_1\) and \(f(-n) =
+\text{ choose arbitrary } x_n \in S \setminus \{x_1, ..., x_{n-1}\}\)
+for all \(n > 1\) so that \(x_n < x_{n-1} < ... < x_1\). Also, let \(S_* =
+\{x_n\}_{n=1}^\infty\). Then, \(f\) is an order-preserving
+bijection. Since \(S_* \subset S \subset A\), it follows that \(S_*\) is a
+subset of \(A\) that has the same order type as
+\(\mathbb{Z}_{-}\). Now, we prove the converse. Suppose that there
+exists a subset of \(A\) having the same order type as \(\mathbb{Z}\),
+called \(S\). Then, there exists an order-preserving bijection \(f: S
+\rightarrow \mathbb{Z}_{-}\). Suppose for contradiction that \(S\) has a
+smallest element, \(a\). Then, for every \(s \in S\), \(a \le s\) (where
+\(\le\) refers to the order relation on \(A\)). So, \(f(a) \le f(s)\) for
+all \(s \in S\). Since \(f(S) = \mathbb{Z}_{-}\), that means \(f(a) \le n\)
+for all \(n \in \mathbb{Z}_{-}\). This would imply that \(\mathbb{Z}_{-}\)
+has a smallest element, \(f(a)\). This would contradict the fact
+\(\mathbb{Z}_{-}\) is not well-ordered, so \(A\) fails to be well ordered.
+</p>
+</div>
+
+<div class="theorem" id="thm-8"><p>
+If \(A\) is simply-ordered and every countable subset of \(A\) is
+well-ordered, then \(A\) is well-ordered.
+</p>
+</div>
+<div class="proof" id="proof-3"><p>
+Let \(S \subset A\) and \(S \ne \emptyset\). If \(S\) is countable, we know
+it is well-ordered, so we are done. Suppose \(S\) is
+uncountable. Suppose for contradiction that \(S\) fails to be
+well-ordered. Then, by <a href="#thm-7">Theorem 7</a>, there exists \(T \subset S\) so that
+\(T\) has the same order type as \(\mathbb{Z}_{-}\). This means there is
+an order-preserving bijection between \(T\) and \(\mathbb{Z}_{-}\),
+implying that \(T\) is countable. Then, since \(T \subset S \subset A\),
+\(T\) is well-ordered since every countable subset of \(A\) is
+well-ordered. But this contradicts the fact that \(\mathbb{Z}_{-}\) is
+not well-ordered.
+</p>
+</div>
+
+<div class="theorem" id="thm-9"><p>
+The well-ordering theorem implies the <a href="#def-1">axiom of choice</a>.
+</p>
+</div>
+<div class="proof" id="proof-4"><p>
+Let \(\mathcal{A}\) be a collection of disjoint nonempty sets. Let \(B =
+\cup_{A \in \mathcal{A}} A\). By the well-ordering theorem, there
+exists an order-relation, \(<_B\), that is a well-ordering. For each \(A
+\in \mathcal{A}\), \(A\) is non-empty, so there exists a smallest element
+\(x_A\) under the order relation \(<_B\). Let \(C = \cup_{A \in
+\mathcal{A}} \{x_A\}\). For two sets \(A\) and \(A'\) contained in
+\(\mathcal{A}\), \(x_A \ne x_{A'}\) (since \(A\) and \(A'\) are disjoint) and
+\(C \cap A\) has one element for every \(A \in \mathcal{A}\). Also, \(C
+\subset B\). 
 </p>
 </div>
 </div>
