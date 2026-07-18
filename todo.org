@@ -2,4 +2,4 @@
 *** TODO [#2] Write Chapter 4 notes + problems (by July 14)
 *** TODO [#3] Write Chapter 5 notes + problems (by July 14)
 *** TODO [#2] Write Chapter 2 remainder of backlog problems (by July 15)
-*** TODO [#3] Write well-ordering article (by July 13)
+*** TODO [#3] Write Zorn's Lemma and Maximum Principle
