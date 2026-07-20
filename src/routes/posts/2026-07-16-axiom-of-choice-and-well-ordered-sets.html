@@ -16,9 +16,9 @@ axiom of choice and well-ordered sets (along with the maximum
 principle). I will add proofs for some theorems and lemmas.
 </p>
 
-<div id="outline-container-org7b405cc" class="outline-2">
-<h2 id="org7b405cc">Axiom of Choice</h2>
-<div class="outline-text-2" id="text-org7b405cc">
+<div id="outline-container-orge88558a" class="outline-2">
+<h2 id="orge88558a">Axiom of Choice</h2>
+<div class="outline-text-2" id="text-orge88558a">
 <div class="definition" id="def-1"><p>
 Given a collection \(\mathcal{A}\) of disjoint nonempty sets, there
 exists a set \(C\) consisting of exactly one element from each element
@@ -53,9 +53,9 @@ We will use the axiom of choice and this lemma frequently.
 </div>
 </div>
 
-<div id="outline-container-org485aedd" class="outline-2">
-<h2 id="org485aedd">Well Ordering</h2>
-<div class="outline-text-2" id="text-org485aedd">
+<div id="outline-container-orgd2192a1" class="outline-2">
+<h2 id="orgd2192a1">Well Ordering</h2>
+<div class="outline-text-2" id="text-orgd2192a1">
 <div class="definition" id="def-2"><p>
 A set \(A\) with an order relation \(<\) is said to be <b>well-ordered</b> if
 every nonempty set of \(A\) has a smallest element.
@@ -198,9 +198,9 @@ exists an order-relation, \(<_B\), that is a well-ordering. For each \(A
 </div>
 </div>
 
-<div id="outline-container-orgb3a5d5f" class="outline-2">
-<h2 id="orgb3a5d5f">The Maximum Principle and Zorn's Lemma</h2>
-<div class="outline-text-2" id="text-orgb3a5d5f">
+<div id="outline-container-org09ad4d6" class="outline-2">
+<h2 id="org09ad4d6">The Maximum Principle and Zorn's Lemma</h2>
+<div class="outline-text-2" id="text-org09ad4d6">
 <div class="definition" id="def-4"><p>
 Given a set \(A\), a relation \(\prec\) on \(A\) is called a <b>strict
 partial order</b> on \(A\) if it has the following two properties:
@@ -352,9 +352,41 @@ We now show that Tukey's Lemma implies the Maximum Principle:
 </p>
 
 <div class="lemma" id="thm-14"><p>
-TODO
+<a href="#thm-13">Tukey's Lemma</a> implies the <a href="#thm-10">Maximum Principle</a>
 </p>
 </div>
-<div class="proof" id="proof-8">nil</div>
+<div class="proof" id="proof-8"><p>
+Let \(\prec\) be a strict partial order on \(A\) and let \(\mathcal{A}\) be
+the collection of all subsets of \(A\) that are simply ordered by
+\(\prec\). We show \(\mathcal{A}\) is of finite type. Let \(B \in
+\mathcal{A}\). We show that every finite subset of \(B \in
+\mathcal{A}\). Let \(F \subset B\) be a finite subset. Then, since \(B \in
+A\), \(F \subset A\). Since \(B\) is simply ordered by \(\prec\), \(F\) is also
+simply ordered by \(\prec\), so \(F \in \mathcal{A}\). Now suppose that
+every finite subset of \(B\) is contained in \(\mathcal{A}\). We show \(B
+\in \mathcal{A}\). First, suppose that \(B\) is finite. Then, \(B \subset
+B\) is a finite subset, so \(B \in \mathcal{A}\). Now, suppose \(B\) is
+infinite. First, let \(x \in B\). Then, \(\{x\} \in \mathcal{A}\), so
+\(\{x\}\) is simply ordered by \(\prec\). Then, the relation \(x \prec x\)
+does not hold. Since \(x \in B\) was arbitrary, \(x \prec x\) does not
+hold for any \(x \in B\). Let \(x, y \in B\) be 2 arbitrary
+elements. Then, \(\{x, y\} \in \mathcal{A}\), so \(\{x, y\}\) is simply
+ordered by \(\prec\). Then, \(x \prec y\) or \(y \prec x\). Let \(x, y, z \in
+B\) and suppose \(x \prec y\) and \(y \prec z\). Since \(\{x, y, z\} \in
+\mathcal{A}\), \(\{x, y, z\}\) is simply ordered by \(\prec\), so \(x \prec
+z\) by transitivity. Then, \(\prec\) is a simple ordering on \(B\), so \(B
+\in \mathcal{A}\). Since \(B\) was an arbitrary element of \(\mathcal{A}\),
+\(\mathcal{A}\) is of finite type, so <a href="#thm-13">Tukey's Lemma</a> implies that
+\(\mathcal{A}\) has an element, \(C\), that is properly contained in no
+other element of \(\mathcal{A}\). Also, \(C\) is simply ordered by
+\(\prec\). So, \(C\) is a maximal simply ordered subset.
+</p>
+</div>
+
+<p>
+Since the <a href="#thm-10">Maximum Principle</a> is what was used to prove <a href="#thm-11">Zorn's Lemma</a>, we
+have shown that the <a href="#thm-10">Maximum Principle</a>, <a href="#thm-11">Zorn's Lemma</a>, <a href="#thm-12">Kuratowski's
+Lemma</a>, and <a href="#thm-13">Tukey's Lemma</a> are all equivalent.
+</p>
 </div>
 </div>
