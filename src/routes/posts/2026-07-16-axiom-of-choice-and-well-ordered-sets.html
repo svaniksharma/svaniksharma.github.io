@@ -17,9 +17,9 @@ axiom of choice and well-ordered sets (along with the maximum
 principle). I will add proofs for some theorems and lemmas.
 </p>
 
-<div id="outline-container-org36e6d0a" class="outline-2">
-<h2 id="org36e6d0a">Axiom of Choice</h2>
-<div class="outline-text-2" id="text-org36e6d0a">
+<div id="outline-container-org4d2d285" class="outline-2">
+<h2 id="org4d2d285">Axiom of Choice</h2>
+<div class="outline-text-2" id="text-org4d2d285">
 <div class="definition" id="def-1"><p>
 Given a collection \(\mathcal{A}\) of disjoint nonempty sets, there
 exists a set \(C\) consisting of exactly one element from each element
@@ -54,9 +54,9 @@ We will use the axiom of choice and this lemma frequently.
 </div>
 </div>
 
-<div id="outline-container-orgbf569bf" class="outline-2">
-<h2 id="orgbf569bf">Well Ordering</h2>
-<div class="outline-text-2" id="text-orgbf569bf">
+<div id="outline-container-org9ea4983" class="outline-2">
+<h2 id="org9ea4983">Well Ordering</h2>
+<div class="outline-text-2" id="text-org9ea4983">
 <div class="definition" id="def-2"><p>
 A set \(A\) with an order relation \(<\) is said to be <b>well-ordered</b> if
 every nonempty set of \(A\) has a smallest element.
@@ -387,12 +387,40 @@ there exists \(h_\beta: S_\beta \rightarrow C\) satisfying \((\star)\).
 And now we have the proof for <a href="#thm-11">Theorem 11</a>:
 </p>
 <div class="proof" id="proof-10"><p>
-TODO
+By <a href="#thm-15">Lemma 15</a>, for every \(\beta \in J\), there exists \(h_\beta: S_\beta
+\rightarrow C\) satisfying \((\star)\). Every element of \(J\) has an
+immediate successor or is the largest element of \(J\). Let \(x \in
+J\). If \(x\) has an immediate successor, \(y\), then we can let \(h(x) =
+h_y(x)\), where \(h_y: S_y \rightarrow C\) satisfies \((\star)\). If \(x\) is
+the largest element of \(J\), we can define \(h(x) = \text{smallest
+element} [C - h(S_x)]\). Since \(h\) is not surjective, \(C - h(S_x)\) is
+nonempty, so \(h\) is well-defined. It is clear \(h\) satisfies \((\star)\)
+for the largest element of \(J\) (if it exists). Let \(x \in J\) not be the
+largest element. Then, it has an immediate successor \(y\), so that
+\(h(x) = h_y(x)\). We have:
+</p>
+\begin{align*}
+h(S_x) &= \{z < x: h(z)\} \\
+&= \{z < z' < x, z' \text{ is immediate successor }: h_{z'}(z)\}
+\end{align*}
+<p>
+And:
+</p>
+\begin{align*}
+h_y(S_x) &= \{z < x: h_y(z)\} \\
+\end{align*}
+<p>
+For all \(z < x\), \(h_y\) satisfies \((\star)\) at \(z\) and \(h_{z'}\)
+satisfies \((\star)\) at \(z\) (where \(z'\) is the immediate successor of
+\(z\)). So, by <a href="#thm-12">Lemma 12</a>, \(h_{z'}(z) = h_y(z)\). This implies \(h(z) =
+h_y(z)\). Then, \(h(S_x) = h_y(S_x)\) and \(h\) satisfies \((\star)\) for all
+\(x \in J\). For any other \(k\) satisfying \((\star)\) on \(J\) or a section
+of \(J\), \(h(x) = k(x)\), so \(h: J \rightarrow C\) is unique by <a href="#thm-12">Lemma 12</a>.
 </p>
 </div>
 
 <p>
-We can use this to prove the following:
+We can use <a href="#thm-11">Theorem 11</a> to prove the following:
 </p>
 
 <div class="theorem" id="thm-16"><p>
@@ -407,9 +435,9 @@ TODO
 </div>
 </div>
 
-<div id="outline-container-orgf39dba5" class="outline-2">
-<h2 id="orgf39dba5">The Maximum Principle and Zorn's Lemma</h2>
-<div class="outline-text-2" id="text-orgf39dba5">
+<div id="outline-container-org6b10e46" class="outline-2">
+<h2 id="org6b10e46">The Maximum Principle and Zorn's Lemma</h2>
+<div class="outline-text-2" id="text-org6b10e46">
 <div class="definition" id="def-4"><p>
 Given a set \(A\), a relation \(\prec\) on \(A\) is called a <b>strict
 partial order</b> on \(A\) if it has the following two properties:
@@ -601,9 +629,9 @@ Lemma</a>, and <a href="#thm-20">Tukey's Lemma</a> are all equivalent.
 </div>
 
 
-<div id="outline-container-orgfa360f0" class="outline-2">
-<h2 id="orgfa360f0">Application of Zorn's Lemma</h2>
-<div class="outline-text-2" id="text-orgfa360f0">
+<div id="outline-container-org410099a" class="outline-2">
+<h2 id="org410099a">Application of Zorn's Lemma</h2>
+<div class="outline-text-2" id="text-org410099a">
 <p>
 We show that <a href="#thm-17">Zorn's Lemma</a> can be used to prove that every vector space
 has a basis. Recall that a basis \(A\) of a vector space \(V\) spans all of
