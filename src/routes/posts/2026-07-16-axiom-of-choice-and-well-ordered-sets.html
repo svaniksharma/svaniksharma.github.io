@@ -17,9 +17,9 @@ axiom of choice and well-ordered sets (along with the maximum
 principle). I will add proofs for some theorems and lemmas.
 </p>
 
-<div id="outline-container-orgf707814" class="outline-2">
-<h2 id="orgf707814">Axiom of Choice</h2>
-<div class="outline-text-2" id="text-orgf707814">
+<div id="outline-container-org36e6d0a" class="outline-2">
+<h2 id="org36e6d0a">Axiom of Choice</h2>
+<div class="outline-text-2" id="text-org36e6d0a">
 <div class="definition" id="def-1"><p>
 Given a collection \(\mathcal{A}\) of disjoint nonempty sets, there
 exists a set \(C\) consisting of exactly one element from each element
@@ -54,9 +54,9 @@ We will use the axiom of choice and this lemma frequently.
 </div>
 </div>
 
-<div id="outline-container-org16c7e88" class="outline-2">
-<h2 id="org16c7e88">Well Ordering</h2>
-<div class="outline-text-2" id="text-org16c7e88">
+<div id="outline-container-orgbf569bf" class="outline-2">
+<h2 id="orgbf569bf">Well Ordering</h2>
+<div class="outline-text-2" id="text-orgbf569bf">
 <div class="definition" id="def-2"><p>
 A set \(A\) with an order relation \(<\) is said to be <b>well-ordered</b> if
 every nonempty set of \(A\) has a smallest element.
@@ -360,7 +360,26 @@ For every \(\beta \in J\), there exists a function \(h_\beta: S_\beta
 </div>
 <div class="proof" id="proof-9"><p>
 Let \(J_0 = \{\alpha \in J: \text{ there exists } h_\alpha: S_\alpha
-\rightarrow C \text{ satisfying } (\star)\}\).
+\rightarrow C \text{ satisfying } (\star)\}\). We know from <a href="#thm-13">Lemma 13</a>
+that there exists \(h_{\alpha_0}: \{\alpha_0\} \rightarrow C\) satisfying
+\((\star)\), namely, the one that assigns \(h(\alpha_0) = \text{ smallest
+element of } C\), where \(\alpha_0\) is the smallest element of
+\(J\). Therefore, \(J_0 \ne \emptyset\). Let \(\beta \in J\). Suppose
+\(S_\beta \subset J_0\). We show \(\beta \in J_0\). Suppose \(\beta\) has an
+immediate predecessor \(\alpha\). Then, \(S_\beta = S_\alpha \cup
+\{\alpha\}\). Since \(\alpha \in S_\beta\), \(\alpha \in J_0\), so there
+exists \(h_\alpha: S_\alpha \rightarrow C\) satisfying \((\star)\). By
+<a href="#thm-13">Lemma 13</a>, there exists \(k: S_\alpha \cup \{\alpha\} \rightarrow C\)
+satisfying \((\star)\). That is, there exists \(k: S_\beta \rightarrow C\)
+satisfying \((\star)\). So, \(\beta \in J_0\). Now suppose that \(\beta\)
+does not have an immediate predecessor. Then, \(S_\beta =
+\cup_{\{\alpha \in J_0: \alpha < \beta\}} S_\alpha\). Let \(K \subset
+J_0\). Then, for every \(\alpha \in K\), there exists \(h_\alpha: S_\alpha
+\rightarrow C\) satisfying \((\star)\). That is, there exists \(k: S_\beta
+\rightarrow C\) satisfying \((\star)\). So, \(\beta \in J_0\). Therefore,
+\(J_0\) is an inductive set. Since \(J\) is well-defined, \(J_0 = J\) by <a href="#thm-10">The
+Principle of Transfinite Induction</a>. So, for every \(\beta \in J\),
+there exists \(h_\beta: S_\beta \rightarrow C\) satisfying \((\star)\).
 </p>
 </div>
 
@@ -388,9 +407,9 @@ TODO
 </div>
 </div>
 
-<div id="outline-container-org92fbe28" class="outline-2">
-<h2 id="org92fbe28">The Maximum Principle and Zorn's Lemma</h2>
-<div class="outline-text-2" id="text-org92fbe28">
+<div id="outline-container-orgf39dba5" class="outline-2">
+<h2 id="orgf39dba5">The Maximum Principle and Zorn's Lemma</h2>
+<div class="outline-text-2" id="text-orgf39dba5">
 <div class="definition" id="def-4"><p>
 Given a set \(A\), a relation \(\prec\) on \(A\) is called a <b>strict
 partial order</b> on \(A\) if it has the following two properties:
@@ -582,9 +601,9 @@ Lemma</a>, and <a href="#thm-20">Tukey's Lemma</a> are all equivalent.
 </div>
 
 
-<div id="outline-container-org1350246" class="outline-2">
-<h2 id="org1350246">Application of Zorn's Lemma</h2>
-<div class="outline-text-2" id="text-org1350246">
+<div id="outline-container-orgfa360f0" class="outline-2">
+<h2 id="orgfa360f0">Application of Zorn's Lemma</h2>
+<div class="outline-text-2" id="text-orgfa360f0">
 <p>
 We show that <a href="#thm-17">Zorn's Lemma</a> can be used to prove that every vector space
 has a basis. Recall that a basis \(A\) of a vector space \(V\) spans all of
