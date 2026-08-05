@@ -17,9 +17,9 @@ axiom of choice and well-ordered sets (along with the maximum
 principle). I will add proofs for some theorems and lemmas.
 </p>
 
-<div id="outline-container-org3407646" class="outline-2">
-<h2 id="org3407646">Axiom of Choice</h2>
-<div class="outline-text-2" id="text-org3407646">
+<div id="outline-container-org648a3db" class="outline-2">
+<h2 id="org648a3db">Axiom of Choice</h2>
+<div class="outline-text-2" id="text-org648a3db">
 <div class="definition" id="def-1"><p>
 Given a collection \(\mathcal{A}\) of disjoint nonempty sets, there
 exists a set \(C\) consisting of exactly one element from each element
@@ -54,9 +54,9 @@ We will use the axiom of choice and this lemma frequently.
 </div>
 </div>
 
-<div id="outline-container-org86cd8e9" class="outline-2">
-<h2 id="org86cd8e9">Well Ordering</h2>
-<div class="outline-text-2" id="text-org86cd8e9">
+<div id="outline-container-orgf75b01d" class="outline-2">
+<h2 id="orgf75b01d">Well Ordering</h2>
+<div class="outline-text-2" id="text-orgf75b01d">
 <div class="definition" id="def-2"><p>
 A set \(A\) with an order relation \(<\) is said to be <b>well-ordered</b> if
 every nonempty set of \(A\) has a smallest element.
@@ -245,7 +245,7 @@ To prove this, we will need some lemmas:
 
 <div class="lemma" id="thm-12"><p>
 If \(h\) and \(k\) map sections of \(J\) or all of \(J\) into \(C\) and satisfy
-\(\star\) for all \(x\) in their respective domains, \(h(x) = k(x)\) for all
+\((\star)\) for all \(x\) in their respective domains, \(h(x) = k(x)\) for all
 \(x\) in both domains.
 </p>
 </div>
@@ -285,7 +285,27 @@ If there exists a function \(h: S_\alpha \rightarrow C\) satisfying
 </p>
 </div>
 <div class="proof" id="proof-7"><p>
-TODO
+Define \(k: S_\alpha \cup \{\alpha\} \rightarrow C\) so that \(k(x) =
+h(x)\) for all \(x \in S_\alpha\) and \(k(\alpha) = \text{smallest
+element} [C - h(S_x)]\). Let \(X = \{x \in S_\alpha: k(x) \text{ does
+not satisfy } (\star) \}\). Then, since \(X \subset X_\alpha \subset J\),
+\(X\) is well-ordered, so there exists a smallest element \(\alpha_0 \in
+X\). Since \(S_\alpha = \{x \in J: x < \alpha\}\), \(S_\alpha\) is
+well-ordered and the smallest element of \(S_\alpha\), \(\alpha_0\), is
+also the smallest element of \(J\). Then, \(S_{\alpha_0} = \emptyset\) and
+\(k(\alpha_0) = h(\alpha_0) = \text{smallest element of } C\). So, \(k\)
+satisfies \((\star)\) at \(\alpha_0\). Then, \(x_0 \ne \alpha_0\), since \(k\)
+does not satisfy \((\star)\) at \(x_0\). For all \(x < x_0\), \(k\) does
+satisfy \((\star)\) at \(x\). That is, \(k\) does satisfy \((\star)\) for all
+\(x \in S_{x_0}\). Also, \(k(x) = h(x)\) for all \(x \in S_{x_0}\). So,
+\(k(S_{x_0}) = h(S_{x_0})\). Then, \(k(x_0) := h(x_0) = \text{smallest
+element of} [C - h(S_{x_0})] = \text{smallest element of} [C -
+k(S_{x_0})]\). So, \(k\) satisfies \((\star)\) for \(x_0\), which contradicts
+the fact \(k\) doesn't satisfy \((\star)\) at \(x_0\). So, \(k\) satisfies
+\((\star)\) for all \(x \in S_\alpha\). For \(x = \alpha\), \(k(\alpha) :=
+\text{smallest element} [C - h(S_\alpha)]\). We know \(h(S_\alpha) =
+k(S_\alpha)\), so \(k(\alpha) = \text{smallest element} [C -
+k(S_\alpha)]\). 
 </p>
 </div>
 
@@ -345,9 +365,9 @@ TODO
 </div>
 </div>
 
-<div id="outline-container-orga588870" class="outline-2">
-<h2 id="orga588870">The Maximum Principle and Zorn's Lemma</h2>
-<div class="outline-text-2" id="text-orga588870">
+<div id="outline-container-orgaf37ad5" class="outline-2">
+<h2 id="orgaf37ad5">The Maximum Principle and Zorn's Lemma</h2>
+<div class="outline-text-2" id="text-orgaf37ad5">
 <div class="definition" id="def-4"><p>
 Given a set \(A\), a relation \(\prec\) on \(A\) is called a <b>strict
 partial order</b> on \(A\) if it has the following two properties:
@@ -539,9 +559,9 @@ Lemma</a>, and <a href="#thm-20">Tukey's Lemma</a> are all equivalent.
 </div>
 
 
-<div id="outline-container-org474f266" class="outline-2">
-<h2 id="org474f266">Application of Zorn's Lemma</h2>
-<div class="outline-text-2" id="text-org474f266">
+<div id="outline-container-orgdea400f" class="outline-2">
+<h2 id="orgdea400f">Application of Zorn's Lemma</h2>
+<div class="outline-text-2" id="text-orgdea400f">
 <p>
 We show that <a href="#thm-17">Zorn's Lemma</a> can be used to prove that every vector space
 has a basis. Recall that a basis \(A\) of a vector space \(V\) spans all of
