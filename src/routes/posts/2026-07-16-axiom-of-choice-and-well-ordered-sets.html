@@ -8,6 +8,7 @@ math: 'mathjax'
 <ul class="org-ul">
 <li>UPDATE 07/18/2026: Added Zorn's Lemma and Maximum Principle</li>
 <li>UPDATE 07/19/2026: Added some consequences of Zorn's Lemma</li>
+<li>UPDATE 08/07/2026: Added proof of <a href="#thm-16">Theorem 16</a></li>
 </ul>
 
 <p>
@@ -17,9 +18,9 @@ axiom of choice and well-ordered sets (along with the maximum
 principle). I will add proofs for some theorems and lemmas.
 </p>
 
-<div id="outline-container-orgd8a0df9" class="outline-2">
-<h2 id="orgd8a0df9">Axiom of Choice</h2>
-<div class="outline-text-2" id="text-orgd8a0df9">
+<div id="outline-container-orgc0f2ce4" class="outline-2">
+<h2 id="orgc0f2ce4">Axiom of Choice</h2>
+<div class="outline-text-2" id="text-orgc0f2ce4">
 <div class="definition" id="def-1"><p>
 Given a collection \(\mathcal{A}\) of disjoint nonempty sets, there
 exists a set \(C\) consisting of exactly one element from each element
@@ -54,9 +55,9 @@ We will use the axiom of choice and this lemma frequently.
 </div>
 </div>
 
-<div id="outline-container-orgdb0f54d" class="outline-2">
-<h2 id="orgdb0f54d">Well Ordering</h2>
-<div class="outline-text-2" id="text-orgdb0f54d">
+<div id="outline-container-org64e15f4" class="outline-2">
+<h2 id="org64e15f4">Well Ordering</h2>
+<div class="outline-text-2" id="text-org64e15f4">
 <div class="definition" id="def-2"><p>
 A set \(A\) with an order relation \(<\) is said to be <b>well-ordered</b> if
 every nonempty set of \(A\) has a smallest element.
@@ -429,28 +430,58 @@ one has cardinality greater than the other.
 </p>
 </div>
 <div class="proof" id="proof-11"><p>
-First, suppose there exists a bijection between \(A\) and \(B\). Then, by
-definition, they are of the same cardinality. Now, suppose that \(A\)
-and \(B\) are not of the same cardinality. Suppose for contradiction
-that \(A\) is not of greater cardinality than \(B\) and \(B\) is not of
-greater cardinality than \(A\). Then, for every map \(f: A \rightarrow
-B\), \(f\) is not an injection from \(A\) to \(B\) and for every map \(g: B
-\rightarrow A\), \(g\) is not an injection from \(B\) to \(A\). We consider
-four cases:
+We consider two cases. The first case is that there exists a map \(f: A
+\rightarrow B\) which is surjective. The next case is that \(f: A
+\rightarrow B\) is not surjective. In either case, it suffices to show
+that there exists an injective function from \(A\) to \(B\) or \(B\) to
+\(A\). For if there exists an injective map \(B\) to \(A\) and \(A\) to \(B\),
+then the <a href="https://en.wikipedia.org/wiki/Schr%C3%B6der%E2%80%93Bernstein_theorem">Schroder-Bernstein Theorem</a> implies that \(A\) and \(B\) are of
+the same cardinality. Otherwise, if there exists no injective map from
+\(B\) to \(A\) but there is one from \(A\) to \(B\), then \(B\) has greater
+cardinality than \(A\); if there exists no injective map from \(A\) to \(B\)
+but there is one from \(B\) to \(A\), then \(A\) has greater cardinality
+than \(B\). First, consider the case that there exists a map \(f: A
+\rightarrow B\) which is surjective. Then, for every \(y \in B\),
+\(f^{-1}(y)\) is nonempty. By the <a href="#def-1">Axiom of Choice</a>, we can construct a
+set \(S = \{x \in A: x \text{ is an arbitrary element of }
+f^{-1}(y)\}\). Then, define a map \(f_1: A \rightarrow B\) so that \(f_1(x)
+= f(x)\). The map \(f_1\) is a function since \(f\) is a function (meaning
+the same \(x \in A\) cannot map to \(y_1, y_2 \in B\) where \(y_1 \ne
+y_2\)), so it is well-defined. Now, define \(h: B \rightarrow A\) so that
+$h(y) = \(f_1^{-1}(y)\). Let \(y_1, y_2 \in B\) and \(h(y_1) =
+h(y_2)\). Then, \(f_1^{-1}(y_1) = f_1^{-1}(y_2)\). By the way \(f_1\) is
+defined, there can only be one \(x\) so that \(f_1(x) = y_1\). And we also
+have that \(f_1(x) = y_2\). So, \(y_1 = y_2\). Then, \(h\) is an injective
+map from \(B\) to \(A\). Now, suppose that there exists no surjective map
+from from any section of \(A\) to \(B\). By <a href="#thm-11">Theorem 11</a>, there exists a
+unique function \(h: A \rightarrow B\) that satisfies \(h(x) =
+\text{smallest} [B - h(S_x)]\). We show that \(h\) is injective. Let
+\(x_1, x_2 \in A\) so that \(h(x_1) = h(x_2)\). Suppose for contradiction
+that \(x_1 \ne x_2\). WLOG, suppose that \(x_1 < x_2\) (we can swap \(x_2\)
+and \(x_1\) and still get the same argument). Then, \(S_{x_1} \subset
+S_{x_2}\), so \(B - h(S_{x_2}) \subset B - h(S_{x_1})\). And:
 </p>
-<ol class="org-ol">
-<li>\(f\) is a surjection and \(g\) is a surjection</li>
-<li>\(f\) is not a surjection and \(g\) is a surjection</li>
-<li>\(f\) is a surjection and \(g\) is not a surjection</li>
-<li>\(f\) is not a surjection and \(g\) is not a surjection</li>
-</ol>
+\begin{align*}
+h(x_1) &= \text{smallest} [B - h(S_{x_1})] \\
+h(x_2) &= \text{smallest} [B - h(S_{x_2})] = \text{smallest} [\Bigl(B - h(S_{x_1})\Bigl) \setminus \Bigl(h(S_{x_2} \setminus S_{x_1})\Bigl)]
+\end{align*}
+<p>
+Since \(h(x_1) \in h(S_{x_2} \setminus S_{x_1})\), it is not contained in
+\(\Bigl(B - h(S_{x_1})\Bigl) \setminus \Bigl(h(S_{x_2} \setminus
+S_{x_1})\Bigl)\). But that means \(h(x_1)\) cannot be the smallest
+element of \(\Bigl(B - h(S_{x_1})\Bigl) \setminus \Bigl(h(S_{x_2}
+\setminus S_{x_1})\Bigl)\), so \(h(x_1) \ne h(x_2)\), contradicting the
+hypothesis. So, it cannot be that \(x_1 < x_2\) nor that \(x_2 <
+x_1\). That is, \(x_1 = x_2\). It follows that \(h\) is an injection from
+\(A\) to \(B\).
+</p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org3980f36" class="outline-2">
-<h2 id="org3980f36">The Maximum Principle and Zorn's Lemma</h2>
-<div class="outline-text-2" id="text-org3980f36">
+<div id="outline-container-org164e247" class="outline-2">
+<h2 id="org164e247">The Maximum Principle and Zorn's Lemma</h2>
+<div class="outline-text-2" id="text-org164e247">
 <div class="definition" id="def-4"><p>
 Given a set \(A\), a relation \(\prec\) on \(A\) is called a <b>strict
 partial order</b> on \(A\) if it has the following two properties:
@@ -642,9 +673,9 @@ Lemma</a>, and <a href="#thm-20">Tukey's Lemma</a> are all equivalent.
 </div>
 
 
-<div id="outline-container-org4a371a7" class="outline-2">
-<h2 id="org4a371a7">Application of Zorn's Lemma</h2>
-<div class="outline-text-2" id="text-org4a371a7">
+<div id="outline-container-org18ec0cc" class="outline-2">
+<h2 id="org18ec0cc">Application of Zorn's Lemma</h2>
+<div class="outline-text-2" id="text-org18ec0cc">
 <p>
 We show that <a href="#thm-17">Zorn's Lemma</a> can be used to prove that every vector space
 has a basis. Recall that a basis \(A\) of a vector space \(V\) spans all of
