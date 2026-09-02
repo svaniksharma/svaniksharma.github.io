@@ -1,0 +1,114 @@
+---
+title: 'Measure Theoretic Probability Part 3'
+date: 2026-09-01T07:07:07+01:00
+slug: measure_theoretic_probability_part_3
+math: 'mathjax'
+---
+
+<p>
+This article covers denumerable probabilities and simple random
+variables. First, we discuss "denumerable" probabilities.
+</p>
+
+<div id="outline-container-org28b2410" class="outline-2">
+<h2 id="org28b2410">Denumerable Probabilities</h2>
+<div class="outline-text-2" id="text-org28b2410">
+</div>
+<div id="outline-container-org5d62543" class="outline-3">
+<h3 id="org5d62543">Limit Sets</h3>
+<div class="outline-text-3" id="text-org5d62543">
+<div class="definition" id="def-1"><p>
+For a sequence of sets \(\{A_n\}_n\), we define the sets:
+</p>
+
+\begin{align*}
+\limsup_n A_n &= \cap_{n=1}^\infty \cup_{k = n}^\infty A_k \\
+\liminf_n A_n &= \cup_{n=1}^\infty \cap_{k = n}^\infty A_k
+\end{align*}
+
+<p>
+which are the <b>limits superior</b> and <b>limits inferior</b> of the sequence
+\({A_n}_n\), respectively. We say that \(A_n\) has <b>limit</b> \(A\) (denoted
+\(A_n \rightarrow A\)) whenever:
+\[
+\lim_n A_n = \liminf A_n = \limsup A_n
+\]
+</p>
+</div>
+
+<p>
+Note that \(x \in \limsup_n A_n\) if and only if \(x\) lies in infinitely
+many of the \(A_n\). Also, \(x \in \liminf_n A_n\) is \(x\) lies in all but
+finitely many of the \(A_n\). Therefore, if \(x \in \liminf_n A_n\), then
+\(x \in \limsup_n A_n\) since if it lies in all <i>but finitely</i> many of the
+\(A_n\), it lies in infinitely many of the \(A_n\).
+Hence, \(\liminf_n A_n \subset \limsup_n A_n\). To check that \(A_n
+\rightarrow A\), we only have to show \(\limsup_n A_n \subset \liminf_n A_n\).
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2013743" class="outline-2">
+<h2 id="org2013743">Problems</h2>
+<div class="outline-text-2" id="text-org2013743">
+</div>
+<div id="outline-container-org1e3849c" class="outline-3">
+<h3 id="org1e3849c">Problem 4.1</h3>
+<div class="outline-text-3" id="text-org1e3849c">
+<p>
+We first translate the notation in the book to something more familiar
+first:
+</p>
+\begin{align*}
+\limsup_n x_n &= \inf_{n \in \mathbb{N}} \sup_{k \ge n} x_k \\
+\liminf_n x_n &= \sup_{n \in \mathbb{N}} \inf_{k \ge n} x_k
+\end{align*}
+<p>
+Suppose that \(\omega \in \limsup_n A_n := A\). Then, \(I_A(\omega) =
+1\). Also, \(\omega\) is in infinitely many of the \(A_n\)'s. That is,
+\(I_{A_n}(\omega) = 1\) for infinitely many \(n \in \mathbb{N}\). In other
+words, for every \(n \in \mathbb{N}\), there exists \(k \ge n\) so that
+\(I_{A_k}(\omega) = 1\). That is, \(\sup_{k \ge n} I_{A_k}(\omega) = 1\)
+since the range of \(I_{A_k}\) is \(\{0, 1\}\). Therefore, \(\limsup_n
+I_{A_n}(\omega) = 1\). Now, suppose that \(I_A(\omega) = 0\). Then, for
+some \(n \in \mathbb{N}\), \(x \not\in A_k\) for every \(k \ge n\). That is,
+\(I_{A_k}(\omega) = 0\). Then, \(\inf_{n \in \mathbb{N}} \sup_{k \ge n}
+I_{A_k}(\omega) = 0\), implying that \(\limsup_n I_{A_n}(\omega) =
+0\). This shows that \(I_A = I_{\limsup_n A_n} = \limsup_n I_{A_n}\).
+We now similarly prove that \(I_A = \liminf_n I_{A_n}\) where \(A =
+\liminf_n A_n\). Suppose \(\omega \in A\). Then, \(I_A(\omega) = 1\). Also,
+\(\omega \in A_n\) for all but finitely many \(n \in \mathbb{N}\). Then,
+for all but finitely many \(n \in \mathbb{N}\), \(I_{A_n}(\omega) =
+1\). That is, for every \(n \in \mathbb{N}\), there exists \(k \in
+\mathbb{N}\) so that \(I_{A_k}(\omega) = 1\) for all \(k \ge m \ge
+n\). Consequently, for any particular \(n \in \mathbb{N}\), \(\inf_{k \ge
+n} I_{A_k}(\omega) = 1\). Then, \(\liminf_n I_{A_n}(\omega) = 1\). Now
+suppose \(\omega \not\in A\). Then, \(I_A(\omega) = 0\). There exists \(N
+\in \mathbb{N}\) so that \(\omega \not\in A_n\) for all \(n \ge N\). That
+is, \(I_{A_n}(\omega) = 0\) for all \(n \ge N\). Consider any fixed \(n \in
+\mathbb{N}\). If \(n \ge N\), then \(\inf_{k \ge n} I_{A_k}(\omega) = 0\)
+because \(I_{A_k}(\omega) = 0\) for all \(k \ge n \ge N\). If \(n < N\),
+then still \(\inf_{k \ge n} I_{A_k}(\omega) = 0\). So, \(I_{A_k}(\omega)
+= 0\) for all \(k \ge N > n\). Therefore, \(\liminf_n I_{A_n}(\omega) =
+0\). So, \(I_A = \liminf_n I_{A_n}\).
+</p>
+
+<p>
+Suppose \(\limsup_n A_n = \liminf A_n\). Let \(\omega\) be arbitrary. We
+show \(\limsup_n I_{A_n}(\omega) = \liminf_n I_{A_n}(\omega)\). Based on
+what we just prove, this is equivalent to showing that \(I_{\limsup_n
+A_n}(\omega) = I_{\liminf_n A_n}(\omega)\). Since \(\limsup_n A_n =
+\liminf_n A_n\), this is true, and \(\limsup_n I_{A_n}(\omega) =
+\liminf_n I_{A_n}(\omega)\) for every \(\omega\), so \(\lim_n
+I_{A_n}(\omega)\) exists for every \(omega\). Now, suppose \(\lim_n
+I_{A_n}(\omega)\) exists for every \(\omega\). Then, \(\limsup_n
+I_{A_n}(\omega) = \liminf_n I_{A_n}(\omega)\) for every \(\omega\). By
+what we just prove, this is equivalent to saying \(I_{\limsup_n A_n}(\omega) =
+I_{\liminf_n A_n}(\omega)\). This would mean that \(\omega \in \limsup_n
+A_n\) if and only if \(\omega \in \liminf_n A_n\). Then, \(\limsup_n A_n
+\subset \liminf_n A_n\), so \(\limsup_n A_n = \liminf_n A_n\).
+</p>
+</div>
+</div>
+</div>
