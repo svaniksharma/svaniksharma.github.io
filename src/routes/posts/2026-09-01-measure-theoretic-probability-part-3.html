@@ -10,13 +10,13 @@ This article covers denumerable probabilities and simple random
 variables. First, we discuss "denumerable" probabilities.
 </p>
 
-<div id="outline-container-org28b2410" class="outline-2">
-<h2 id="org28b2410">Denumerable Probabilities</h2>
-<div class="outline-text-2" id="text-org28b2410">
+<div id="outline-container-org834da73" class="outline-2">
+<h2 id="org834da73">Denumerable Probabilities</h2>
+<div class="outline-text-2" id="text-org834da73">
 </div>
-<div id="outline-container-org5d62543" class="outline-3">
-<h3 id="org5d62543">Limit Sets</h3>
-<div class="outline-text-3" id="text-org5d62543">
+<div id="outline-container-org926c39b" class="outline-3">
+<h3 id="org926c39b">Limit Sets</h3>
+<div class="outline-text-3" id="text-org926c39b">
 <div class="definition" id="def-1"><p>
 For a sequence of sets \(\{A_n\}_n\), we define the sets:
 </p>
@@ -49,13 +49,13 @@ Hence, \(\liminf_n A_n \subset \limsup_n A_n\). To check that \(A_n
 </div>
 </div>
 
-<div id="outline-container-org2013743" class="outline-2">
-<h2 id="org2013743">Problems</h2>
-<div class="outline-text-2" id="text-org2013743">
+<div id="outline-container-orgfbd1e18" class="outline-2">
+<h2 id="orgfbd1e18">Problems</h2>
+<div class="outline-text-2" id="text-orgfbd1e18">
 </div>
-<div id="outline-container-org1e3849c" class="outline-3">
-<h3 id="org1e3849c">Problem 4.1</h3>
-<div class="outline-text-3" id="text-org1e3849c">
+<div id="outline-container-org64dac14" class="outline-3">
+<h3 id="org64dac14">Problem 4.1</h3>
+<div class="outline-text-3" id="text-org64dac14">
 <p>
 We first translate the notation in the book to something more familiar
 first:
@@ -101,13 +101,119 @@ what we just prove, this is equivalent to showing that \(I_{\limsup_n
 A_n}(\omega) = I_{\liminf_n A_n}(\omega)\). Since \(\limsup_n A_n =
 \liminf_n A_n\), this is true, and \(\limsup_n I_{A_n}(\omega) =
 \liminf_n I_{A_n}(\omega)\) for every \(\omega\), so \(\lim_n
-I_{A_n}(\omega)\) exists for every \(omega\). Now, suppose \(\lim_n
+I_{A_n}(\omega)\) exists for every \(\omega\). Now, suppose \(\lim_n
 I_{A_n}(\omega)\) exists for every \(\omega\). Then, \(\limsup_n
 I_{A_n}(\omega) = \liminf_n I_{A_n}(\omega)\) for every \(\omega\). By
 what we just prove, this is equivalent to saying \(I_{\limsup_n A_n}(\omega) =
 I_{\liminf_n A_n}(\omega)\). This would mean that \(\omega \in \limsup_n
 A_n\) if and only if \(\omega \in \liminf_n A_n\). Then, \(\limsup_n A_n
 \subset \liminf_n A_n\), so \(\limsup_n A_n = \liminf_n A_n\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1e6d5a6" class="outline-3">
+<h3 id="org1e6d5a6">Problem 4.2</h3>
+<div class="outline-text-3" id="text-org1e6d5a6">
+<p>
+Part A:
+</p>
+\begin{align*}
+\limsup_n (A_n \cap B_n) &= \bigcap_{n=1}^\infty \bigcup_{k = n}^\infty (A_k \cap B_k) \\
+&\subset \bigcap_{n=1}^\infty \Bigl(\bigcup_{k=n}^\infty A_k \cap \bigcup_{k=n}^\infty B_k\Bigl) \\
+&= \Bigl(\bigcap_{n=1}^\infty \bigcup_{k=n}^\infty A_k\Bigl) \cap \Bigl(\bigcap_{n=1}^\infty \bigcup_{k=n}^\infty B_k\Bigl) \\
+&= (\limsup_n A_n) \cap (\limsup_n B_n)
+\end{align*}
+\begin{align*}
+(\limsup_n A_n) \cup (\limsup_n B_n) &= \Bigl(\bigcap_{n=1}^\infty \bigcup_{k=n}^\infty A_k\Bigl) \cup \Bigl(\bigcap_{n=1}^\infty \bigcup_{k=n}^\infty B_k\Bigl) \\
+&= \bigcap_{n=1}^\infty \Bigl(\bigcup_{k=n}^\infty A_k \cup \bigcup_{k=n}^\infty B_k \Bigl) \\
+&= \bigcap_{n=1}^\infty \bigcup_{k=n}^\infty \Bigl(A_k \cup B_k) \\
+&= \limsup_n (A_n \cup B_n)
+\end{align*}
+\begin{align*}
+(\liminf_n A_n) \cap (\liminf_n B_n) &= \Bigl(\bigcup_{n=1}^\infty \bigcap_{k=n}^\infty A_k\Bigl) \cap \Bigl(\bigcup_{n=1}^\infty \bigcup_{k=n}^\infty B_k\Bigl) \\
+&= \bigcup_{n=1}^\infty \Bigl(\bigcap_{k=n}^\infty A_k \cap \bigcap_{k=n}^\infty B_k\Bigl) \\
+&= \bigcup_{n=1}^\infty \bigcap_{k=n}^\infty \Bigl(A_k \cap B_k \Bigl) \\
+&= \liminf_n (A_n \cap B_n)
+\end{align*}
+\begin{align*}
+(\liminf_n A_n) \cup (\liminf_n B_n) &= \Bigl(\bigcup_{n=1}^\infty \bigcap_{k=n}^\infty A_k\Bigl) \cup \Bigl(\bigcup_{n=1}^\infty \bigcap_{k=n}^\infty B_k\Bigl) \\
+&\subset \bigcup_{n=1}^\infty \Bigl(\bigcap_{k=n}^\infty A_k \cup \bigcap_{k=n}^\infty B_k\Bigl) \\
+&\subset \bigcup_{n=1}^\infty \bigcap_{k=n}^\infty \Bigl(A_k \cup B_k\Bigl) \\
+&= \liminf_n (A_n \cup B_n)
+\end{align*}
+
+<p>
+For the examples: Let \(A_n = \{x\}\) if \(n\) is even and \(A = \emptyset\)
+when \(n\) is odd. Let \(B_n = \emptyset\) when \(n\) is even and \(B_n =
+\{x\}\) when \(n\) is odd. Then, for each \(n \in \mathbb{N}\), \(A_n \cap
+B_n = \emptyset\). So, \(\limsup_n (A_n \cap B_n) = \emptyset\). However,
+\(\limsup_n A_n = \limsup_n B_n = \{x\}\). So, \((\limsup_n A_n) \cap
+(\limsup_n B_n) = \{x\}\), which properly contains \(\emptyset =
+\limsup_n (A_n \cap B_n)\). Also, \(\liminf_n (A_n \cup B_n) =
+\{x\}\). However, \(\liminf_n A_n = \liminf_n B_n = \emptyset\). So,
+\((\liminf_n A_n) \cup (\liminf_n B_n) = \emptyset \cup \emptyset =
+\emptyset \subset \liminf_n (A_n \cup B_n) = \{x\}\). 
+</p>
+
+<p>
+Part B: TODO
+</p>
+
+<p>
+Part C:
+</p>
+\begin{align*}
+(\liminf_n A_n)^c = \Bigl(\bigcup_{n=1}^\infty \bigcap_{k=n}^\infty A_k\Bigl)^c = \bigcap_{n=1}^\infty \bigcup_{k=n}^\infty A_k^c = \limsup_n A_n^c \\
+(\limsup_n A_n)^c = \Bigl(\bigcap_{n=1}^\infty \bigcup_{n=1}^\infty A_k\Bigl)^c = \bigcup_{n=1}^\infty \bigcap_{k=n}^\infty A_k^c = \liminf_n A_n^c
+\end{align*}
+\begin{align*}
+\limsup_n (A_n \cap A_{n+1}^c) &= \bigcap_{n=1}^\infty \bigcup_{k=n}^\infty (A_k \cap A_{k+1}^c) \\
+&= \bigcap_{n=1}^\infty \Bigl[\Bigl(\bigcup_{k=n}^\infty A_k\Bigl) \cap \Bigl(\bigcup_{k=n}^\infty A_{k+1}^c\Bigl)\Bigl] \\
+&= \bigcap_{n=1}^\infty \Bigl[\Bigl(\bigcup_{k=n}^\infty A_k\Bigl) \cap \Bigl(\bigcup_{k=n+1}^\infty A_{k}^c\Bigl)\Bigl] \\
+&= \Bigl[\bigcap_{n=1}^\infty \bigcup_{k=n}^\infty A_k\Bigl] \cap \Bigl[\bigcap_{n=1}^\infty \bigcup_{k=n+1}^\infty A_k^c\Bigl] \\
+&= \Bigl[\bigcap_{n=1}^\infty \bigcup_{k=n}^\infty A_k\Bigl] \cap \Bigl[\bigcap_{n=1}^\infty \Bigl(\Bigl\{\bigcup_{k=n}^\infty A_k^c\Bigl\} \setminus A_n^c\Bigl) \Bigl] \\
+&= \Bigl[\bigcap_{n=1}^\infty \bigcup_{k=n}^\infty A_k\Bigl] \cap \Bigl[\bigcap_{n=1}^\infty \Bigl(\Bigl(\bigcup_{k=n}^\infty A_k^c\Bigl) \cap A_n\Bigl) \Bigl] \\
+&= \Bigl[\bigcap_{n=1}^\infty \bigcup_{k=n}^\infty A_k\Bigl] \cap \Bigl[\bigcap_{n=1}^\infty \Bigl(\bigcup_{k=n}^\infty A_k^c\Bigl) \Bigl] \cap \bigcap_{n=1}^\infty A_n \\
+&= \Bigl(\bigcap_{n=1}^\infty \bigcup_{k=n}^\infty A_k\Bigl) \cap \Bigl(\bigcap_{n=1}^\infty \bigcup_{k=n}^\infty A_k^c\Bigl) \\
+&= \Bigl(\bigcap_{n=1}^\infty \bigcup_{k=n}^\infty A_k\Bigl) \setminus \Bigl(\bigcup_{n=1}^\infty \bigcap_{k=n}^\infty A_k\Bigl) \\
+&= \limsup_n A_n - \liminf_n A_n
+\end{align*}
+\begin{align*}
+\limsup_n (A_n^c \cap A_{n+1}) &= \bigcap_{n=1}^\infty \bigcup_{k=n}^\infty (A_k^c \cap A_{k+1}) \\
+&= \bigcap_{n=1}^\infty \Bigl[\Bigl(\bigcup_{k=n}^\infty A_k^c\Bigl) \cup \Bigl(\bigcup_{k=n}^\infty A_{k+1}\Bigl)\Bigl] \\
+&= \bigcap_{n=1}^\infty \Bigl[\Bigl(\bigcup_{k=n}^\infty A_k^c\Bigl) \cup \Bigl(\bigcup_{k=n+1}^\infty A_{k}\Bigl)\Bigl] \\
+&= \Bigl[\bigcap_{n=1}^\infty \bigcup_{k=n}^\infty A_k^c\Bigl] \cap \Bigl[\bigcap_{n=1}^\infty \bigcup_{k=n+1}^\infty A_k\Bigl] \\
+&= \Bigl[\bigcap_{n=1}^\infty \bigcup_{k=n}^\infty A_k^c\Bigl] \cap \Bigl[\bigcap_{n=1}^\infty \Bigl\{\Bigl(\bigcup_{k=n}^\infty A_k\Bigl) \setminus A_n\Bigl\}\Bigl] \\
+&= \Bigl[\bigcap_{n=1}^\infty \bigcup_{k=n}^\infty A_k^c\Bigl] \cap \Bigl[\bigcap_{n=1}^\infty \bigcup_{k=n}^\infty A_k\Bigl] \cap \bigcap_{n=1}^\infty A_n^c \\
+&= \Bigl[\bigcap_{n=1}^\infty \bigcup_{k=n}^\infty A_k^c\Bigl] \cap \Bigl[\bigcap_{n=1}^\infty \bigcup_{k=n}^\infty A_k\Bigl] \\
+&= \Bigl(\bigcap_{n=1}^\infty \bigcup_{k=n}^\infty A_k\Bigl) \setminus \Bigl(\bigcup_{n=1}^\infty \bigcap_{k=n}^\infty A_k \Bigl) \\
+&= \limsup_n A_n - \liminf_n A_n
+\end{align*}
+
+<p>
+Part D:
+If \(A_n \rightarrow A\), then \(\limsup_n A_n = \liminf_n A_n = A\). If
+\(B_n \rightarrow B\), then \(\limsup_n B_n = \liminf_n B_n = B\). We know
+from part (a) that \(\limsup_n (A_n \cup B_n) = (\limsup_n A_n) \cup
+(\limsup_n B_n) = A \cup B\). However, this also means that \(\limsup_n (A_n \cup B_n) = (\limsup_n A_n) \cup
+(\limsup_n B_n) = (\liminf_n A_n) \cup (\liminf_n B_n) \subset
+\liminf_n (A_n \cup B_n)\). Since we have shown that \(\limsup_n (A_n
+\cup B_n) \subset \liminf_n (A_n \cup B_n)\), it follows that \(A \cup B
+= \limsup_n (A_n \cup B_n) = \liminf_n (A_n \cup B_n)\). Hence, if \(A_n
+\rightarrow A\) and \(B_n \rightarrow B\), then \(A_n \cup B_n \rightarrow
+A \cup B\).
+To prove the case for intersections, we show that: if \(D_n
+\rightarrow D\), then \(D_n^c \rightarrow D^c\) for some sequence of sets
+\(\{D_n\}_{n \rightarrow \mathbb{N}}\). Since \(\limsup_n D_n = \liminf_n
+D_n = D\), it follows that \((\limsup_n D_n)^c = (\liminf_n D_n)^c =
+D^c\). By part (a), we know this means \(\liminf_n D_n^c = \limsup_n
+D_n^c = D^c\). Therefore, \(D_n^c \rightarrow D^c\). Applying this fact,
+\(A_n \rightarrow A\) implies \(A_n^c \rightarrow A^c\) and \(B_n
+\rightarrow B\) implies \(B_n^c \rightarrow B^c\). Using what we just
+prove about unions, \(A_n^c \cup B_n^c \rightarrow A^c \cup
+B^c\). Again, applying the fact for complements, we get that \(A_n \cap
+B_n \rightarrow A \cap B\).
 </p>
 </div>
 </div>
