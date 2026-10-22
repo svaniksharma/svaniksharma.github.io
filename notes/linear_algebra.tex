@@ -1,0 +1,3202 @@
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: t
+%%% End:
+\documentclass{article}
+
+\input{preamble}
+
+\title{Notes on Linear Algebra}
+\author{Svanik Sharma}
+\begin{document}
+\maketitle
+\tableofcontents
+\section{Vector Spaces}
+
+\subsection{Fields}
+
+We will use $\bf{F}$ to denote the sets $\mathbb{R}$ and
+$\mathbb{C}$. The complex numbers have the following properties:
+
+\begin{enumerate}
+  \item commutativity: $\alpha + \beta = \beta + \alpha$ and
+    $\alpha\beta = \beta\alpha$ for all $\alpha, \beta \in \mathbb{C}$.
+  \item associativity: $(\alpha + \beta) + \lambda = \alpha + (\beta + \lambda)$ and $(\alpha\beta)\lambda = \alpha(\beta\lambda)$ for all $\alpha, \beta, \lambda \in \mathbb{C}$.
+  \item identities: $\lambda + 0 = \lambda$ and $\lambda \cdot 1 = \lambda$ for all $\lambda \in \mathbb{C}$.
+  \item additive inverse: For every $\alpha \in \mathbb{C}$ there exists a unique $\beta \in \mathbb{C}$ such that $\alpha + \beta = 0$.
+  \item multiplicative inverse: For every $\alpha \in \mathbb{C}$ with $\alpha \ne 0$ there exists a unique $\beta \in \mathbb{C}$ such that $\alpha \beta = 1$.
+  \item distributive property: $\lambda(\alpha + \beta) = \lambda \alpha + \lambda \beta$ for all $\lambda, \alpha, \beta \in \mathbb{C}$.
+  \end{enumerate}
+
+\begin{definition}[Field]
+A \textit{field} is a set containing at least two distinct elements called $0$ and $1$, along with the operations of addition and multiplication satisfying the properties listed previously. 
+\end{definition}
+
+\subsection{Vector Spaces}
+
+\begin{definition}[Vector Space]
+  \label{def:vector-space}
+  A \textit{vector space} is a set $V$ with an addition on $V$ and a multiplication on $V$ that satisfies the following properties:
+  \begin{enumerate}
+    \item Commutativity: $u + v = v + u$ for all $u, v \in V$.
+    \item Associativity: $(u + v) + w = u + (v + w)$ and $a(bv) = (ab)v$ for all $u, v, w \in V$ and $a, b \in \bf{F}$.
+    \item Additive Identity: There exists an element $0 \in V$ such that $v + 0 = v$ for all $v \in V$.
+    \item Additive Inverse: For every $v \in V$, there exists $w \in V$ so that $v + w = 0$.
+    \item Multiplicative Identity: $1v = v$ for all $v \in V$.
+    \item Distributive Property: $a(u + v) = au + av$ and $(a + b)v = av + bv$ for all $a, b \in \bf{F}$ and for all $u, v \in V$.
+  \end{enumerate}
+  
+\end{definition}
+
+Here we list some theorems related to vector spaces. These can be proved using the properties above.
+
+\begin{theorem}[unique additive inverse]
+  Every element in a vector space has a unique additive inverse. If $v \in V$, we denote the unique additive inverse $-v$.
+\end{theorem}
+
+\begin{theorem}[the number 0 times a vector]
+  $0v = 0$ for every $v \in V$.
+\end{theorem}
+
+\begin{theorem}[a number times the vector 0]
+  $a0 = 0$ for every $a \in \bf{F}$.
+\end{theorem}
+
+\begin{theorem}[the number -1 times a vector]
+  $(-1)v = -v$ for every $v \in V$.
+\end{theorem}
+
+\begin{theorem}[unique additive identity]
+  A vector space has a unique additive identity.
+\end{theorem}
+
+\subsection{Subspaces}
+
+\begin{definition}
+  \label{def:subspace-definition}
+A subset $U$ of $V$ is called a \textit{subspace} of $V$ if $U$ is
+also a vector space with the same additive identity, addition, and
+scalar multiplication as $V$.
+\end{definition}
+
+\begin{theorem}
+  \label{thm:conditions-for-subspace}
+  A subset $U$ of $V$ is a subspace of $V$ if and only if $U$
+  satisfies the following three conditions:
+  \begin{enumerate}[(i)]
+  \item
+    \textbf{additive identity}: $0 \in U$
+  \item
+    \textbf{closed under addition}: $u, w \in U \implies u + w \in U$
+  \item
+    \textbf{closed under scalar multiplication}: $a \in \mathbf{F}$
+    and $u \in U$ implies $au \in U$ 
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  \leavevmode
+  \begin{enumerate}
+  \item
+    $U \text{ is a subspace of } V \implies \text{(i), (ii), and
+      (iii)}$: If $U$ is a subspace of $V$, then by
+    \cref{def:subspace-definition} the additive identity, $0$, of $U$
+    is the same as that of $V$, so (i) is satisfied. Since $U$ is a
+    vector space, it is closed under addition, so (ii) is
+    satisfied. Since $U$ is a vector space, it is closed under scalar
+    multiplication, so (iii) is satisfied.
+  \item
+    $\text{(i), (ii), and (iii)} \implies U \text{ is a subspace of }
+    V$: Since $0 \in U$ and $U \subset V$, $0 \in V$, so $U$ has the
+    same additive identity as $V$. By (ii) and (iii), addition on $U$
+    and scalar multiplication on $U$ is well-defined. Since addition
+    and scalar multiplication on $V$ satisfy commutativity and
+    associativity, $U$ satisfies commutativity and associativity with
+    respect to the same addition and multiplication. The distributive
+    property also holds on $U$ for the same reason. For each element
+    $u \in U$, $-u = (-1)u \in U$, so every element of $U$ has an
+    additive inverse. Since $1v = v$ for all $v \in V$, $1u = u$ for
+    all $u \in U$ since $U \subset V$.
+      
+  \end{enumerate}
+\end{proof}
+
+Here are some examples of subspaces. In all these cases, we use
+\cref{thm:conditions-for-subspace} to show all of them are subspaces:
+
+\begin{example}
+  \leavevmode
+  \begin{enumerate}[(a)]
+  \item If $b \in \mathbf{F}$, then:
+    $$S = \{(x_1, x_2, x_3, x_4) \in \mathbb{F}^4: x_3 = 5x_4 + b\}$$
+    is a subspace of $\mathbf{F}^4$ if and only if $b = 0$.
+    \begin{proof}
+      Note that $(0,0,0,0) \in S$ if and only if $0 = 5 \cdot 0 +
+      b$. That is, $(0,0,0,0) \in S$ if and only if $b = 0$. Suppose
+      $x = (x_1, x_2, x_3, x_4) \in S$ and $y = (y_1, y_2, y_3, y_4)
+      \in S$. Then, $x_3 = 5x_4 + b$ and $y_3  = 5y_4 + b$. Then, $x_3
+      + y_3 = 5(x_4 + y_4) + 2b$. So, $x + y \in S$ if and only if $b =
+      0$. For scalar multiplication: let $\lambda \in
+      \mathbf{F}$. Since $x$ satisfies $x_3 = 5x_4 + b$, it follows
+      $\lambda x_3 + 5 \lambda x_4 + \lambda b$. Then, $\lambda x \in
+      S$ if and only if $b = 0$. Therefore, $S$ is a subspace iff $b =
+      0$.
+    \end{proof}
+  \item
+    The set of continuous real-valued functions on the interval $[0,
+    1]$ is a subspace of $\mathbb{R}^{[0, 1]}$.
+    \begin{proof}
+      The function $z: [0, 1] \rightarrow \mathbb{R}$ where $z(x) = 0$ for all
+      $x \in [0, 1]$ is the additive identity for $\mathbb{R}^{[0,
+        1]}$, and it is continuous. Let $f, g$ be continuous
+      real-valued functions on the interval $[0, 1]$. Then, $f + g$ is
+      a continuous real-valued function on $[0, 1]$, so the set is
+      closed under addition. Similarly, $\lambda f$ for $\lambda \in
+      \mathbf{F}$ is continuous, so the set is closed under scalar
+      multiplication. Therefore, the set of continuous real-valued
+      functions on the interval $[0, 1]$ is a subspace of $\mathbb{R}^{[0,1]}$.
+    \end{proof}
+  \item
+    The set of differentiable real-valued functions on $\mathbb{R}$ is
+    a subspace of $\mathbf{R}^{\mathbb{R}}$.
+    \begin{proof}
+      The function $z: \mathbb{R} \rightarrow \mathbb{R}$ where $z(x)
+      = 0$ for all $x \in \mathbb{R}$ is differentiable. Also, if $f,
+      g$ are differentiable real-valued functions, then $f + g$ is
+      differentiable. If $\lambda \in \mathbf{F}$, then $\lambda f$ is
+      differentiable. Therefore, the set is closed under addition and
+      scalar multiplication and has the same additive identity as
+      $\mathbb{R}^{\mathbb{R}}$. So, it is a subspace of $\mathbb{R}^{\mathbb{R}}$.
+    \end{proof}
+  \item
+    Consider the zero function $z: (0, 3) \rightarrow
+    \mathbb{R}$ where $z(x) = 0$ for all $x \in (0, 3)$. Then, $z$ is
+    differentiable, real-valued, and $z'(2) = b$ if and only if $b =
+    0$. Let $\lambda \in \mathbb{R}$. Then, $(\lambda f)(x)$ is
+    differentiable whenever $f$ is differentiable. Furthermore, if
+    $f'(2) = b$, then $\lambda f'(2) = \lambda b = b$ if and only if
+    $b = 0$. Let $f$ and $g$ be differentiable real-valued elements of
+    $\mathbb{R}^{(0, 3)}$ satisfying $f'(2) = b$ and $g'(2) =
+    b$. Then, $f + g$ is differentiable and $(f + g)'(2) = f'(2) +
+    g'(2) = 2b = b$ if and only if $b = 0$. Therefore, the set is a
+    subspace of $\mathbb{R}^{(0, 3)}$ if and only if $b = 0$.
+  \item
+    We will use $(z_n)_{n=1}^\infty$ to denote a sequence of complex
+    numbers. Let $z_n = 0$ for all $n \in \mathbb{N}$. This is the
+    infinite sequence $(0, 0, 0, 0, ...)$, which clearly has limit
+    $0$. Let $(z_n)_{n=1}^\infty$ be a complex sequence so that
+    $\lim_{n \rightarrow \infty} z_n = 0$. We may write each $z_n =
+    a_n + i b_n$ for $a_n, b_n \in \mathbb{R}$. The limit of the
+    complex sequence is $0$ if and only if $\lim_n a_n = 0$ and
+    $\lim_n b_n = 0$. Let $\lambda \in \mathbb{C}$. Put $\lambda =
+    \lambda_1 + i \lambda_2$ for $\lambda_1, \lambda_2 \in
+    \mathbb{C}$. Then:
+    \begin{align*}
+      \lim_{n \rightarrow \infty} \lambda z_n &= \lim_{n \rightarrow
+                                                \infty} (\lambda_1 + i
+                                                \lambda_2) \cdot (a_n
+                                                + i b_n) \\
+                                              &= \lim_{n \rightarrow
+                                                \infty} ((\lambda_1
+                                                a_n - \lambda_2 b_n) +
+                                                i \cdot (\lambda_1 b_n
+                                                + \lambda_2 a_n)) \\
+                                              &= 0
+    \end{align*}
+    since $\lim_{n \rightarrow \infty} a_n = 0$ and $\lim_{n
+      \rightarrow \infty b_n} = 0$. Therefore, $(\lambda
+    z_n)_{n=1}^\infty$ has limit zero. Let $(x_n)_{n=1}^\infty$ and
+    $(y_n)_{n=1}^\infty$ both have limit zero. Then their sum $(x_n +
+    y_n)_{n=1}^\infty$ also has limit zero. Therefore, the set of
+    complex sequences with limit zero is a subspace of $\mathbb{C}^\infty$. 
+  \end{enumerate}
+\end{example}
+
+\begin{definition}
+  Suppose $V_1, ..., V_m$ are subspaces of $V$. The \textit{sum} of
+  $V_1, ..., V_m$, denoted by $V_1 + ... + V_m$, is the set of all
+  possible sums of elements of $V_1, ..., V_m$. That is:
+  $$
+  V_1 + ... + V_m = \{v_1 + ... + v_m: v_1 \in V_1, ..., v_m \in V_m\}
+  $$
+\end{definition}
+
+\begin{theorem}[sums of subspaces is the smallest containing subspace]
+  \label{thm:sum-of-subspaces-is-smallest-containing-subspace}
+  Suppose $V_1, ..., V_m$ are subspaces of $V$. Then, $V_1 + ... +
+  V_m$ is the smallest subspace of $V$ containing $V_1, ..., V_m$
+\end{theorem}
+\begin{proof}
+  First, we show $V_k$ is contained in $V_1 + ... + V_m$ for every $k
+  \in [m]$. We can write $v_k = \sum_{j=1}^m v_j$ where $v_j = 0$ for
+  all $j \ne k$ and $v_k \in V_k$ is arbitrary. Then, $v_k \in V_1 +
+  ... + V_m$. Therefore, $V_1, ..., V_m$ are contained in $V_1 + ... +
+  V_m$. Suppose $U$ is a subspace of $V$ that contains $V_1, ...,
+  V_m$. For each $k \in [m]$, $v_k \in V_k \implies v_k \in U$. Since
+  $U$ is closed under addition, $\sum_{k=1}^m v_k \in U$. Therefore,
+  $V_1 + ... + V_m$ is contained in $U$. 
+\end{proof}
+
+\subsection{Direct Sums}
+
+\begin{definition}
+  \label{def:direct-sum}
+  Suppose $V_1, ..., V_m$ are subspaces of $V$. Then:
+  \begin{enumerate}[(i)]
+  \item
+    The sum $V_1 + ... + V_m$ is called a \textit{direct sum} if each
+    element of $V_1 + ... + V_m$ can be written in only one way as a
+    sum $v_1 + ... + v_m$, where, for each $k \in [m]$, $v_k \in V_m$.
+  \item
+    If $V_1 + ... + V_m$ is a direct sum, then $V_1 \oplus ... \oplus
+    V_m$ denotes $V_1 + ... + V_m$ and indicates that it is a direct sum.
+  \end{enumerate}
+\end{definition}
+
+
+\begin{theorem}[condition for a direct sum]
+  \label{thm:condition-for-direct-sum}
+  Suppose $V_1, ..., V_m$ are subspaces of $V$. Then, $V_1 + ... +
+  V_m$ is a direct sum if and only if the only way to write $0$ as a
+  sum $v_1 + ... + v_m$, where each $v_k \in V_k$, is by taking each
+  $v_k$ equal to $0$.
+\end{theorem}
+\begin{proof}
+  We prove the converse first. Suppose the only way to write $0$ as a
+  sum $v_1 + ... + v_m$, where each $v_k \in V_k$, is by taking $v_k$
+  equal to $0$ for all $K \in [m]$. Choose an arbitrary $v \in V_1 +
+  ... + V_m$. Then, $v = \sum_{k=1}^m v_k$ where $v_k \in V_k$ for
+  each $k \in [m]$. Suppose there exists another set of vectors
+  $\{v_k'\}_{k=1}^m$ so that $v = \sum_{k=1}^m v_k'$. Then,
+  $\sum_{k=1}^m v_k = \sum_{k=1}^m v_k'$. That is:
+  $$\sum_{k=1}^m (v_k - v_k') = 0$$
+  Since $v_k - v_k' \in V_k$ for each $k \in [m]$, it follows $v_k -
+  v_k' = 0$ for each $k \in [m]$ by hypothesis. That is, $v_k = v_k'$
+  for all $k \in [m]$. Since $v$ was arbitrary, this implies every
+  vector in $V_1 + ... + V_m$ can only be written as a sum in one way,
+  so $V_1 + ... + V_m$ is a direct sum.
+  Now, we prove the forward direction. Suppose $V_1 + ... + V_m$ is a
+  direct sum. For each $V_k$, $0 \in V_k$ since every $V_k$ is a
+  subspace of $V$. Then, $0 = \sum_{k=1}^m 0 \in V_1 + ... +
+  V_m$. Since $V_1 + ... + V_m$ is a direct sum, this is the only way
+  to write $0$ as a sum of vectors in $V_k$.
+\end{proof}
+
+\begin{theorem}[direct sum of two subspaces]
+  \label{thm:direct-sum-of-two-subspaces}
+  Suppose $U$ and $W$ are subspaces of $V$. Then, $U + W$ is a direct
+  sum if and only if $U \cap W = \{0\}$.
+\end{theorem}
+\begin{proof}
+  Suppose $U + W$ is a direct sum. Since $0 \in U$ and $0 \in W$, it follows
+  that $0 \in U \cap W$. Suppose $v \in U \cap W$ and $v \ne 0$. Then,
+  $v \in U$ and $v \in W$. So, $v = v + 0 \in U + W$ and $v = 0 + v
+  \in U + W$. However, there can only be one way to write $v$ as a sum
+  of an element in $U$ and an element in $W$ since $U + W$ is a direct
+  sum. Therefore, there does not exist $w \ne 0$ so that $w \in U \cap
+  V$. Therefore, $U \cap W = \{0\}$.
+  We prove the converse: suppose $U \cap W = \{0\}$. Suppose that
+  there exists $u \in U$ and $w \in W$ so that $u + w = 0$. Then, $u =
+  -w \in W$. So, $u \in U \cap W$. Therefore, $u = 0$ and $w =
+  0$. So, $0 = 0 + 0$ is the only way to write $0$ in $U + W$. By
+  \cref{thm:condition-for-direct-sum}, $U + W$ is a direct sum.
+\end{proof}
+
+
+\section{Finite-Dimensional Vector Spaces}
+
+\subsection{Span and Linear Independence}
+
+\textbf{Note}: When we refer to a \textbf{list} of vectors, we are
+always talking about a finite list.
+
+\begin{definition}
+  A \textit{linear combination} of a list $v_1, ..., v_m$ of vectors
+  in $V$ is a vector of the form:
+  $$\sum_{k=1}^m a_k v_k$$
+  where $a_k \in \mathbf{F}$ for all $k \in [m]$.
+\end{definition}
+
+\begin{definition}
+  \label{def:span}
+  The set of all linear combinations of a list of vectors $v_1, ...,
+  v_m$ in $V$ is called the \textit{span} of $v_1, ..., v_m$, denoted
+  by $\text{span}(v_1, ..., v_m)$:
+  $$\text{span}(v_1, ..., v_m) = \Bigl\{\sum_{k=1}^m a_k v_k: a_k \in
+  \mathbf{F} \text{ for all } k \in [m]\Bigr\}$$
+  The span of the empty list is defined to be $\{0\}$. We say that
+  $v_1, ..., v_n$ \textit{spans} $V$ if and only if $\text{span}(v_1,
+  ..., v_n) = V$.
+\end{definition}
+
+\begin{theorem}[span is the smallest containing subspace]
+  The span of a list of vectors in $V$ is the smallest subspace of $V$
+  containing all the vectors in the list.
+\end{theorem}
+\begin{proof}
+  Let $v_1, ..., v_n$ be a list of vectors in $V$. We show that
+  $\text{span}(v_1, ..., v_n)$ is a subspace of $V$. We can write
+  $0 = \sum_{k=1}^n 0 \cdot v_k$, so
+  $0 \in \text{span}(v_1, ..., v_n)$. Let
+  $v \in \text{span}(v_1, ..., v_n)$. Then, $v = \sum_{k=1}^n c_k v_k$
+  where $c_k \in \mathbb{F}$ for all $k \in [n]$. Then, for every
+  $\lambda \in \mathbb{F}$,
+  $\lambda v = \sum_{k=1}^n (\lambda c_k) v_k \in \text{span}(v_1,
+  ..., v_n)$. Now, let $u$ and $w$ be vectors in
+  $\text{span}(v_1, ..., v_n)$. Then, $u = \sum_{k=1}^n a_k v_k$ and
+  $w = \sum_{k=1}^n b_k v_k$ where $a_k, b_k \in \mathbb{F}$ for all
+  $k \in [n]$.  Then,
+  $u + w = \sum_{k=1}^n a_k v_k + \sum_{k=1}^n b_k v_k = \sum_{k=1}^n
+  (a_k + b_k) v_k \in \text{span}(v_1, ..., v_n)$. Consequently,
+  $u + w \in \text{span}(v_1, ..., v_n)$. So
+  $\text{span}(v_1, ..., v_n)$ is a subspace of $V$. Suppose $U$ is a
+  subspace of $V$ that contains $v_k$ for all $k \in [n]$. Since $U$
+  is a subspace, every arbitrary linear combination
+  $\sum_{k=1}^n c_k v_k$ -- where $c_k \in \mathbb{F}$ for all
+  $k \in [n]$ -- is contained in $U$. By \cref{def:span},
+  $\text{span}(v_1, ..., v_n) \subset U$. That is,
+  $\text{span}(v_1, ..., v_n)$ is the smallest subspace of $V$
+  containing $v_1, ..., v_n$.
+\end{proof}
+
+\begin{definition}
+  A vector space is called \textit{finite-dimensional} if some list --
+  that is, a finite collection -- of vectors in it spans the space. It
+  is called \textit{infinite-dimensional} if it is not finite-dimensional.
+\end{definition}
+
+\begin{definition}
+  A function $p: \mathbb{F} \rightarrow \mathbb{F}$ is called a
+  \textit{polynomial} with coefficients in $\mathbb{F}$ if there
+  exist $a_0, ..., a_m \in \mathbb{F}$ such that:
+  $$p(z) = a_0 + a_1 z + ... + a_m z^m$$
+  for all $z \in \mathbb{F}$. The set $\mathcal{P}(\mathbb{F})$ is the
+  set of all polynomials with coefficients in $\mathbb{F}$. The
+  polynomial $p \in \mathcal{P}(\mathbb{F})$ has \textit{degree} $m$ if there
+  exists scalars $a_0, ..., a_m \in \mathbb{F}$ with $a_m \ne 0$ such
+  that for every $z \in \mathbb{F}$, we have:
+  $$p(z) = a_0 + a_1z + ... + a_m z^m$$
+  The polynomial that is identically $0$ is said to have degree
+  $-\infty$. The degree of a polynomial is denoted $\deg p$. The set
+  of all polynomials with degree at most $m$ with coefficients in $\mathbb{F}$
+  is denoted by $\mathcal{P}_m(\mathbb{F})$.
+\end{definition}
+
+\begin{remark}
+  The set $P(\mathbb{F})$ is a vector space with addition and scalar
+  multiplication defined as usual. It is a subspace of
+  $\mathbb{F}^{\mathbb{F}}$. It is infinite-dimensional. The set
+  $P_m(\mathbb{F})$ is also a vector space.
+\end{remark}
+
+\begin{definition}
+  A list $v_1, ..., v_n$ of vectors in $V$ is called \textit{linearly
+    independent} if the only choice of $a_1,...,a_m \in \mathbb{F}$
+  that makes
+  $$\sum_{k=1}^n a_k v_k = 0$$
+  is $a_1 = ... = a_n = 0$. The empty list is defined to be linearly
+  independent. If a list of vectors is not linearly independent, it is
+  called \textit{linearly dependent}.
+\end{definition}
+
+\begin{theorem}[linear independence and uniqueness]
+  \label{thm:linear-independent-unique}
+  Let $v_1, ..., v_m$ be linearly independent. Then, every element of
+  $\text{span}(v_1, ..., v_m)$ has a unique representation as a linear
+  combination of $v_1, ..., v_m$.
+\end{theorem}
+\begin{proof}
+  Let $v \in \text{span}(v_1, ..., v_m)$. Then, $v = \sum_{k=1}^n c_k
+  v_k$ for some $c_k \in \mathbb{F}$ for all $k \in [n]$. Suppose
+  there also exists coefficients $a_k \in \mathbb{F}$, $k \in [n]$, so
+  that $v = \sum_{k=1}^n a_k v_k$. Then, $\sum_{k=1}^n (a_k - c_k) v_k
+  = 0$. Since the $\{v_k\}_{k=1}^n$ are linearly independent, it
+  follows that $a_k - c_k = 0$ for all $k \in [n]$. That is, $a_k =
+  c_k$ for all $k \in [n]$. So, the representation of $v$ is unique.
+\end{proof}
+
+\begin{lemma}[linear dependence lemma]
+  \label{lemma:linear-dependence-lemma}
+  Suppose $v_1, ..., v_n$ is a linearly dependent list in $V$. Then,
+  there exists $k \in [n]$ so that $v_k \in \text{span}(v_1, ...,
+  v_{k - 1})$. Furthermore, if $k$ satisfies the previous condition,
+  then $\text{span}(v_1, ..., v_{k-1}, v_{k+1}, ..., v_n) =
+  \text{span}(v_1, ..., v_n)$.
+\end{lemma}
+\begin{proof}
+  If $v_1, ..., v_k$ is linearly dependent, then if:
+  $$\sum_{k=1}^n c_k v_k = 0$$
+  there is some $k \in [n]$ so that $c_k \ne 0$. WLOG, suppose $c_n
+  \ne 0$ (we can renumber the vectors and coefficients so that $c_n
+  \ne 0$ if this is not true). Then, $\sum_{k=1}^{n-1} c_k v_k = -c_n
+  v_n$. Therefore, $v_n = \sum_{k=1}^{n-1} \Bigl( \frac{-c_k}{c_n}
+  \Bigr) v_k$. Therefore, $v_n \in \text{span}(v_1, ..., v_{n-1})$.
+  For the next part, put $v_n = \sum_{k=1}^{n-1} a_k v_k$ for $a_k \in
+  \mathbb{F}$, where $k \in [n]$. Then, if $v = \sum_{k=1}^n c_k v_k$:
+  \begin{align*}
+	v &= \sum_{k=1}^{n-1} c_k v_k + c_n v_n \\
+      &= \sum_{k=1}^{n-1} c_k v_k + \sum_{k=1}^{n-1} c_n a_k v_k \\
+      &= \sum_{k=1}^{n-1} (c_k + c_n a_k) v_k \\
+  \end{align*}
+  We have shown if $v \in \text{span}(v_1, ..., v_n)$, then $v \in
+  \text{span}(v_1, ..., v_{n-1})$, implying that $\text{span}(v_1,
+  ..., v_n) \subset \text{span}(v_1, ..., v_{n-1})$. Now, suppose that
+  $v = \sum_{k=1}^{n-1} c_k v_k$. Put $c_n = 0$. Then, $v =
+  \sum_{k=1}^{n} c_k v_k$. So, we have shown that if $v \in \text{span}(v_1,
+  ..., v_{n-1})$, then $v \in \text{span}(v_1, ..., v_n)$. That is,
+  $\text{span}(v_1, ..., v_{n-1}) \subset \text{span}(v_1, ...,
+  v_n)$. So, $\text{span}(v_1, ..., v_n) = \text{span}(v_1, ..., v_{n-1})$.
+\end{proof}
+
+\begin{theorem}[length of linearly independent list $\le$ length of
+  spanning list]
+  \label{thm:length-not-exceed-spanning}
+  In a finite-dimensional vector space, the length of every linearly
+  independent list of vectors is less than or equal to the length of
+  every spanning list of vectors.
+\end{theorem}
+\begin{proof}
+  Let $V$ be a finite-dimensional vector space so that $V =
+  \text{span}(v_1, ..., v_n)$. Let $w_1, ..., w_m \in V$ be a linearly
+  independent list. We show $m \le n$. Since $w_1 \in \text{span}(v_1,
+  ..., v_n)$, the list $w_1, v_1, ..., v_n$ is a linearly dependent
+  list. By \cref{lemma:linear-dependence-lemma}, one of the vectors in
+  the list $w_1, v_1, ..., v_n$ can be written as a linear combination
+  of the previous vectors. It cannot be that $w_1$ is a linear
+  combination of the ``previous'' vectors in the list because the span
+  of the empty list is $\{0\}$, and $w_1 \ne 0$ since $w_1,
+  ..., w_m$ is a linearly independent list. So, we can remove one of
+  the $v_k$ from the list to obtain a new list (which we will call
+  $B$) that is of length $n$ which contains $w_1$ and the
+  remaining $v_k$'s; $B$ still spans $V$. Now, suppose we continue this process and
+  arrive at step $j$, $1 < j \le m$. Then, the list $B$ from step $j -
+  1$ is of length $n$ and spans $V$. In particular, $w_j$ is in the
+  span of $B$. If we insert $w_j$ after $w_1, ..., w_{j-1}$ into $B$,
+  then the new list has length $n + 1$ and is linearly
+  dependent. Therefore, by \cref{lemma:linear-dependence-lemma}, there
+  exists a vector in this list that can be written as the linear
+  combination of the previous vectors. We know that $w_j$ cannot be
+  this vector since $w_1, ..., w_j$ are linearly
+  independent. Therefore, it must be one of the $v_k$'s. Once we
+  delete one of the $v_k$'s, the remaining list is of length $n$ and
+  now consists of $w_1, ..., w_j$ and the remaining $v_k$'s; this list
+  spans $V$. This process will terminate since the list of $v_k$'s is
+  finite. At the end of each step, the list is always of length $n$,
+  so there must be at most as many $w_j$'s as $v_k$'s, i.e, $m \le n$.
+\end{proof}
+
+\begin{theorem}[every subspace of finite-dimensional space is
+  finite-dimensional]
+  \label{thm:every-subspace-finite-dim}
+  Every subspace of a finite-dimensional vector space is finite-dimensional.
+\end{theorem}
+\begin{proof}
+  Let $V$ be a finite-dimensional vector space. Then, let $U$ be a
+  subspace of $V$. Choose $u_1 \in U$ arbitrarily. Then, if $U =
+  \text{span}(u_1)$, we are done. We generalize this process for $k >
+  1$: if $U = \text{span}(u_1, ..., u_{k-1})$, then $U$ is
+  finite-dimensional and we are done. Otherwise, choose $u_k \not\in
+  \text{span}(u_1, ..., u_{k-1})$. By
+  \cref{lemma:linear-dependence-lemma}, the list is linearly
+  independent. This process will terminate since each $u_k \in V$ and
+  it cannot exceed the spanning list of $V$ by
+  \cref{thm:length-not-exceed-spanning}. Therefore, $U$ is a
+  finite-dimensional subspace.
+\end{proof}
+
+\subsection{Bases}
+
+\begin{definition}
+  \label{def:basis}
+  A \textit{basis} of $V$ is a list of vectors in $V$ that is linearly
+  independent and spans $V$.
+\end{definition}
+\begin{theorem}[criterion for basis]
+  \label{thm:criterion-for-basis}
+  A list $v_1, ..., v_n$ of vectors in $V$ is a basis of $V$ if and
+  only if every $v \in V$ can be written uniquely in the form:
+  $$v = \sum_{k=1}^n a_k v_k$$
+  where $a_1, ..., a_n \in \mathbb{F}$
+\end{theorem}
+\begin{proof}
+  Suppose $v_1,...,v_n$ is a basis for $V$. By
+  \cref{thm:linear-independent-unique}, every element of
+  $\text{span}(v_1, ..., v_n)$ can be written uniquely as a linear
+  combination of $v_1, ..., v_n$. Since
+  $\text{span}(v_1, ..., v_n) = V$, every element of $V$ can be
+  written uniquely as a linear combination of $v_1, ...,
+  v_n$. Conversely, suppose every element of $V$ can be written
+  uniquely as a linear combination of $v_1, ..., v_n$. Then, since
+  every element of $V$ can be written as a linear combination of $v_1,
+  ..., v_n$, $V = \text{span}(v_1, ..., v_n)$. Suppose for some
+  coefficients $c_k \in \mathbb{F}$:
+  \begin{align*}
+	\sum_{k=1}^n c_k v_k &= 0 \\
+  \end{align*}
+  Then, since $0 \in V$ and $0 = \sum_{k=1}^n 0 \cdot v_k$, it follows
+  that $c_k = 0$ for each $k \in [n]$. Therefore, $v_1, ..., v_n$ form
+  a linearly independent set in $V$. By \cref{def:basis}, $v_1, ...,
+  v_n$ form a basis for $V$.
+\end{proof}
+
+\begin{theorem}[every spanning list contains a basis]
+  \label{thm:spanning-list-contains-a-basis}
+  Every spanning list in a vector space can be reduced to a basis of
+  the vector space.
+\end{theorem}
+\begin{proof}
+  Let $B_0 = (v_1, ..., v_n)$ be a list and $V$ be a vector space so
+  that $V = \text{span } B_0$. If $B_0$ is linearly independent, then
+  we are done. Otherwise, by \cref{lemma:linear-dependence-lemma},
+  there exists an element in the list $B_0$ that can be removed to
+  obtain a list $B_1$ so that $V = \text{span } B_1$. We can again
+  invoke \cref{lemma:linear-dependence-lemma} to obtain a list $B_2$
+  so that $V = \text{span } B_2$ if $B_1$ is not linearly
+  independent. The process will eventually terminate since lists are
+  finite and the resulting list will span the space and also be
+  linearly independent and hence a basis by \cref{def:basis}.
+\end{proof}
+
+\begin{corollary}[every finite-dimensional vector space has a basis]
+  \label{cor:finite-dim-has-basis}
+  Every finite-dimensional vector space has a basis.
+\end{corollary}
+\begin{proof}
+  Let $V$ be a finite-dimensional vector space. Then, $V =
+  \text{span}(v_1, ..., v_n)$ for some vectors $v_1, ..., v_n \in
+  V$. By \cref{thm:spanning-list-contains-a-basis}, this list can be
+  reduced to a basis of $V$.
+\end{proof}
+
+\begin{theorem}[every linearly independent list of vectors can be
+  extended to basis of vector space]
+  \label{thm:extend-basis-finite-dimensional}
+  Every linearly independent list of vectors in a finite-dimensional
+  vector space can be extended to a basis of the vector space.
+\end{theorem}
+\begin{proof}
+  Let $v_1, ..., v_m$ be a linearly independent set in a
+  finite-dimensional vector space $V$. Let $v_1', ..., v_n'$ be a list
+  of vectors that spans $V$. Then, the list $v_1, ..., v_m, v_1', ...,
+  v_n'$ span $V$. By \cref{thm:spanning-list-contains-a-basis}, we can
+  reduce this list to a basis of $V$. None of the $v_1, ..., v_m$ are
+  deleted from the list since they are a linearly independent set: the
+  procedure used in \cref{thm:spanning-list-contains-a-basis} only
+  removes vectors that are in the span of the vectors preceding it.
+\end{proof}
+
+\begin{theorem}[every subspace of $V$ is part of a direct sum equal to
+  $V$]
+  Suppose $V$ is finite-dimensional and $U$ is a subspace of $V$. Then
+  there is a subspace $W$ of $V$ such that $V = U \oplus W$.
+\end{theorem}
+\begin{remark}
+  This result also holds for infinite-dimensional spaces.
+\end{remark}
+\begin{proof}
+  By \cref{thm:every-subspace-finite-dim}, $U$ is a finite-dimensional
+  subspace. By \cref{cor:finite-dim-has-basis}, there
+  exists a basis $u_1, ..., u_n$ for $U$. Then, $u_1, ..., u_n$ is a
+  linearly independent list in $V$. By
+  \cref{thm:extend-basis-finite-dimensional}, we can extend this list
+  to a basis $u_1, ..., u_n, w_1, ..., w_m$ of $V$. Let $W =
+  \text{span}(w_1, ..., w_n)$. We want to show that $V = U \oplus
+  W$. This amounts to showing that $V = U + W$ and that $U \cap W =
+  \{\emptyset\}$ by \cref{thm:direct-sum-of-two-subspaces}. Let $v \in
+  V$. Then, because $u_1, ..., u_n, w_1, ..., w_m$ spans $V$, it
+  follows that $v = \sum_{k=1}^n a_k u_k + \sum_{j=1}^m b_j w_j$ where
+  $a_k \in \mathbb{F}$ and $b_j \in \mathbb{F}$ for all $k \in [n]$
+  and for all $j \in [m]$. Then, $\sum_{k=1}^n a_k u_k \in U$ and
+  $\sum_{j=1}^m b_j w_j \in W$. So, $v \in U + W$. It follows that $V
+  = U + W$. Suppose that $v \in U \cap W$. Then, $v = \sum_{k=1}^n a_k
+  u_k$ and $v = \sum_{j=1}^m b_j w_j$ for coefficients in $a_k \in
+  \mathbb{F}$ and $b_j \in \mathbb{F}$. Then, $\sum_{k=1}^n a_k u_k =
+  \sum_{j=1}^m b_j w_j$, so $\sum_{k=1}^n a_k u_k + \sum_{j=1}^m
+  (-b_j) w_j = 0$. Since $u_1, ..., u_n, w_1, ..., w_m$ is a linearly
+  independent list in $V$, it follows that $a_k = 0$ and $b_j = 0$ for
+  all $k \in [n]$ and $j \in [m]$. Therefore, $v = 0$, so $U \cap W = \{0\}$.
+\end{proof}
+
+\subsection{Dimension}
+
+\begin{theorem}[basis length does not depend on basis]
+  \label{thm:basis-length-does-not-depend-on-basis}
+  Any two bases of a finite-dimensional vector space have the same length.
+\end{theorem}
+\begin{proof}
+  Let $B_1$ and $B_2$ be two bases for a finite-dimensional vector
+  space $V$ (we know that $V$ has at least one basis by
+  \cref{cor:finite-dim-has-basis}). Then, by
+  \cref{thm:length-not-exceed-spanning}, since $B_1$ is a linearly
+  independent list and $B_2$ spans $V$, the $\text{length } B_1 \le
+  \text{length } B_2$. Again, by
+  \cref{thm:length-not-exceed-spanning}, since $B_2$ is a linearly
+  independent list and $B_1$ spans $V$, $\text{length } B_2 \le
+  \text{length } B_2$. Consequently, $\text{length } B_1 =
+  \text{length } B_2$.
+\end{proof}
+
+So, the length of the basis is the same, meaning we can consistently
+define the dimension of a vector space as follows:
+
+\begin{definition}
+  The \textit{dimension} of a finite-dimensional vector space $V$ is
+  the length of any basis of the vector space. It is denoted $\dim V$.
+\end{definition}
+
+\begin{theorem}[dimension of a subspace]
+  \label{thm:dim-of-subspace}
+  If $V$ is a finite-dimensional vector space and $U$ is a subspace of
+  $V$, then $\dim U \le \dim V$.
+\end{theorem}
+\begin{proof}
+  Since $U$ is a subspace of $V$ and $V$ is finite-dimensional, $U$ is
+  finite-dimensional by \cref{thm:every-subspace-finite-dim}. Let
+  $B_U$ be a list of vectors that is a basis for $U$. Let $B_V$ be a
+  list of vectors that is a basis for $V$. Since $B_U$ is a linearly
+  independent set of vectors in $V$ and $B_V$ is a list that spans
+  $V$, $\dim U = \text{length } B_u \le \text{length } B_V = \dim V$
+  by \cref{thm:length-not-exceed-spanning}.
+\end{proof}
+
+\begin{theorem}[linearly independent list of the right length is a
+  basis]
+  \label{thm:linearly-independent-list-of-right-length-is-basis}
+  Suppose $V$ is finite-dimensional. Then every linearly independent
+  list of vectors in $V$ of length $\dim V$ is a basis of $V$.
+\end{theorem}
+\begin{proof}
+  Put $n = \dim V$. Let $u_1, ..., u_n$ be a linearly independent list
+  in $V$. Since $V$ is finite-dimensional, it has a basis by
+  \cref{cor:finite-dim-has-basis}. Moreover, this basis is of
+  length $n$ by \cref{thm:basis-length-does-not-depend-on-basis}. By
+  \cref{thm:extend-basis-finite-dimensional}, we can extend $u_1,
+  ..., u_n$ to be a basis of $V$. Let $u_1, ..., u_n, v_1, ..., v_m$
+  be this extended list which is a basis for $V$. Then, $\dim V = n +
+  m$ by \cref{thm:basis-length-does-not-depend-on-basis}. But $\dim
+  V = n \ne n + m$ by hypothesis. So, $u_1, ..., u_n$ is already a
+  basis for $V$.
+\end{proof}
+
+\begin{theorem}[subspace of full dimension equals whole space]
+  \label{thm:subspace-of-full-dimension-equals-whole-space}
+  Suppose that $V$ is finite-dimensional and $U$ is a subspace of $V$
+  such that $\dim U = \dim V$. Then $U = V$.
+\end{theorem}
+\begin{proof}
+  Since $V$ is finite-dimensional, it has a basis by
+  \cref{cor:finite-dim-has-basis}. Since $U$ is a subspace of $V$ and
+  $V$ is finite-dimensional, $U$ has a basis by
+  \cref{thm:every-subspace-finite-dim}. Put $n = \dim V = \dim
+  U$. Then, by \cref{thm:basis-length-does-not-depend-on-basis}, the
+  basis $u_1, ..., u_n$ of $U$ has length $n$. Since $u_1, ..., u_n$
+  is a linearly independent list in $V$ of size $n = \dim U = \dim V$,
+  $u_1, ..., u_n$ is a basis for $V$ by
+  \cref{thm:linearly-independent-list-of-right-length-is-basis}. Then,
+  every vector in $V$ is in $\text{span}(u_1, ..., u_n) = U$, so
+  $U = V$.
+\end{proof}
+
+\begin{theorem}[spanning list of right length is a basis]
+  \label{thm:spanning-list-of-right-length-is-a-basis}
+  Suppose $V$ is finite-dimensional. Then every spanning list of
+  vectors in $V$ of length $\dim V$ is a basis of $V$.
+\end{theorem}
+\begin{proof}
+  Since $V$ is finite-dimensional, it has a basis by
+  \cref{cor:finite-dim-has-basis}. Let $v_1, ..., v_n$ be a spanning
+  list in $V$ where $n = \dim V$. By
+  \cref{thm:spanning-list-contains-a-basis}, this list contains a
+  basis for $V$. Suppose we retain the vectors $v_1, ..., v_m$ where $m <
+  n$. Then, $v_1, ..., v_m$ is a basis for $V$. Then, $\dim V = m$ by
+  \cref{thm:basis-length-does-not-depend-on-basis}. However, this
+  implies $m \ne n$, which contradicts the hypothesis. Therefore,
+  $v_1, ..., v_n$ is already a basis for $V$.
+\end{proof}
+
+\begin{theorem}[dimension of a sum]
+  \label{thm:dimension-of-a-sum}
+  If $V_1$ and $V_2$ are subspaces of a finite-dimensional vector
+  space, then $\dim (V_1 + V_2) = \dim V_1 + \dim V_2 - \dim (V_1 \cap
+  V_2)$.
+\end{theorem}
+\begin{proof}
+  Let $v_1, ..., v_m$ be a basis of $V_1 \cap V_2$. Then, $\dim(V_1
+  \cap V_2) = m$. By \cref{thm:extend-basis-finite-dimensional}, we
+  can extend the list to a basis of $V_1$ and obtain $v_1, ..., v_m,
+  u_1, ..., u_n$. Therefore, $\dim V_1 = m + n$. Similarly, by
+  \cref{thm:extend-basis-finite-dimensional}, we can extend the basis
+  of $V_1 \cap V_2$ to a basis of $V_2$ and obtain $v_1, ..., v_m,
+  w_1, ..., w_l$. Therefore $\dim V_2 = m + l$. Then, we show that
+  $v_1, ..., v_m, u_1, ..., u_n, w_1, ..., w_l$ is a basis of $V_1 +
+  V_2$ since then $\dim (V_1 + V_2) = m + n + l = (m + n) + (m + l) -
+  m = \dim V_1 + \dim V_2 - \dim (V_1 \cap V_2)$. First, $v_1, ...,
+  v_m, u_1, .., u_n, w_1, ..., w_l$ is contained in $V_1 \cup V_2$, so
+  it is in the subspace $V_1 + V_2$ by
+  \cref{thm:sum-of-subspaces-is-smallest-containing-subspace}. Since
+  the list consists solely of vectors in the bases of $V_1$ and $V_2$,
+  $\text{span}(v_1, ..., v_m, u_1, ..., u_n, w_1, ..., w_l) = V_1 +
+  V_2$. So, we only need to show that $v_1, ..., v_m, u_1, ..., u_n,
+  w_1, ..., w_l$ is linearly independent. Suppose that for some
+  arbitrary coefficients that:
+  \begin{align*}
+    \sum_{k=1}^m a_k v_k + \sum_{k=1}^n b_k u_k + \sum_{k=1}^l c_k w_k
+    = 0 
+  \end{align*}
+  Then, $\sum_{k=1}^l c_k w_k = -\sum_{k=1}^m a_k v_k - \sum_{k=1}^n
+  b_k u_k$. This implies that $\sum_{k=1}^l c_k w_k \in
+  V_1$. Therefore, $\sum_{k=1}^l c_k w_k = \sum_{k=1}^m d_k v_k$ where
+  $d_k \in \mathbb{F}$ for each $k \in [m]$. However, $v_1, ..., v_m,
+  w_1, ..., w_l$ is linearly independent, so $c_k = 0$ for all $k \in
+  [l]$ and $d_k = 0$ for all $k \in [m]$. So, we get that
+  $\sum_{k=1}^m a_k v_k + \sum_{k=1}^n b_k u_k = 0$. Since $v_1, ...,
+  v_m, u_1, ..., u_n$ is linearly independent, $a_k = 0$ for all $k
+  \in [m]$ and $b_k = 0$ for all $k \in [n]$. Therefore, $v_1, ...,
+  v_m, u_1, ..., u_n, w_1, ..., w_l$ is a basis for $V_1 + V_2$. 
+\end{proof}
+
+\begin{corollary}[dimension of direct sum]
+  \label{cor:dimension-of-direct-sum}
+  If $V_1$ and $V_2$ are subspaces of a finite-dimensional vector
+  space and $V_1 + V_2$ is a direct sum, then $\dim (V_1 \oplus V_2) =
+  \dim V_1 + \dim V_2$.
+\end{corollary}
+\begin{proof}
+  If $V_1 + V_2$ is a direct sum, then $V_1 \cap V_2 = \{0\}$ by
+  \cref{thm:direct-sum-of-two-subspaces}. Then, $\dim \{0\} = 0$, so
+  $\dim (V_1 \oplus V_2) = \dim V_1 + \dim V_2$ by
+  \cref{thm:dimension-of-a-sum}.
+\end{proof}
+
+\section{Linear Maps}
+
+\subsection{Definitions}
+
+\begin{definition}
+  \label{def:linear-map}
+  A \textit{linear map} from $V$ to $W$ is a function $T: V
+  \rightarrow W$ with the following properties:
+  \begin{enumerate}
+  \item \textbf{additivity}: $T(u + v) = T(u) + T(v)$ for all $u, v
+    \in V$
+  \item \textbf{homogeneity}: $T(\lambda v) = \lambda T(V)$ for all
+    $\lambda \in \mathbb{F}$ and $v \in V$
+  \end{enumerate}
+  We will write $Tv$ to denote $T(v)$. The set of linear maps from $V$
+  to $W$ is denoted by $\mathcal{L}(V, W)$. We will write
+  $\mathcal{L}(V) = \mathcal{L}(V, V)$.
+  We use $0$ to denote the linear map $0v = 0$ for all $v \in V$ ($0
+  \in \mathcal{L}(V, W)$). We will use $I \in \mathcal{L}(V)$ to denote the
+  \textit{identity operator}, where $Iv = v$ for all $v \in V$.
+\end{definition}
+
+\begin{lemma}[linear map lemma]
+  \label{lemma:linear-map-lemma}
+  Suppose $v_1, ..., v_n$ is a basis of $V$ and $w_1, ..., w_n \in
+  W$. Then there exists a unique linear map $T: V \rightarrow W$ such
+  that $Tv_k = w_k$ for each $k \in [n]$. 
+\end{lemma}
+\begin{proof}
+  Let us define a map $T: V \rightarrow W$ so that $Tv_k = w_k$ for
+  each $k \in [n]$. Then, for each $v \in V$, define $Tv =
+  \sum_{k=1}^n c_k w_k$ where each of the  $c_k \in \mathbb{F}$ and $v
+  = \sum_{k=1}^n c_k v_k$. Since $v_k$ is a basis for $V$, the
+  coefficients $c_k$ are unique by \cref{thm:criterion-for-basis}, so
+  $T$ is well-defined. We prove that $T$ is linear. Let $u, v \in
+  V$. Then, $u = \sum_{k=1}^n a_k v_k$ and $v = \sum_{k=1}^n b_k v_k$
+  where $a_k, b_k \in \mathbb{F}$ for each $k \in [n]$. It is easy to
+  check that $T(u + v) = T(u) + T(v)$. Next, we show $T(\lambda v) =
+  \lambda T(v)$ for each $v \in V$ and $\lambda \in \mathbb{F}$. Since
+  $v \in V$, $v = \sum_{k=1}^n c_k v_k$ where $c_k \in \mathbb{F}$ for
+  each $k \in [n]$. Then, $T(\lambda v) = T(\sum_{k=1}^n (c_k \lambda)
+  v_k) = \sum_{k=1}^n (\lambda c_k) w_k = \lambda \sum_{k=1}^n c_k w_k
+  = \lambda T(v)$. So, $T$ is a linear map. Suppose there exists
+  another linear map $T': V \rightarrow W$ so that $T'(v_k) = w_k$ for
+  each $k \in [n]$. Let $v \in V$. Then, $v = \sum_{k=1}^n c_k v_k$
+  where $c_k \in \mathbb{F}$ for each $k \in [n]$. Then, $T(v) =
+  \sum_{k=1}^n c_k w_k$. Since $T'$ is linear:
+  \begin{align*}
+    T'(v) &= T'\Bigl(  \sum_{k=1}^n c_k v_k \Bigr) \\
+          &= \sum_{k=1}^n c_k T'(v_k) & \text{\cref{def:linear-map}} \\
+          &= \sum_{k=1}^n c_k w_k \\
+          &= T(v) \\
+  \end{align*}
+  So, $T \equiv T'$, meaning $T$ is unique. 
+\end{proof}
+
+\begin{definition}[addition and scalar multiplication on
+  $\mathcal{L}(V, W)$]
+  \label{def:addition-multiplication-on-LVW}
+  Suppose $S, T \in \mathcal{L}(V, W)$ and $\lambda \in
+  \mathbb{F}$. The \textit{sum} $S + T$ and the product $\lambda T$
+  are linear maps from $V$ to $W$ defined by:
+  \begin{align*}
+    (S + T)(v) &= Sv + Tv \\
+    (\lambda T)(v) &= \lambda(Tv)
+  \end{align*}
+  for all $v \in V$.
+\end{definition}
+
+\begin{theorem}
+  With the operation of addition and scalar multiplication defined in
+  \cref{def:addition-multiplication-on-LVW}, $\mathcal{L}(V, W)$ is a
+  vector space.
+\end{theorem}
+\begin{proof}
+  Let $S, T, R \in \mathcal{L}(V, W)$, $u, v \in V$, and $\lambda \in \mathbb{F}$.
+  \begin{enumerate}[(a)]
+  \item Commutativity: Then, $(S +T)v = Sv + Tv$. $(T + S)v = Tv + Sv$. Since $Sv, Tv \in W$, $Sv +
+    Tv = Tv + Sv$. Therefore, $S + T \equiv T + S$.
+  \item Associativity: Then, $((S + T) + R)v = (S + T)v + Rv = Sv + Tv + Rv = Sv + (Tv + Rv) = Sv +
+    (T + R)v = (S + (T + R))v$.
+  \item Additive Identity: $(S + 0)v = Sv + 0v = Sv + 0 =
+    Sv$. Therefore, $S + 0 \equiv S$.
+  \item Additive Inverse: Since $S$ is linear, $-S := -1 \cdot S$ is
+    linear. So, $(S + (-S))v = Sv + (-S)v = Sv + -(Sv) = 0$. Since
+    this is true for all $v \in V$, $S + (-S) \equiv 0$.
+  \item Multiplicative identity: By how multiplication is defined, $1
+    \cdot T = T$ for all $T \in \mathcal{L}(V, W)$.
+  \item Distributive Property: $(\lambda(S + T))v = \lambda \cdot ((S
+    + T)v) = \lambda \cdot (Sv + Tv) = \lambda(Sv) + \lambda(Tv) =
+    (\lambda S)(v) + (\lambda T)v$. So, $\lambda(S + T) \equiv \lambda
+    S + \lambda T$. Let $a, b \in \mathbb{F}$. Then, $((a + b)S)v = (a
+    + b) \cdot (Sv) = a \cdot Sv + b \cdot Sv = (aS)v +
+    (bS)v$. Therefore, $(a + b)S \equiv aS + bS$.
+  \end{enumerate}
+  By \cref{def:vector-space}, it is a vector space.
+\end{proof}
+
+\begin{definition}[product of linear maps]
+  \label{def:product-of-linear-maps}
+  If $T \in \mathcal{L}(V, W)$ and $S \in \mathcal{L}(V, W)$, then the
+  \textit{product} $ST \in \mathcal{L}(V, W)$ is defined by $(ST)u =
+  S(Tu)$ for all $u \in U$.
+\end{definition}
+
+\begin{theorem}[algebraic properties of products of linear maps]
+  \label{thm:properties-of-products-of-linear-maps}
+  \leavevmode
+  \begin{enumerate}
+    \item \textbf{associativity}: $(T_1 T_2) T_3 = T_1 (T_2 T_3)$
+      whenever the domains are defined appropriately for linear maps
+      $T_1, T_2, T_3$.
+    \item \textbf{identity}: $TI = IT = T$ whenever $T \in
+      \mathcal{L}(V, W)$.
+    \item \textbf{distributive properties}: $(S_1 + S_2)T = S_1 T +
+      S_2 T$ and $S(T_1 + T_2) = ST_1 + ST_2$ whenever $T, T_1, T_2
+      \in \mathcal{L}(V, W)$ and $S, S_1, S_2 \in \mathcal{L}(V, W)$.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  \leavevmode
+  \begin{enumerate}
+    \item \textbf{associativity}: Let $v \in V$. Let $T_1, T_2, T_3$
+      be linear maps where the domains are defined
+      appropriately. Then, $((T_1 T_2)T_3)v = (T_1 T_2)(T_3 v) =
+      T_1(T_2(T_3 v)) = T_1((T_2 T_3) v)$.
+    \item \textbf{identity}: Let $v \in V$ and $T \in \mathcal{L}(V,
+      W)$. Then $(TI)v = T(Iv) = T(v) = Tv$. And, $(IT)v = I(Tv) =
+      Tv$. Therefore, $(TI)v = (IT)v = Tv$, so $TI = IT = T$. Note
+      that the identity operator in $TI$ is in $\mathcal{L}(V)$
+      whereas the identity operator in $IT$ is in $\mathcal{L}(W)$.
+    \item \textbf{distributive properties}: Let $v \in V$. Then,
+      $((S_1 + S_2)T)v = (S_1 + S_2)(Tv) = S_1(Tv) + S_2(Tv) = (S_1T)v
+      + (S_2T)v = (S_1T + S_2T)v$. And $(S(T_1 + T_2))v = S((T_1 +
+      T_2)v) = S(T_1v + T_2v) = S(T_1v) + S(T_2v) = (ST_1)v + (ST_2)v$.
+      
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}[linear maps take 0 to 0]
+  \label{thm:linear-maps-take-0-to-0}
+  Suppose $T: V \rightarrow W$ is a linear map. Then $T(0) = 0$.
+\end{theorem}
+\begin{proof}
+  Let $v \in V$ be arbitrary. Then, $Tv = T(v) = T(v + 0)$. By
+  linearity, $T(v + 0) = T(v) + T(0)$. Therefore, $T(0) = 0$.
+\end{proof}
+
+\subsection{Null Spaces and Ranges}
+
+\begin{definition}[null space]
+  \label{def:null-space}
+  For $T \in \mathcal{L}(V, W)$, the \textit{null space} of $T$,
+  denoted by $\nullspace{T}$, is the subset of $V$ consisting of those
+  vectors that $T$ maps to $0$:
+  $$\nullspace{T} = \{v \in V: Tv = 0\}$$
+\end{definition}
+
+\begin{theorem}[null space is a subspace]
+  \label{thm:null-space-is-a-subspace}
+  Suppose $T \in \mathcal{L}(V, W)$. Then, $\nullspace{T}$ is a
+  subspace of $V$.
+\end{theorem}
+\begin{proof}
+  We show this using \cref{thm:conditions-for-subspace}. First,
+  suppose that $v, w \in \nullspace{T}$. Then, $Tv = 0$ and $Tw = 0$,
+  so $T(v + w) = 0$ since $T$ is linear. Therefore, $v + w \in
+  nullspace{T}$. Next, let $\lambda \in \mathbb{F}$ and $v \in
+  \nullspace T$. Then, by the linearity of $T$:
+  \begin{align*}
+    Tv &= 0 \\
+    \lambda(Tv) &= 0 \\
+    T(\lambda v) &= 0 & \text{ linearity of $T$ } \\ 
+  \end{align*}
+  Therefore, $\lambda v \in \nullspace{T}$. Finally, by
+  \cref{thm:linear-maps-take-0-to-0}, $T(0) = 0$, so $0 \in \nullspace
+  T$.
+\end{proof}
+
+\begin{theorem}[injectivity iff null space equals ${0}$]
+  \label{thm:injectivity-iff-null-space-equals-0-subspace}
+  Let $T \in \mathcal{L}(V, W)$. Then, $T$ is injective if and only if
+  $\nullspace{T} = \{0\}$.
+\end{theorem}
+\begin{proof}
+  Suppose $T$ is injective. Let $v \in V$ so that $Tv = 0$. Since $T$
+  is linear, \cref{thm:linear-maps-take-0-to-0} implies that $T(0) =
+  0$. Therefore, $T(v) = T(0)$. By injectivity, $v = 0$. Consequently,
+  $\nullspace{T} = \{0\}$. Suppose now that $\nullspace{T} =
+  \{0\}$. Suppose that $Tu = Tv$. Then, the linearity of $T$ implies
+  that $T(u - v) = 0$. Therefore, $u - v \in \nullspace{T}$, so $u - v
+  = 0$. That is, $u = v$. Since $u$ and $v$ were arbitrary, $T$ is injective.
+\end{proof}
+
+\begin{definition}[range]
+  \label{def:range}
+  For $T \in \mathcal{L}(V, W)$, the \textit{range} of $T$ is the
+  subset of $W$ consisting of those vectors that are equal to $Tv$ for
+  some $v \in V$:
+  $$\rangespace{v} = \{Tv: v \in V\}$$
+\end{definition}
+
+\begin{theorem}[the range is a subspace]
+  \label{thm:the-range-is-a-subspace}
+  If $T \in \mathcal{L}(V, W)$, then $\rangespace T$ is a subspace of $W$.
+\end{theorem}
+\begin{proof}
+  We prove this via \cref{thm:conditions-for-subspace}. First, let $u,
+  w \in \rangespace T$. Then, $u = Tv_1$ and $w = Tv_2$ for some $v_1,
+  v_2 \in V$. So, $u + w = Tv_1 + Tv_2 = T(v_1 + v_2)$ since $T$ is
+  linear. Then, $u + w \in \rangespace T$ since $v_1 + v_2 \in
+  V$. Next, let $\lambda \in \mathbb{F}$ and $u \in \rangespace
+  T$. Then, $u = Tv$ for some $v \in V$. By the linearity of $T$,
+  $\lambda u = \lambda (Tv) = T(\lambda v)$. Since $\lambda v \in V$,
+  $\lambda u \in \rangespace T$. If we take $\lambda = 0$, then $0 \in
+  \rangespace {T}$.
+\end{proof}
+
+\begin{theorem}[The Fundamental Theorem of Linear Maps]
+  \label{thm:fundamental-thm-of-linear-maps}
+  Suppose $V$ is finite-dimensional and $T \in \mathcal{L}(V,
+  W)$. Then, $\rangespace T$ is finite-dimensional and $\dim V = \dim
+  \nullspace T + \dim \rangespace T$. 
+\end{theorem}
+\begin{proof}
+  Since $V$ is finite-dimensional, it has a basis, $v_1, ...,
+  v_n$. Then, for any $w \in \rangespace T$:
+  \begin{align*}
+    w &= Tv \\
+    &= T\Bigl( \sum_{k=1}^n c_k v_k \Bigr) & \text{ for $c_k \in
+                                             \mathbb{F}$ } \\
+    &= \sum_{k=1}^n c_k (Tv_k) & \text{ linearity of $T$ }
+  \end{align*}
+  So, the vectors $Tv_1, ..., Tv_n$ span $\rangespace T$. By
+  \cref{thm:spanning-list-contains-a-basis}, this spanning list can be
+  reduced to a basis of $\rangespace T$. Hence, $\rangespace T$ is
+  finite-dimensional. Now, $\nullspace T$ is a subspace of $V$ by
+  \cref{thm:null-space-is-a-subspace}. Therefore, it is
+  finite-dimensional by \cref{thm:every-subspace-finite-dim}, so it
+  has a basis $u_1, ..., u_n$. Since this is a linearly independent
+  list, we can extend it to a basis for $V$ and obtain $u_1, ..., u_n,
+  v_1, ..., v_m$ (\cref{thm:extend-basis-finite-dimensional}). We show
+  that the vectors $Tv_1, ..., Tv_m$ are a basis for $\rangespace
+  T$. First, we show that they span $\rangespace T$. Let $w \in
+  \rangespace T$. Then:
+  \begin{align*}
+    w &= Tv \\
+      &= T\Bigl( \sum_{k=1}^n c_k u_k + \sum_{k=1}^m d_k v_k\Bigr) \\
+    &= \Bigl( \sum_{k=1}^n c_k (Tu_k) + \sum_{k=1}^m d_k (Tv_k) \Bigr)
+      & \text{By linearity of $T$}
+    \\
+    &= \sum_{k=1}^n c_k \cdot 0 + \sum_{k=1}^m d_k (Tv_k) & \text{$u_k \in \nullspace T$} \\
+    &= \sum_{k=1}^m d_k (Tv_k) \\
+  \end{align*}
+  Therefore, $w \in \text{span}(v_1, ..., v_m)$. Now, we show that
+  $Tv_1, ..., Tv_m$ are linearly independent. Suppose that:
+  $$\sum_{k=1}^n c_k (Tv_k) = 0$$
+  Then:
+  $$T\Bigl( \sum_{k=1}^n c_k v_k \Bigr) = 0$$
+  So, $\sum_{k=1}^n c_k v_k \in \nullspace T$. Therefore, it is in the span
+  of $u_1, ..., u_n$, and:
+  $$\sum_{k=1}^m c_k v_k = \sum_{k=1}^n d_k u_k$$
+  $$\sum_{k=1}^m c_k v_k - \sum_{k=1}^n d_k u_k = 0$$
+  Since $v_1, ..., v_m, u_1, ..., u_n$ are linearly independent, it
+  follows that $d_k = 0$ for all $k \in [n]$ and $c_k = 0$ for all
+  $k \in [m]$. So, $Tv_1, ..., Tv_m$ are linearly
+  independent. Therefore, it is a basis for $\rangespace T$. Since
+  $\dim \nullspace T = n$ and $\dim \rangespace T = m$ and $u_1, ..., u_n,
+  v_1, ..., v_m$ are a basis for $V$, it follows that $\dim V = m +
+  n$, or:
+  $$\dim V = \dim \nullspace T + \dim \rangespace T$$
+\end{proof}
+
+\begin{theorem}[linear map to a lower dimensional space is not
+  injective]
+  \label{thm:linear-map-to-lower-dimensional-space-not-injective}
+  Suppose $V$ and $W$ are finite-dimensional vector spaces such that
+  $\dim V > \dim W$. Then no linear map from $V$ to $W$ is injective.
+\end{theorem}
+\begin{proof}
+  Suppose for contradiction that $T: V \rightarrow W$ is a linear map
+  that is injective. Then, $\nullspace T = \{0\}$ by
+  \cref{thm:injectivity-iff-null-space-equals-0-subspace}. By
+  \cref{thm:the-range-is-a-subspace} and $\cref{thm:dim-of-subspace}$,
+  $\dim \rangespace T \le \dim W$. By
+  \cref{thm:fundamental-thm-of-linear-maps}:
+  \begin{align*}
+    \dim V &= \dim \nullspace T + \dim \rangespace T \\
+           &= 0 + \dim \rangespace T \\
+           &\le \dim W \\
+  \end{align*}
+  But this contradicts the hypothesis that $\dim V > \dim
+  W$. Therefore, there is no linear map from $V$ to $W$ that is
+  injective if $\dim V > \dim W$.
+\end{proof}
+
+\begin{theorem}[linear map to a higher-dimensional subspace is not
+  surjective]
+  \label{thm:linear-map-to-higher-dimensional-space-not-surjective}
+  Suppose $V$ and $W$ are finite-dimensional vector spaces such that
+  $\dim V < \dim W$. Then no linear map from $V$ to $W$ is surjective.
+\end{theorem}
+\begin{proof}
+  Suppose for contradiction that $T: V \rightarrow W$ is a linear map which is
+  surjective. Then, $\dim \rangespace T = \dim W$. Therefore, by
+  \cref{thm:fundamental-thm-of-linear-maps}, $\dim V = \dim \nullspace
+  T + \dim W$. Note that $\dim \nullspace T \ge 0$, so $\dim V \ge
+  \dim W$, contradicting the initial hypothesis. Therefore, there is
+  no linear map from $V$ to $W$ that is surjective if $\dim V < \dim W$.
+\end{proof}
+
+\begin{definition}
+  \label{def:system-of-linear-equations}
+  Fix positive integers $m, n$ and let $A_{j, k} \in \mathbb{F}$ for $j \in [m]$ and
+  $k \in [n]$ and arbitrary $c_1, ..., c_m \in \mathbb{F}$:
+  \begin{align*}
+    \sum_{k=1}^n A_{1, k}x_k &= c_1 \\
+    &\vdotswithin{=} \notag \\
+    \sum_{k=1}^nA_{m, k}x_k &= c_m \\
+  \end{align*}
+  This is a \textit{homogeneous} system of linear equations whenever
+  $c_1 = ... = c_m = 0$. It is
+  \textit{inhomogeneous} if at least one of the $c_k \ne 0$.
+\end{definition}
+
+We consider whether there exist nonzero solutions for the homogeneous
+system of linear equations. Define
+$T: \mathbb{F}^n \rightarrow \mathbb{F}^m$ by
+$T(x_1, ..., x_n) = (\sum_{k=1}^n A_{1, k} x_k, ..., \sum_{k=1}^n
+A_{m, k} x_k)$. This is a linear map, and we are interested in
+determining where $T(x_1, ..., x_n) = 0$ (the zero vector, not the
+number in this case). We know that $x_1 = ... = x_n = 0$ is a
+solution. The question is if there are more solutions. That is, is
+$\nullspace T \ne \{0\}$? By
+\cref{thm:injectivity-iff-null-space-equals-0-subspace}, we are
+equivalently asking whether $T$ is not injective.
+
+\begin{theorem}[homogeneous system of linear equations]
+  \label{thm:homogeneous-system-more-variables-than-equations}
+  A homogeneous system of linear equations with more variables than
+  equations has nonzero solutions.
+\end{theorem}
+\begin{proof}
+  By \cref{thm:injectivity-iff-null-space-equals-0-subspace}, we only
+  need to show that $T: \mathbb{F}^n \rightarrow \mathbb{F}^m$ is not
+  injective. Since $n > m$,
+  \cref{thm:linear-map-to-lower-dimensional-space-not-injective}
+  implies that $T$ is not injective since it is a linear map to a
+  lower-dimensional space.
+\end{proof}
+
+We now consider an inhomogeneous system of linear equations and prove
+an analogous result. Define $T: \mathbb{F}^n \rightarrow
+\mathbb{F}^m$ by $T(x_1, ..., x_n) = (\sum_{k=1}^n A_{1, k} x_k, ...,
+\sum_{k=1}^n A_{m, k} x_k)$. This is a linear map and we are
+interested when $T(x_1, ..., x_n) = (c_1, ..., c_m)$ has no solutions
+for a particular choice of $c_1, ..., c_m$. That is, we are interested
+in knowing when $\rangespace T \ne \mathbb{F}^m$. 
+
+\begin{theorem}[inhomogeneous system of linear equations]
+  \label{thm:inhomogeneous-system-more-equations-than-variables}
+  An inhomogeneous system of linear equations with more equations than
+  variables has no solutions for some choice of constant terms.
+\end{theorem}
+\begin{proof}
+  Using the notation from above, the number of equations is $m$ and
+  the number of variables is $n$. We are given that $m > n$. Then $T:
+  \mathbb{F}^n \rightarrow \mathbb{F}^m$ is a linear map from a lower
+  dimensional space to a higher dimensional space. By
+  \cref{thm:linear-map-to-higher-dimensional-space-not-surjective},
+  $T$ cannot be surjective. Therefore, $\rangespace T \ne \mathbb{F}^m$.
+\end{proof}
+
+\subsection{Matrices}
+
+\begin{definition}
+  \label{def:matrix}
+  Suppose $m$ and $n$ are nonnegative integers. An $m$-by-$n$
+  matrix $A$ is a rectangular array of elements of $\mathbb{F}$ with
+  $m$ rows and $n$ columns:
+  \[
+    \begin{bmatrix}
+      A_{1,1} & ... & A_{1,n} \\
+      \vdots & \ddots & \vdots \\
+      A_{m,1} & ... & A_{m,n} \\
+    \end{bmatrix}
+  \]
+  The notation $A_{j,k}$ denotes the entry in row $j$, column $k$.
+\end{definition}
+
+\begin{definition}
+  \label{def:matrix-of-linear-map}
+  Suppose $T \in \mathcal{L}(V, W)$ and $v_1, ..., v_n$ is a basis of
+  $V$ and $w_1, ..., w_m$ is a basis of $W$. The \textit{matrix} of
+  $T$ with respect to these bases is the $m$-by-$n$ matrix
+  $\mathcal{M}(T)$ whose entries $A_{j, k}$ are defined by:
+  \begin{align*}
+    Tv_k &= \sum_{j=1}^m A_{j, k}w_j
+  \end{align*}
+  If the bases $v_1, ..., v_n$ and $w_1, ..., w_m$ are not clear from
+  the context, then the notation $\mathcal{M}(T, (v_1, ..., v_n),
+  (w_1, ..., w_m))$ is used.
+\end{definition}
+
+\begin{remark}
+  To represent each $Tv_k$, we use the scalars in the $k^{th}$ column
+  of the matrix $\mathcal{T}$ and then do a ``dot product'' with the
+  basis vectors $w_1, ..., w_m$.
+\end{remark}
+
+Now, we define a scalar multiplication and addition for matrices of
+linear maps:
+
+\begin{definition}
+  \label{def:addition-scalar-multiplication-of-matrix}
+  The\textit{ sum of two matrices of the same size} is obtained by adding the
+  corresponding entries of the matrix:
+  \[
+    \begin{bmatrix}
+      A_{1,1} & ... & A_{1,n} \\
+      \vdots & \ddots & \vdots \\
+      A_{m,1} & ... & A_{m,n} \\
+    \end{bmatrix}
+    +
+    \begin{bmatrix}
+      C_{1,1} & ... & C_{1,n} \\
+      \vdots & \ddots & \vdots \\
+      C_{m,1} & ... & C_{m,n} \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      A_{1,1} + C_{1, 1} & ... & A_{1, n} + C_{1,n} \\
+      \vdots & \ddots & \vdots \\
+      A_{m, 1} + C_{m,1} & ... & A_{m, n} + C_{m,n} \\
+    \end{bmatrix}
+  \]
+  The \textit{scalar multiple of a matrix} is defined as follows:
+  \[
+    \lambda
+    \begin{bmatrix}
+      A_{1,1} & ... & A_{1,n} \\
+      \vdots & \ddots & \vdots \\
+      A_{m,1} & ... & A_{m,n} \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      \lambda A_{1,1} & ... & \lambda A_{1,n} \\
+      \vdots & \ddots & \vdots \\
+      \lambda A_{m,1} & ... & \lambda A_{m,n} \\
+    \end{bmatrix}
+  \]
+\end{definition}
+
+\begin{theorem}[matrix of sum of linear maps]
+  \label{thm:matrix-of-the-sum-of-linear-maps}
+  Suppose $S, T \in \mathcal{L}(V, W)$. Then, $\mathcal{M}(S + T) =
+  \mathcal{M}(S) + \mathcal{M}(T)$.
+\end{theorem}
+\begin{proof}
+  Let $v_1, ..., v_n$ be a basis for $V$ and $w_1, ..., w_m$ be a
+  basis for $W$. Let $A = \mathcal{M}(S)$ and $B = \mathcal{M}(T)$. Then:
+  \begin{align*}
+    Sv_k &= \sum_{j=1}^m A_{j,k}w_j \\
+    Tv_k &= \sum_{j=1}^m B_{j,k}w_j \\
+  \end{align*}
+  So, $(S + T)v_k = \sum_{j=1}^m (A_{j, k} + B_{j, k})w_j$. Therefore,
+  $\mathcal{M}(S + T) = A + B = \mathcal{M}(S) + \mathcal{M}(T)$. 
+\end{proof}
+
+\begin{theorem}[matrix of scalar multiple of linear map]
+  \label{thm:matrix-of-scalar-multiple-times-linear-map}
+  Suppose $\lambda \in \mathbb{F}$ and $T \in \mathcal{L}(V,
+  W)$. Then, $\mathcal{M}(\lambda T) = \lambda M(T)$.
+\end{theorem}
+\begin{proof}
+  The matrix $\mathcal{M}(T)$ has entries $A_{j, k}$ that satisfy:
+  \begin{align*}
+    Tv_k &= \sum_{j=1}^m A_{j,k}w_j
+  \end{align*}
+  for each $j \in [m]$ and $k \in [n]$. Then, $\mathcal{M}(\lambda T)$
+  is given by:
+  \begin{align*}
+    (\lambda T)v_k &= \lambda \cdot Tv_k \\
+                   &= \lambda \sum_{j=1}^m A_{j, k}w_j \\
+                   &= \sum_{j=1}^m (\lambda A_{j, k}) w_j \\
+  \end{align*}
+  So, $\mathcal{M}(\lambda T)$ has entries $\lambda A_{j, k}$ for each
+  $j \in [m]$ and $k \in [n]$. Since $\lambda A_{j, k}$ are the entries of
+  $\lambda \mathcal{M}(T)$, it follows $\mathcal{M}(\lambda T) =
+  \lambda \mathcal{M}(T)$.
+\end{proof}
+
+\begin{remark}
+  For all positive integers $m, n$, the set of all $m$-by-$n$ matrices
+  with entries in $\mathbb{F}$ is denoted by $\mathbb{F}^{m,n}$. With
+  the scalar multiplication and addition given in
+  \cref{def:addition-scalar-multiplication-of-matrix}, $\mathbb{F}^{m,
+  n}$ is a vector space.
+\end{remark}
+
+\begin{theorem}[dimension of $\mathbb{F}^{m, n}$ is $mn$]
+  \label{thm:dimension-of-Fmn-is-mn}
+  Suppose that $m, n$ are positive integers. With the addition and
+  scalar multiplication in
+  \cref{def:addition-scalar-multiplication-of-matrix}, $\mathbb{F}^{m,
+  n}$ is a vector space of dimension $mn$.
+\end{theorem}
+\begin{proof}
+  It is clear that $\mathbb{F}^{m, n}$ is a vector space. Let $E^l$ be
+  the matrix defined so that $E^l_{j, k} = 1$ when $j = \lceil
+  \frac{l - 1}{n} \rceil $ and $k = ((l - 1) \mod n) + 1$ and $E^l_{j, k} = 0$
+  otherwise for $l \in [mn]$. Then, each of the $E^l$ are linearly
+  independent, and for any matrix $A$, we can write $A = \sum_{j=1}^m
+  \sum_{k=1}^n A_{j, k} E^{n(j-1) + k}$, so the $E^l$ span
+  $\mathbb{F}^{m, n}$. Hence they are a basis, so $\dim \mathbb{F}^{m, n} = mn$.
+\end{proof}
+
+\begin{definition}
+  \label{def:matrix-multiplication}
+  Suppose $A$ is a $m$-by-$n$ matrix and $B$ is a $n$-by-$p$
+  matrix. Then, $AB$ is defined to be the $m$-by-$p$ matrix whose
+  entry in row $j$, column $k$ is given by the equation:
+  \begin{align*}
+    (AB)_{j,k} &= \sum_{r=1}^n A_{j,r}B_{r,k}
+  \end{align*}
+\end{definition}
+
+The preceding definition makes sense because it allows
+$\mathcal{M}(ST) = \mathcal{M}(S)\mathcal{M}(T)$:
+
+\begin{theorem}[matrix of product of linear maps]
+  \label{thm:matrix-of-product-of-linear-maps}
+  If $T \in \mathcal{L}(U, V)$ and $S \in \mathcal{L}(V, W)$, then
+  $\mathcal{M}(ST) = \mathcal{M}(S)\mathcal{M}(T)$.
+\end{theorem}
+\begin{proof}
+  Let $U$ have basis $u_1, ..., u_p$, $V$ have basis $v_1, ..., v_n$,
+  and $W$ have basis $w_1, ..., w_m$. Let $\mathcal{M}(S) = A$ and
+  $\mathcal{M}(T) = B$. Then for each $r \in [p]$:
+  \begin{align*}
+    STu_r &= S(Tu_r) \\
+          &= S\Bigl( \sum_{j=1}^n B_{j,r}v_j \Bigr) \\
+          &= \sum_{j=1}^n B_{j,r} Sv_j \\
+          &= \sum_{j=1}^n B_{j, r} \Bigl( \sum_{k=1}^m A_{k, j} w_k \Bigr)
+    \\
+          &= \sum_{k=1}^m \Bigl( \sum_{j=1}^n A_{k,j}B_{j,r} \Bigr) w_k \\
+  \end{align*}
+  So, row $j$, column $k$ of $\mathcal{M}(ST)$ has the entry
+  $\sum_{r=1}^n A_{j,r}B_{r,k}$. By
+  \cref{def:matrix-multiplication}, this is the $j, k$ entry of
+  $\mathcal{M}(S)\mathcal{M}(T)$. Therefore, $\mathcal{M}(ST) =
+  \mathcal{M}(S) \mathcal{M}(T)$.
+\end{proof}
+
+\begin{definition}[$A_{j, \cdot}, A_{\cdot, k}$]
+  \label{def:slice-of-matrix}
+  Let $A$ be an $m$-by-$n$ matrix. \\
+  If $1 \le j \le m$, then $A_{j,\cdot}$ denotes the $1$-by-$n$ matrix
+  consisting of row $j$ of $A$. \\
+  If $1 \le k \le n$, then $A_{\cdot,k}$ denotes the $m$-by-$1$ matrix
+  consisting of column $k$ of $A$.
+\end{definition}
+
+When we take the product of a $1$-by-$n$ matrix and an $n$-by-$1$
+matrix, the result is a $1$-by-$1$ matrix. However, we usually denote
+this ``singeleton'' matrix as the number itself. This leads to the following:
+
+\begin{theorem}[entry of matrix product equals row times column]
+  \label{thm:entry-of-matrix-product-equals-row-times-column}
+  Suppose $A$ is an $m$-by-$n$ matrix and $B$ is an $n$-by-$p$
+  matrix. Then:
+  \begin{align*}
+    (AB)_{j,k} = A_{j, \cdot}B_{\cdot,k}
+  \end{align*}
+\end{theorem}
+\begin{proof}
+  This follows immediately from \cref{def:slice-of-matrix} and \cref{def:matrix-multiplication}.
+\end{proof}
+
+\begin{theorem}[column of matrix product equals matrix times column]
+  \label{thm:column-of-matrix-product-equals-matrix-times-column}
+  Suppose $A$ is an $m$-by-$n$ matrix and $B$ is an $n$-by-$p$
+  matrix. Then
+  \begin{align*}
+    (AB)_{\cdot,k} &= AB_{\cdot,k}
+  \end{align*}
+\end{theorem}
+\begin{proof}
+  We have the following equation based on
+  \cref{thm:entry-of-matrix-product-equals-row-times-column}:
+  \begin{align*}
+    (AB)_{1,k} &= \sum_{r=1}^n A_{1,r}B_{r,k} \\
+    \vdots \\
+    (AB)_{m,k} &= \sum_{r=1}^n A_{m,r}B_{r,k} \\
+  \end{align*}
+  Since $r \in [n]$, the $B_{r, k}$ form the matrix $B_{\cdot,k}$. The
+  $A_{j, r}$, $j \in [m]$ and $r \in [n]$, are the entries of $A$, so
+  the above equations show that $(AB)_{\cdot,k} = AB_{\cdot,k}$.
+\end{proof}
+
+\begin{theorem}[linear combination of columns]
+  \label{thm:matrix-multiplication-linear-combination-of-columns}
+  Suppose $A$ is an $m$-by-$n$ matrix and $b =
+    \begin{bmatrix}
+      b_1 \\
+      \vdots \\
+      b_n
+    \end{bmatrix}
+    $ is an $n$-by-$1$ matrix. Then:
+    \begin{align*}
+      Ab &= \sum_{k=1}^n b_k A_{\cdot, k} \\
+    \end{align*}
+\end{theorem}
+\begin{proof}
+  Note that since $b$ is an $n$-by-$1$ matrix, we write for row $j$,
+  column $k$ $b_{j,k} = b_{j,1} = b_j$ since there is only one
+  column. Applying
+  \cref{thm:column-of-matrix-product-equals-matrix-times-column},
+  \begin{align*}
+    (Ab)_{\cdot, k} &= Ab_{\cdot, k}
+  \end{align*}
+  Note that $Ab$ is an $m$-by-$1$ matrix, so $k = 1$ and for $1 \le j
+  \le m$:
+  \begin{align*}
+    (Ab)_{j, 1} &= \sum_{k=1}^n A_{j, k}b_{k, 1} \\
+                &= \sum_{k=1}^n A_{j, k}b_k \\
+                &= \sum_{k=1}^n b_k A_{j, k} \\
+  \end{align*}
+  So, $(Ab)_{\cdot, 1} = \sum_{k=1}^n b_k A_{\cdot, k}$ since the
+  $b_k$ are scalars. However, $(Ab)_{\cdot, 1} = Ab$, so $Ab =
+  \sum_{k=1}^n b_k A_{\cdot, k}$.
+\end{proof}
+
+\begin{theorem}[matrix multiplication as linear combination of columns]
+  \label{thm:matrix-multiplication-as-linear-combination-of-columns}
+  Suppose $C$ is an $m$-by-$n$ matrix and $R$ is a $c$-by-$n$ matrix.
+  \begin{enumerate}[(a)]
+    \item If $k \in [n]$, then column $k$ of $CR$ is a linear combination of
+    the columns of $C$ with the coefficients of this linear
+    combination coming from column $k$ of $R$.
+    \item If $j \in [m]$, then the row $j$ of $CR$ is a linear
+      combination of the rows of $R$ with the coefficients of this
+      linear combination coming from row $j$ of $C$.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  We formulate these in symbols first. We are asked to prove:
+  \begin{enumerate}[(a)]
+  \item $(CR)_{\cdot, k} = \sum_{j=1}^c R_{j, k}C_{\cdot, j}$.
+  \item $(CR)_{j, \cdot} = \sum_{r=1}^c C_{j, r}R_{r, \cdot}$.
+  \end{enumerate}
+
+  For item (a):
+  \begin{align*}
+    (CR)_{\cdot, k} &= CR_{\cdot, k} &
+                                       \cref{thm:column-of-matrix-product-equals-matrix-times-column} \\
+    &= \sum_{j=1}^c (R_{\cdot, k})_j C_{\cdot, j} &
+                                                    \cref{thm:matrix-multiplication-linear-combination-of-columns}
+    \\
+    &= \sum_{j=1}^c R_{j, k} C_{\cdot, j} \\
+  \end{align*}
+  For item (b), we apply \cref{def:matrix-multiplication} directly:
+  \begin{align*}
+    (CR)_{j, k} &= \sum_{r=1}^c C_{j, r} R_{r, k}
+  \end{align*}
+  The $R_{r, k}$ are the entries in $R_{r, \cdot}$, so $(CR)_{j,
+    \cdot} = \sum_{r=1}^c C_{j, r} R_{r, \cdot}$.
+  
+\end{proof}
+
+\begin{definition}[column rank, row rank]
+  \label{def:column-row-rank}
+  Suppose $A$ is an $m$-by-$n$ matrix with entries in
+  $\mathbb{F}$. The \textit{column rank} is the dimension of the span
+  of the columns of $A$ in $\mathbb{F}^{m, 1}$. The \textit{row rank}
+  of $A$ is the dimension of the span of the rows of $A$ in
+  $\mathbb{F}^{1, n}$. Both the column and row rank of $A$ are at most
+  $\min(m, n)$.
+\end{definition}
+
+\begin{definition}[transpose]
+  \label{def:matrix-transpose}
+  The \textit{transpose} of a $m-by-n$ matrix $A$, denoted by $A^T$, is the
+  $n$-by-$m$ matrix whose entries are defined as:
+  \begin{align*}
+    (A^T)_{k,j} = A_{j, k}
+  \end{align*}
+\end{definition}
+
+\begin{theorem}[column-row factorization]
+  \label{def:column-row-factorization}
+  Suppose $A$ is an $m$-by-$n$ matrix with entries in $\mathbb{F}$ and
+  column rank $c \ge 1$. Then, there exist an $m$-by-$c$ matrix $C$
+  and a $c$-by-$n$ matrix $R$ (both with entries in $\mathbb{F}$) so that $A = CR$.
+\end{theorem}
+\begin{proof}
+  The columns $A_{\cdot, 1}, ..., A_{\cdot, n}$ are each in
+  $\mathbb{F}^{m,1}$. We can reduce the list $A_{\cdot, 1}, ...,
+  A_{\cdot, n}$ into a basis of the span of the columns $A_{\cdot, 1},
+  ..., A_{\cdot, n}$. The resulting basis has length $c$. The $c$
+  columns in this basis can be concatenated into a larger $m$-by-$c$
+  matrix, whose columns span the same space as $A_{\cdot, 1}, ...,
+  A_{\cdot, n}$. Then, each $A_{\cdot, k}$ ($k \in [n]$) is a linear
+  combination of the columns of $C$. Take the coefficients of this
+  linear combination and put them into the $k^{th}$ column of a matrix
+  $R$. Then, $A = CR$ by
+  \cref{thm:matrix-multiplication-as-linear-combination-of-columns}. 
+\end{proof}
+
+\begin{theorem}[column rank equals row rank]
+  \label{def:column-rank-equals-row-rank}
+  Suppose $A \in \mathbb{F}^{m, n}$. Then the column rank of $A$
+  equals the row rank of $A$.
+\end{theorem}
+\begin{proof}
+  By \cref{def:column-row-factorization}, $A = CR$ where $C$ is an
+  $m$-by-$c$ matrix and $R$ is a $c$-by-$n$ matrix and $c$ is the
+  column rank. By
+  \cref{thm:matrix-multiplication-as-linear-combination-of-columns},
+  each row of $A$ is a linear combination of the rows of $R$. Since
+  there are $c$ rows in $R$, the row rank of $A$ is less than or equal
+  to the column rank of $A$. To prove the other direction, we note
+  that the column rank of $A$ is equal to the row rank of
+  $A^{T}$. Then, applying what we showed to $A^T$, the row rank of
+  $A^T$ is less than or equal to the column rank of $A^T$. However,
+  the column rank of $A^T$ is equal to the row rank of $A$. Therefore,
+  the column rank of $A$ is less than or equal to the row rank of
+  $A$. That is, the column rank of $A$ equals the row rank of $A$.
+\end{proof}
+
+The fact the column rank and row rank are equal implies the following definition:
+
+\begin{definition}[rank]
+  \label{def:rank}
+  The rank of a matrix $A \in \mathbb{F}^{m, n}$ is the column rank of $A$.
+\end{definition}
+
+
+\subsection{Invertibility and Isomorphism}
+
+\begin{definition}[invertible]
+  \label{def:invertible}
+  A linear map $T \in \mathcal{L}(V, W)$ is called \textit{invertible}
+  if there exists a linear map $S \in \mathcal{L}(W, V)$ such that
+  $ST$ equals the identity operator on $V$ and $TS$ equals the
+  identity operator on $W$. $S$ is called an \textit{inverse} of $T$.
+\end{definition}
+
+\begin{theorem}[inverse is unique]
+  \label{thm:inverse-is-unique}
+  An invertible linear map has a unique inverse.
+\end{theorem}
+\begin{proof}
+  Let $S_1$ and $S_2$ be inverses of a linear map $T \in
+  \mathcal{L}(V, W)$. We let $I_V$ denote the identity operator in $V$
+  and $I_W$ denote the identity operator in $W$. Then, $S_1T = I_v$
+  and $S_2T = I_v$. Then, $S_1T = S_2T$. This implies $S_1TS_1 =
+  S_2TS_1$. By associativity of linear operators, $S_1(TS_1) =
+  S_2(TS_1)$. We know $TS_1 = I_w$, so $S_1I_w = S_2I_w$. Since
+  $S_1I_w = S_1$ and $S_2I_w = S_2$, $S_1 = S_2$.
+\end{proof}
+
+\begin{definition}[notation for inverse]
+  \label{def:inverse-notation}
+  If $T$ is invertible, we denote its inverse $T^{-1}$.
+\end{definition}
+
+\begin{theorem}[invertibility $\iff$ injectivity and surjectivity]
+  \label{thm:invertible-iff-injective-surjective}
+  A linear map is invertible if and only if it is injective and surjective.
+\end{theorem}
+\begin{proof}
+  Let $T: V \rightarrow W$ be an invertible linear map. Suppose $Tu =
+  Tv$ for some vectors $u, v \in V$. Since $T$ is invertible, there
+  exists $T^{-1}$ so that $T^{-1}T = I$. Then, $T^{-1}(Tu) =
+  T^{-1}(Tv)$, so $(T^{-1}T)u = (T^{-1}T)v$. Then, $u = v$. Therefore,
+  $T$ is injective. Let $w \in W$. Since $T^{-1} \in \mathcal{L}(W,
+  V)$, we can put $v = T^{-1}w$, so $Tv = T(T^{-1}w) = w$. Therefore,
+  $T$ is surjective. \\
+  Now suppose that $T$ is injective and surjective. We define a map
+  $S: W \rightarrow V$ so that $Sw = v$ whenever $w = Tv$. Since $T$
+  is surjective, there exists $v \in V$ so that $w = Tv$ for each $w
+  \in W$, so $S$ is defined over all of $W$. It is well-defined
+  because if $w = Tv_1$ and $w = Tv_2$ for $v_1, v_2 \in V$, then $v_1
+  = v_2$ because $T$ is injective. It is also clear that $S$ is a
+  linear map. We now show it is the inverse. Let $v \in V$. Then, $STv
+  = S(Tv) = v$ since $Tv \in W$. Therefore, $ST = I$. Let $w \in
+  W$. Then, $TSw = T(Sw) = Tv$ where $w = Tv$. However, this means
+  $TSw = w$. So, $TS = I$. Therefore, $S = T^{-1}$.
+\end{proof}
+
+\begin{theorem}[injectivity is equivalent to surjectivity if $\dim V =
+  \dim W < \infty$]
+  \label{thm:injectivity-equivalent-surjectivity-finite-dim-space}
+  Suppose that $V$ and $W$ are finite-dimensional vector spaces with
+  $\dim V = \dim W$ and $T \in \mathcal{L}(V, W)$. Then the following
+  conditions are equivalent:
+  \begin{enumerate}[(i)]
+  \item $T$ is invertible
+  \item $T$ is injective
+  \item $T$ is surjective
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  By \cref{thm:invertible-iff-injective-surjective}, (i) implies (ii)
+  and (i) implies (iii). We only need to show (ii) implies (iii) and
+  (iii) implies (i). First, we show (ii) implies (iii). Let $T$ be
+  injective. Then, by the \cref{thm:fundamental-thm-of-linear-maps},
+  $\dim V = \dim \nullspace T + \dim \rangespace T$. We know $\nullspace
+  T = \{0\}$ by
+  \cref{thm:injectivity-iff-null-space-equals-0-subspace}. So, $\dim W
+  = \dim V = \dim \rangespace T$. Therefore, $T$ is surjective. Now,
+  we prove that (iii) implies (i). By
+  \cref{thm:fundamental-thm-of-linear-maps}, $\dim V = \dim \nullspace
+  T + \dim \rangespace T$. Since $\dim \rangespace T = \dim W = \dim
+  V$, $\dim \nullspace T = 0$. Then, $\nullspace T = \{0\}$, so
+  \cref{thm:injectivity-iff-null-space-equals-0-subspace} implies that
+  $T$ is injective. Since $T$ is injective and surjective, it is
+  invertible by \cref{thm:invertible-iff-injective-surjective}.
+\end{proof}
+
+\begin{theorem}[$ST = I \iff TS = I$ on vector spaces of the same
+  dimension]
+  Suppose $V$ and $W$ are finite-dimensional vector spaces of the same
+  dimension. Let $S \in \mathcal{L}(W, V)$ and $T \in \mathcal{L}(V,
+  W)$. Then, $ST = I_V$ if and only if $TS = I_W$ where $I_V$ and
+  $I_W$ are the identity maps on $V$ and $W$, respectively.
+\end{theorem}
+\begin{proof}
+  Suppose $ST = I_v$. If $v \in V$ and $Tv = 0$, then $v = I_Vv =
+  (ST)v = S(Tv) = S(0) = 0$. Therefore, $\nullspace T = \{0\}$, so $T$
+  is injective by
+  \cref{thm:injectivity-iff-null-space-equals-0-subspace}. By
+  \cref{thm:injectivity-equivalent-surjectivity-finite-dim-space}, it
+  is invertible since $\dim V = \dim W$. Therefore, if $ST = I_v$,
+  then there exists $T^{-1}$ so that $STT^{-1} = I_vT^{-1}$, so $S =
+  T^{-1}$. This implies that $TS = I_W$. If we swap the roles of $S$
+  and $T$, we get the other direction.
+\end{proof}
+
+\begin{definition}[isomorphism]
+  \label{def:isomorphism}
+  An \textit{isomorphism} is an invertible linear map. Two vector
+  spaces are called an \textit{isomorphism} if there is an isomorphism
+  from one vector space into another.
+\end{definition}
+
+\begin{theorem}[dimension shows whether vector spaces are isomorphic]
+  \label{thm:dimension-shows-two-vector-spaces-isomorphic}
+  Two finite-dimensional vector spaces over $\mathbb{F}$ are
+  isomorphic if and only if they have the same dimension.
+\end{theorem}
+\begin{proof}
+  Let $V$ and $W$ be two finite-dimensional vector spaces over
+  $\mathbb{F}$ with same dimension. Then, $v_1, ..., v_n$ is a basis for $V$ and $w_1,
+  ..., w_n$ is a basis for $W$. By the \cref{lemma:linear-map-lemma},
+  we can define $T: V \rightarrow W$ so that $Tv_k = w_k$ for all $k
+  \in [n]$. Suppose for some $v \in V$, $Tv = 0$. Then, $v =
+  \sum_{k=1}^n c_kv_k$ for some $c_1, ..., c_n \in
+  \mathbb{F}$. Therefore, $Tv = \sum_{k=1}^n c_k Tv_k = \sum_{k=1}^n
+  c_k w_k = 0$. Since $w_1, ..., w_n$ is linearly independent, $c_1 =
+  ... = c_n = 0$. So, $v = 0$. Then, $\nullspace T = \{0\}$. By
+  \cref{thm:injectivity-iff-null-space-equals-0-subspace}, $T$ is
+  injective. By
+  \cref{thm:injectivity-equivalent-surjectivity-finite-dim-space}, $T$
+  is invertible. Therefore, $T$ is an isomorphism from $V$ to $W$, so
+  $V$ and $W$ are isomorphic. Now, suppose that $V$ and $W$ are
+  isomorphic. There exists an invertible linear map $T: V \rightarrow
+  W$. Since $T$ is invertible, it is surjective, so $\rangespace T =
+  W$, and it is injective, so $\nullspace T = \{0\}$ by
+  \cref{thm:injectivity-iff-null-space-equals-0-subspace}.
+  By \cref{thm:fundamental-thm-of-linear-maps}, $\dim V = \dim
+  \nullspace T + \dim \rangespace T = 0 + \dim W = \dim W$.
+\end{proof}
+
+\begin{theorem}[$\mathcal{L}(V, W)$ and $\mathbb{F}^{m, n}$ are
+  isomorphic]
+  \label{thm:Lvw-Fnm-are-isomorphic}
+  Suppose $v_1, ..., v_n$ is a basis of $V$ and $w_1, ..., w_m$ is a
+  basis of $W$. Then, $\mathcal{M}$ is an isomorphism between
+  $\mathcal{L}(V, W)$ and $\mathbb{F}^{m, n}$.
+\end{theorem}
+\begin{proof}
+  \cref{def:addition-scalar-multiplication-of-matrix} implies that
+  $\mathcal{M}$ is a linear map. To show it is invertible, let $A \in
+  \mathbb{F}^{n, m}$. By \cref{lemma:linear-map-lemma}, we can define
+  $T: V \rightarrow V$ so that $Tv_k = \sum_{j=1}^m A_{j, k} w_j$ for
+  each $k \in [n]$ since $v_1, ..., v_n$ is a basis. Then, $A$ is the
+  matrix of the linear transformation $T$, so $A =
+  \mathcal{M}(T)$. Therefore, $\mathcal{M}$ is surjective. Now, we
+  show $\mathcal{M}$ is injective. Suppose that $\mathcal{M}(T) = 0$
+  (the zero matrix). Then, this implies $Tv_k = \sum_{j=1}^m 0 \cdot
+  w_j = 0$ for all $k \in [n]$. Since $v_1, ..., v_n$ is a basis, it
+  cannot be that $v_k = 0$ for any of the $k \in [n]$. So, $T =
+  0$. Since $\nullspace \mathcal{M} = \{0\}$, $\mathcal{M}$ is
+  injective by
+  \cref{thm:injectivity-iff-null-space-equals-0-subspace}. By
+  \cref{thm:invertible-iff-injective-surjective}, $\mathcal{M}$ is
+  invertible. Therefore, $\mathcal{M}$ is an isomorphism.
+\end{proof}
+
+\begin{theorem}[$\dim \mathcal{L}(V, W) = (\dim V)(\dim W)$]
+  \label{thm:Lvw-finite-dim-if-V-W-finite-dim}
+  Suppose $V$ and $W$ are finite-dimensional. Then, $\mathcal{L}(V,
+  W)$ is finite-dimensional and $\dim \mathcal{L}(V, W) = (\dim
+  V)(\dim W)$.
+\end{theorem}
+\begin{proof}
+  Let $\dim V = n$ and $\dim W = m$. Then, $\mathcal{L}(V, W)$ and
+  $\mathbb{F}^{n, m}$ are isomorphic by
+  \cref{thm:Lvw-Fnm-are-isomorphic}. By
+  \cref{thm:dimension-shows-two-vector-spaces-isomorphic}, $\dim
+  \mathcal{L}(V, W) = \dim \mathbb{F}^{n, m} = nm = (\dim V)(\dim W)$.
+\end{proof}
+
+\begin{definition}[matrix of a vector, $\mathcal{M}(v)$]
+  \label{def:matrix-of-vector}
+  Suppose $v \in V$ and $v_1, ..., v_n$ is a basis of $V$. The
+  \textit{matrix of $v$} with respect to this basis is the $n$-by-$1$
+  matrix:
+  \[
+    \mathcal{M}(v) = \begin{bmatrix}
+      b_1 \\
+      \vdots \\
+      b_n
+    \end{bmatrix}
+  \]
+  where $b_1, ..., b_n \in \mathbb{F}$ satisfy $v = \sum_{k=1}^n b_k v_k$.
+\end{definition}
+
+\begin{theorem}[$\mathcal{M}(T)_{\cdot, k} = \mathcal{M}(Tv_k)$]
+  \label{thm:M(Tv_k)=M(T)_k}
+  Suppose $T \in \mathcal{L}(V, W)$ and $v_1, ..., v_n$ is a basis of
+  $V$ and $w_1, ..., w_m$ is a basis of $W$. Let $1 \le k \le
+  n$. Then, the $k^{th}$ column of $\mathcal{M}(T)$, which is denoted
+  by $\mathcal{M}(T)_{\cdot, k}$, equals $\mathcal{M}(Tv_k)$.
+\end{theorem}
+\begin{proof}
+  Recall that $A = \mathcal{M}(T)$ means $Tv_k = \sum_{j=1}^m A_{j, k}
+  w_j$ for each $k \in [n]$. By \cref{def:matrix-of-vector},
+  $\mathcal{M}(Tv_k) = \begin{bmatrix} A_{1, k} \\ \vdots \\ A_{m,
+    k} \end{bmatrix}$. This is exactly equal to
+$\mathcal{M}(T)_{\cdot, k}$.
+\end{proof}
+
+\begin{theorem}[linear maps act like matrix multiplication]
+  \label{thm:linear-maps-as-matrix-multiplication}
+  Suppose $T \in \mathcal{L}(V, W)$ and $v \in V$. Suppose $v_1, ...,
+  v_n$ is a basis of $V$ and $w_1, ..., w_m$ is a basis for $W$. Then,
+  $\mathcal{M}(Tv) = \mathcal{M}(T)\mathcal{M}(v)$.
+\end{theorem}
+\begin{proof}
+  First, if we let $A = \mathcal{M}(T)$:
+  \begin{align*}
+    Tv &= T\Bigl( \sum_{k=1}^n c_k v_k \Bigr) \\
+       &= \sum_{k=1}^n c_k \cdot Tv_k \\
+       &= \sum_{k=1}^n c_k \sum_{j=1}^m A_{j,k} w_j \\
+    &= \sum_{j=1}^m \Bigl( \sum_{k=1}^n c_k A_{j,k} \Bigr) w_j
+  \end{align*}
+  Since $Tv \in \mathbb{F}^{m,1}$, it follows that:
+  \[
+    \mathcal{M}(Tv) = \begin{bmatrix}
+      \sum_{k=1}^n c_k A_{1,k} \\
+      \vdots \\
+      \sum_{k=1}^n c_k A_{m,k}
+    \end{bmatrix}
+  \]
+  Since $\mathcal{M}(T) = A$ and $\mathcal{M}(v) = \begin{bmatrix} c_1
+    \\ \vdots \\ c_n \end{bmatrix}$, \cref{def:matrix-multiplication}
+  implies that the entry in row $j$, column $k$ of $\mathcal{M}(T)
+  \mathcal{M}(v)$ is given by:
+  \begin{align*}
+    (\mathcal{M}(T) \mathcal{M}(v))_{j,k} &= \sum_{r=1}^n A_{j,r}c_{r,k}
+  \end{align*}
+  Since $\mathcal{M}(T) \mathcal{M}(v) \in \mathbb{F}^{m,1}$, there is
+  only one column, so we can instead write:
+   \begin{align*}
+     (\mathcal{M}(T) \mathcal{M}(v))_j &= \sum_{r=1}^n A_{j,r}c_r \\
+     &= \sum_{k=1}^n c_k A_{j,k}
+   \end{align*}
+   where the last line is just a change-of-variable. Since
+   $(\mathcal{M}(Tv))_j = \sum_{k=1}^n c_k A_{j, k}$, $\mathcal{M}(Tv)
+   = \mathcal{M}(T) \mathcal{M}(v)$.
+\end{proof}
+
+\begin{theorem}[dimension of $\rangespace T$ equals column rank of
+  $\mathcal{M}(T)$]
+  \label{thm:dim-range-T-equals-column-rank-M(T)}
+  Suppose $V$ and $W$ are finite-dimensional and $T \in \mathcal{L}(V,
+  W)$. Then, $\dim \rangespace T$ is equal to the column rank of $\mathcal{M}(T)$.
+\end{theorem}
+\begin{proof}
+  Suppose $v_1, ..., v_n$ is a basis for $V$ and $w_1, ..., w_m$ is a
+  basis for $W$. The map that takes $w \in W$ to $\mathcal{M}(w) \in
+  \mathbb{F}^{m, 1}$ is an isomorphism. If we restrict this map to
+  $\rangespace T = \text{span}(Tv_1, ..., Tv_n)$ (see Exercise 10 in
+  section 3B of book), the map is an isomorphism from $\rangespace T$
+  to $\text{span}(\mathcal{M}(Tv_1), ..., \mathcal{M}(Tv_n))$. From
+  \cref{thm:M(Tv_k)=M(T)_k}, we know that $\mathcal{M}(Tv_k) =
+  \mathcal{M}(T)_{\cdot, k}$ for each $k \in [n]$, so $\dim
+  \rangespace T = \text{ column rank } \mathcal{M}(T)$ by \cref{thm:dimension-shows-two-vector-spaces-isomorphic}.
+\end{proof}
+
+\begin{definition}[identity matrix]
+  \label{def:identity-matrix}
+  Suppose $n$ is a positive integer. The $n$-by-$n$ matrix:
+  \[
+    \begin{bmatrix}
+      1 & ... & 0 \\
+      \vdots & \ddots & \vdots \\
+      0 & ... & 1
+    \end{bmatrix}
+  \]
+  with $1$'s on the diagonal and $0$'s elsewhere is called the
+  \textit{identity matrix} and is denoted by $I$.
+\end{definition}
+
+\begin{definition}[invertible matrix]
+  \label{def:invertible-matrix}
+  A square matrix $A$ is called \textit{invertible} if there is a
+  square matrix $B$ of the same size such that $AB = BA = I$. We call
+  $B$ the \textit{inverse} of $A$ and denote it by $A^{-1}$. The words
+  \textit{singular} and \textit{nonsingular} are also used to call $A$
+  invertible or noninvertible, respectively.
+\end{definition}
+
+\begin{theorem}[matrix of product of linear maps with basis emphasized]
+  \label{thm:matrix-of-product-of-linear-maps-with-basis}
+  Suppose $T \in \mathcal{L}(U, V)$ and $S \in \mathcal{L}(V, W)$. If
+  $u_1, ..., u_m$ is a basis of $U$ and $v_1, ..., v_n$ is a basis of
+  $V$, and $w_1, ..., w_p$ is a basis of $W$, then:
+  \begin{align*}
+    \mathcal{M}(ST, (u_1, ..., u_m), (w_1, ..., w_p)) = \mathcal{M}(S,
+    (v_1, ..., v_n), (w_1, ..., w_p)) \mathcal{M}(T, (u_1, ..., u_m),
+    (v_1, ..., v_n))
+  \end{align*}
+\end{theorem}
+\begin{proof}
+  See \cref{thm:matrix-of-product-of-linear-maps}.
+\end{proof}
+
+\begin{theorem}[matrix of identity operator with respect to two bases]
+  \label{thm:matrix-of-identity-wrt-two-bases}
+  Suppose that $u_1, ..., u_n$ and $v_1, ..., v_n$ are bases of
+  $V$. Then, the matrices $\mathcal{M}(I, (u_1, ..., u_n), (v_1, ...,
+  v_n))$ and $\mathcal{M}(I, (v_1, ..., v_n), (u_1, ..., u_n))$ are
+  invertible and are inverses of each other.
+\end{theorem}
+\begin{proof}
+  We can write:
+  \begin{align*}
+    I = \mathcal{M}(I, (v_1, ..., v_n), (u_1, ..., u_n))
+    \mathcal{M}(I, (u_1, ..., u_n), (v_1, ..., v_n))
+  \end{align*}
+  And also:
+  \begin{align*}
+    I = \mathcal{M}(I, (u_1, ..., u_n), (v_1, ..., v_n))
+    \mathcal{M}(I, (v_1, ..., v_n), (u_1, ..., u_n))
+  \end{align*}
+  Equating the two proves the result.
+\end{proof}
+
+\begin{theorem}[change-of-basis formula]
+  \label{thm:change-of-basis-formula}
+  Suppose $T \in \mathcal{L}(V)$. Suppose $u_1, ..., u_n$ and $v_1,
+  ..., v_n$ are two bases for $V$. Let $A = \mathcal{M}(T, (u_1, ...,
+  u_n))$ and $B = \mathcal{M}(T, (v_1, ..., v_n))$. Let $C =
+  \mathcal{M}(I, (u_1, ..., u_n), (v_1, ..., v_n))$. Then, $A = C^{-1}BC$.
+\end{theorem}
+\begin{proof}
+  We first write down the matrices involved:
+  \begin{align*}
+    A &= \mathcal{M}(T, (u_1, ..., u_n)) \\
+    B &= \mathcal{M}(T, (v_1, ..., v_n)) \\
+    C &= \mathcal{M}(I, (u_1, ..., u_n), (v_1, ..., v_n)) \\
+    C^{-1} &= \mathcal{M}(I, (v_1, ..., v_n), (u_1, ..., u_n)) &
+                                                                 \text{\cref{thm:matrix-of-identity-wrt-two-bases}} \\
+  \end{align*}
+  Then:
+  \begin{align*}
+    A &= \mathcal{M}(IT, (u_1, ..., u_n)) \\
+      &= \mathcal{M}(I, (v_1, ..., v_n), (u_1,...,u_n)) \mathcal{M}(T,
+        (u_1, ..., u_n), (v_1, ..., v_n))  & \text{\cref{thm:matrix-of-product-of-linear-maps-with-basis}}\\
+      &= C^{-1}\mathcal{M}(T, (u_1, ..., u_n), (v_1, ..., v_n)) \\
+    &= C^{-1}\mathcal{M}(T, (v_1, ..., v_n), (v_1, ..., v_n))
+      \mathcal{M}(I, (u_1, ..., u_n), (v_1,...,v_n)) &
+                                                       \text{\cref{thm:matrix-of-product-of-linear-maps-with-basis}}
+    \\
+    &= C^{-1}BC
+  \end{align*}
+\end{proof}
+
+\begin{theorem}[matrix of inverse equals inverse of matrix]
+  \label{thm:matrix-of-inverse-equals-inverse-of-matrix}
+  Suppose that $v_1, ..., v_n$ is a basis of $V$ and $T \in
+  \mathcal{L}(V)$ is invertible. Then $\mathcal{M}(T^{-1}) =
+  (\mathcal{M}(T))^{-1}$, where both matrices are with respect to the
+  basis $v_1, ..., v_n$.
+\end{theorem}
+\begin{proof}
+  We know that $TT^{-1} = T^{-1}T = I$ by \cref{def:invertible}. Then,
+  $\mathcal{M}(TT^{-1}) = \mathcal{M}(I) = I$, the identity matrix. By
+  \cref{thm:matrix-of-product-of-linear-maps-with-basis}, $I =
+  \mathcal{M}(T)\mathcal{M}(T^{-1})$. The same logic applies to
+  $T^{-1}T = I$, so $I = \mathcal{M}(T^{-1})\mathcal{M}(T)$. Then, $I
+  = \mathcal{M}(T) \mathcal{M}(T^{-1}) = \mathcal{M}(T^{-1})
+  \mathcal{M}(T)$, so by \cref{def:invertible-matrix},
+  $\mathcal{M}(T^{-1})$ is the inverse of $\mathcal{M}(T)$, i.e,
+  $(\mathcal{M}(T))^{-1} = \mathcal{M}(T^{-1})$.
+\end{proof}
+
+
+\subsection{Products and Quotients of Vector Spaces}
+
+\begin{definition}[product of vector spaces]
+  Suppose $V_1, ..., V_m$ are vector spaces over $\mathbb{F}$. The
+  \textit{product} $V_1 \times ... \times V_m = \{ (v_1, ..., v_m):
+  v_1 \in V_1, ..., v_m \in V_m \}$. We define addition over $V_1
+  \times ... \times V_m$ by:
+  \begin{align*}
+    (u_1, ..., u_m) + (v_1, ..., v_m) = (u_1 + v_1, ..., u_m + v_m)
+  \end{align*}
+  And we define scalar multiplication by:
+  \begin{align*}
+    \lambda(v_1, ..., v_m) = (\lambda v_1, ..., \lambda v_m)
+  \end{align*}
+\end{definition}
+
+\begin{theorem}[product of vector spaces is a vector spaces]
+  \label{thm:product-of-vector-spaces-is-vector-space}
+  Suppose $V_1, ..., V_m$ are vector spaces over $\mathbb{F}$. Then,
+  $V_1 \times ... \times V_m$ is a vector space over $\mathbb{F}$.
+\end{theorem}
+\begin{proof}
+  We prove all the properties in \cref{def:vector-space}:
+  \begin{enumerate}
+    \item Commutativity: $(u_1, ..., u_m) + (v_1, ..., v_m) = (u_1 +
+      v_1, ..., u_m + v_m) = (v_1 + u_1, ..., v_m + u_m)$.
+    \item Associativity:
+      \begin{align*}
+        ((u_1, ..., u_m) + (v_1, ..., v_m)) +
+        (w_1, ..., w_m) &= (u_1 + v_1, ..., u_m + v_m) + (w_1, ...,
+                          w_m) \\
+                        &= ((u_1 + v_1) + w_1, ..., (u_m + v_m) +
+                          w_m) \\
+                        &= (u_1 + (v_1 + w_1), ..., u_m + (v_m + w_m)) \\
+                        &= (u_1, ..., u_m) + (v_1 + w_1, ..., v_m +
+                          w_m) \\
+                        &= (u_1, ..., u_m) + ((v_1, ..., v_m) + (w_1, ..., w_m)) \\        
+      \end{align*}
+    \item Additive identity: $(u_1, ..., u_m) + (0, ..., 0) = (u_1,
+      ..., u_m)$ where $(0, ..., 0)$ is the element where we choose
+      the zero vector from each of the $m$ vector spaces.
+    \item Additive inverse: $(u_1, ..., u_m) + (-u_1, ..., -u_m) = (0,
+      ..., 0)$.
+    \item Multiplicative identity: By how scalar multiplication is
+      defined, $1(u_1, ..., u_m) = (1 \cdot u_1, ..., 1 \cdot u_m) =
+      (u_1, ..., u_m)$.
+    \item Distributive property: Let $a \in \mathbb{F}$. Then,
+      $a((u_1, ..., u_m) + (v_1, ..., v_m)) = a(u_1 + v_1, ..., u_m +
+      v_m) = (a(u_1 + v_1), ..., a(u_m + v_m)) = (au_1 + av_1, ...,
+      au_m + av_m) = (au_1, ..., au_m) + (av_1, ..., av_m) = a(u_1,
+      ..., u_m) + a(v_1, ..., v_m)$. Let $b \in \mathbb{F}$. Then, $(a
+      + b)(u_1, ..., u_m) = ((a + b)u_1, ..., (a+ b) u_m) = (au_1 +
+      bu_1, ..., au_m + bu_m) = (au_1, ..., au_m) + (bu_1, ..., bu_m)
+      = a(u_1, ..., u_m) + b(u_1, ..., u_m)$.
+      
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}[dimension of a product is the sum of dimensions]
+  \label{thm:dimension-of-product-vector-space-is-sum-of-dimensions}
+  Suppose $V_1, ..., V_m$ are finite-dimensional vector spaces. Then,
+  $V_1 \times ... \times V_m$ is finite-dimensional and:
+  \begin{align*}
+    \dim \prod_{k=1}^m V_k = \sum_{k=1}^m \dim V_k
+  \end{align*}
+\end{theorem}
+\begin{proof}
+  We will use $v_{kj}$ to denote the $j^{th}$ basis vector for
+  $V_k$. Since each $V_k$ is finite-dimensional, each has a list of
+  basis vector of size $n_k$. Consider any $(v_1, ..., v_m) \in
+  \prod_{k=1}^m V_k$. Then, we can write each $v_k = \sum_{j=1}^{n_k}
+  c_{kj} v_{kj}$, So, we can write $(v_1, ..., v_m) = \sum_{k=1}^m
+  \sum_{j=1}^{n_k} c_{kj} e_{kj}$ where $e_{kj}$ is the $m$ -tuple of
+  with zeros everywhere except at position $kj$, where it is equal to
+  $v_{kj}$. Clearly, $e_{kj}$ spans $\prod_{k=1}^m V_k$. They are also
+  linearly independent. So they form a basis. Since there are $n_k$
+  basis vectors for each $k \in [m]$, the basis has length
+  $\sum_{k=1}^m n_k = \sum_{k=1}^m \dim V_k$, so $\dim \prod_{k=1}^m
+  V_k = \sum_{k=1}^m \dim V_k$.
+\end{proof}
+
+\begin{theorem}[products and direct sums]
+  \label{thm:products-and-direct-sums}
+  Suppose that $V_1, ..., V_m$ are subspaces of $V$. Define a linear
+  map $\Gamma: V_1 \times ... \times V_m \rightarrow V_1 + ... + V_m$
+  by:
+  \begin{align*}
+    \Gamma(v_1, ..., v_m) = \sum_{k=1}^m v_k
+  \end{align*}
+  Then, $V_1 + ... + V_m$ is a direct sum iff $\Gamma$ is injective.
+\end{theorem}
+\begin{proof}
+  Suppose $V_1 + ... + V_m$ is a direct sum. Suppose $\Gamma(v_1, ...,
+  v_m) = \Gamma(u_1, ..., u_m)$. Then, $\sum_{k=1}^m v_k =
+  \sum_{k=1}^m u_k$. By \cref{def:direct-sum}, there is only one way
+  to write $v = \sum_{k=1}^m v_k$, so this means $v_k = u_k$ for every
+  $k \in [m]$. Therefore, $\Gamma$ is injective. Now, suppose that
+  $\Gamma$ is injective. Suppose $\sum_{k=1}^m v_k = 0$. Then, $\Gamma(v_1, ..., v_m) = 0$ only when
+  $v_1 = ... = v_m = 0$ by
+  \cref{thm:injectivity-iff-null-space-equals-0-subspace}. By
+  \cref{thm:condition-for-direct-sum}, $V_1 + ... + V_m$ is a direct sum. 
+\end{proof}
+
+\begin{remark}
+  We know that $\Gamma$ is surjective since every element in $v \in
+  \sum_{k=1}^m V_k$ can be expressed as $v = \sum_{k=1}^m v_k$ where
+  $v_k \in V_k$ for each $k \in [m]$; $\Gamma(v_1, ..., v_m) =
+  v$. However, given the result from the preceding theorem, if
+  $\Gamma$ is also injective, then $\Gamma$ is invertible by
+  \cref{thm:invertible-iff-injective-surjective}.
+\end{remark}
+
+\begin{theorem}[a sum is a direct sum iff dimensions add up]
+  \label{thm:sum-is-direct-sum-iff-dimensions-add-up}
+  Suppose $V$ is finite-dimensional and $V_1, ..., V_m$ are subspaces
+  of $V$. Then $V_1 + ... + V_m$ is a direct sum iff $\dim
+  \sum_{k=1}^m V_k = \sum_{k=1}^m \dim V_k$.
+\end{theorem}
+\begin{proof}
+  Suppose that $\dim \sum_{k=1}^m V_k = \sum_{k=1}^m \dim V_k$. Define
+  $\Gamma: \prod_{k=1}^m V_k \rightarrow \sum_{k=1}^m V_k$ so that
+  $\Gamma(v_1, ..., v_m) = v_1 + ... + v_m$. We know this map is
+  surjective. By
+  \cref{thm:dimension-of-product-vector-space-is-sum-of-dimensions},
+  $\dim \prod_{k=1}^m V_k = \sum_{k=1}^m \dim V_k$, so $\dim
+  \prod_{k=1}^m V_k = \dim \sum_{k=1}^m V_k$. So
+  \cref{thm:injectivity-equivalent-surjectivity-finite-dim-space},
+  $\Gamma$ is injective. By \cref{thm:products-and-direct-sums}, since
+  $\Gamma$ is injective, $\sum_{k=1}^m V_k$ is a direct sum. \\
+  Now suppose that $\sum_{k=1}^m V_k$ is a direct sum. Then, by
+  \cref{thm:products-and-direct-sums}, $\Gamma$ is injective. Since it
+  is also surjective, it is invertible. Then, $\Gamma$ is an
+  isomorphism. Hence, $\dim \prod_{k=1}^m V_k = \dim \sum_{k=1}^m V_k$
+  by \cref{thm:dimension-shows-two-vector-spaces-isomorphic}. By
+  \cref{thm:dimension-of-product-vector-space-is-sum-of-dimensions},
+  $\dim \prod_{k=1}^m V_k = \sum_{k=1}^M \dim V_k$, so $\dim
+  \sum_{k=1}^m V_k = \sum_{k=1}^m \dim V_k$.
+\end{proof}
+
+
+Now we move on to quotient spaces.
+
+\begin{definition}[translates]
+  Suppose $v \in V$ and $U \subseteq V$. Then, $v + U := \{v + u: u
+  \in U\}$. The set $v + U$ is called a \textit{translate} of $U$.
+\end{definition}
+
+\begin{definition}[quotient space]
+  Suppose $U$ is a subspace of $V$. Then the \textit{quotient space}
+  $V/U$ is the set of all translates of $U$, i.e, $V/U = \{v + U: v
+  \in V\}$.
+\end{definition}
+
+\begin{theorem}[two translates of a subspace are equal or disjoint]
+  \label{thm:translates-of-subspace-are-equal-or-disjoint}
+  Suppose $U$ is a subspace of $V$ and $v, w \in V$. Then the
+  following are equivalent:
+  \begin{enumerate}[(i)]
+  \item $v - w \in U$
+  \item $v + U = w + U$
+  \item $(v + U) \cap (w + U) \ne \emptyset$
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  It is clear that (ii) implies (iii). We prove (i) implies (ii) and
+  (iii) implies (i). Suppose $v - w \in U$. For any $u \in U$, $v + u
+  = v + u + (w - w) = w + (v - w + u)$. Since $u \in U$ and $v - w \in
+  U$, $v - w + u \in U$, so $v + u \in w + U$. Similarly, $w + u = w +
+  u + (v - v) = v + (w - v + u)$. Since $v - w \in U$, $w - v \in U$,
+  so $w - v + u \in U$. Therefore, $w + u \in v + U$. Therefore, $v +
+  U = w + U$. Now, we show (iii) implies (i). Suppose that $s \in (v +
+  U) \cap (w + U)$. Then, $s = v + u_1$ and $s = w + u_2$ for some
+  $u_1, u_2 \in U$. Therefore, $v - w = u_2 - u_1 \in U$.
+\end{proof}
+
+\begin{definition}[addition and scalar multiplication on V/U]
+  \label{def:addition-scalar-multiplication-on-V/W}
+  Suppose $U$ is a subspace of $V$. Then addition and scalar
+  multiplication are defined on $V/U$ as follows:
+  \begin{enumerate}[(i)]
+  \item $(v + U) + (w + U) = (v + w) + U$
+  \item $\lambda(v + U) = (\lambda v) + U$
+  \end{enumerate}
+  for all $v, w \in V$ and $\lambda \in \mathbb{F}$
+\end{definition}
+
+\begin{theorem}[quotient space is a vector space]
+  \label{thm:quotient-space-is-vector-space}
+  Suppose $U$ is a subspace of $V$. Then, $V/U$, with addition and
+  scalar multiplication defined as in
+  \cref{def:addition-scalar-multiplication-on-V/W}, is a vector space.
+\end{theorem}
+\begin{proof}
+  First, we show that the definition
+  \cref{def:addition-scalar-multiplication-on-V/W} makes sense. Let
+  $v_1, v_2, w_1, w_2 \in V$. Suppose $v_1 + U = v_2 + U$ and $w_1 + U
+  = w_2 + U$. We need to show $(v_1 + w_1) + U = (v_2 + w_2) + U$. By
+  \cref{thm:translates-of-subspace-are-equal-or-disjoint}, $v_1 - v_2
+  \in U$ and $w_1 - w_2 \in U$. Since $U$ is a subspace, it is closed
+  under addition, so $(v_1 + w_1) - (v_2 + w_2) = (v_1 - v_2) + (w_1 -
+  w_2) \in U$. By
+  \cref{thm:translates-of-subspace-are-equal-or-disjoint}, that means
+  $(v_1 + w_1) + U = (v_2 + w_2) + U$. Similarly, if $v_1 + U = v_2 +
+  U$ and $\lambda \in \mathbb{F}$, then since $v_1 - v_2 \in U$,
+  $\lambda(v_1 - v_2) = \lambda v_1 - \lambda v_2 \in U$, so $\lambda
+  v_1 + U = \lambda v_2 + U$. Therefore, $\lambda v_1 + U = \lambda
+  v_2 + U$, so $\lambda (v_1 + U) = \lambda (v_2 + U)$. 
+  We show the properties in \cref{def:vector-space}:
+  \begin{enumerate}[(i)]
+  \item Commutativity:
+    \begin{align*}
+      (v + U) + (w + U) &= (v + w) + U  \\
+                        &= (w + u) + U \\
+                        &= (w + U) + (v + U) \\
+    \end{align*}
+  \item Associativity:
+    \begin{align*}
+      ((v_1 + U) + (v_2 + U)) + (v_3 + U) &= ((v_1 + v_2) + U) + (v_3
+                                            + U) \\
+                                          &= ((v_1 + v_2) + v_3) + U \\
+                                          &= (v_1 + (v_2 + v_3)) + U \\
+                                          &= (v_1 + U) + ((v_2 + v_3) + U) \\
+                                          &= (v_1 + U) + ((v_2 + U) + (v_3 + U)) \\
+    \end{align*}
+  \item Additive identity: $(v + U) + (0 + U) = (v + 0) + U = v + U$
+  \item Additive inverse: $(v + U) + ((-v) + U) = (v + (-v)) + U = 0+U$
+  \item Multiplicative identity: $1(v + U) = (1v) + U = v + U$
+  \item Distributive Property:
+    if $a, b \in \mathbb{F}$, then $a((v + U) + (w + U)) = a((v + w) +
+    U) = a(v + w) + U = (av + aw) + U = (av + U) + (aw + U) = a(v + U)
+    + a(w + U)$. And $(a + b)(v + U) = ((a + b)v) + U = (av + bv) + U
+    = (av + U) + (bv + U) = a(v + U) + b(v + U)$.
+  \end{enumerate}
+\end{proof}
+
+\begin{definition}[quotient map]
+  \label{def:quotient-map}
+  Suppose $U$ is a subspace of $V$. The \textit{quotient map} $\pi: V
+  \rightarrow V/U$ is the linear map defined by $\pi(v) = v + U$ for
+  each $v \in V$.
+\end{definition}
+
+\begin{remark}
+  We show the quotient map is linear. Suppose $v_1, v_2 \in V$. Then,
+  $\pi(v_1 + v_2) = (v_1 + v_2) + U = (v_1 + U) + (v_2 + U) = \pi(v_1)
+  + \pi(v_2)$. Let $\lambda \in \mathbb{F}$. Then, $\pi(\lambda v) =
+  (\lambda v) + U = \lambda(v + U) = \lambda \pi(v)$.
+\end{remark}
+
+\begin{theorem}[dimension of quotient space]
+  \label{thm:dimension-of-quotient-space}
+  Suppose $V$ is finite-dimensional and $U$ is a subspace of
+  $V$. Then: $\dim V/U = \dim V - \dim U$
+\end{theorem}
+\begin{proof}
+  We will use \cref{thm:fundamental-thm-of-linear-maps} since the
+  quotient map $\pi: V \rightarrow V/U$ is linear. It is clear that
+  $\pi$ is surjective, so $\rangespace \pi = V/U$. We show that
+  $\nullspace \pi = U$. Suppose that $u \in U$. Then, $u - 0 \in
+  U$. By \cref{thm:translates-of-subspace-are-equal-or-disjoint}, $u +
+  U = 0 + U$. That is, $\pi(u) = 0 + U$ for all $u \in U$. So, $U
+  \subset \nullspace \pi$. Suppose now that $v \in \nullspace \pi$. Then,
+  $\pi(v) = 0 + U$. That is, $v + U = 0 + U$. By
+  \cref{thm:translates-of-subspace-are-equal-or-disjoint}, $v = v - 0
+  \in U$, so $\nullspace \pi = U$. Using
+  \cref{thm:fundamental-thm-of-linear-maps}, $\dim V = \dim \nullspace
+  \pi + \dim \rangespace \pi = \dim U + \dim V/U$, meaning $\dim V/U =
+  \dim V - \dim U$.
+\end{proof}
+
+\begin{definition}[$\widetilde{T}$]
+  \label{def:widetilde-T}
+  Suppose $T \in \mathcal{L}(V, W)$. Define $\widetilde{T}:
+  V/(\nullspace T) \rightarrow W$ by $\widetilde{T}(v + \nullspace T)
+  = Tv$.
+\end{definition}
+
+\begin{remark}
+  We show that $\widetilde{T}$ is well-defined and linear. First,
+  suppose $v_1 + \nullspace T = v_2 + \nullspace T$. We need to show
+  that $Tv_1 = Tv_2$. By
+  \cref{thm:translates-of-subspace-are-equal-or-disjoint}, $v_1 - v_2
+  \in \nullspace T$. That is, $T(v_1 - v_2) = 0$. Therefore, $Tv_1 =
+  Tv_2$ (where we used the linearity of $T$). So, $\widetilde{T}$ is
+  well-defined. It is linear since $T$ is linear. 
+\end{remark}
+
+\begin{theorem}[null space and range of $\widetilde{T}$]
+  \label{thm:null-space-and-range-of-widetilde-T}
+  Suppose $T \in \mathcal{L}(V, W)$. Then:
+  \begin{enumerate}[(a)]
+  \item $\widetilde{T} \circ \pi = T$, where $\pi$ is the
+    quotient-map of $V$ onto $V/(\nullspace T)$.
+  \item $\widetilde{T}$ is injective.
+  \item $\rangespace \widetilde{T} = \rangespace T$.
+  \item $V/(\nullspace T)$ and $\rangespace T$ are isomorphic
+    vector spaces.  
+  \end{enumerate}
+\end{theorem}  
+\begin{proof}
+  \leavevmode
+  \begin{enumerate}[(a)]
+    \item Let $v \in V$. Then, $(\widetilde{T} \circ \pi)(v) =
+      \widetilde{T}(\pi(v)) = \widetilde{T}(v + \nullspace T) =
+      Tv$. Therefore, $\widetilde T \circ \pi = T$.
+    \item Suppose $\widetilde{T}(v + \nullspace T) = \widetilde{T}(u +
+      \nullspace T)$. Then, $Tv = Tu$, which implies $T(u - v) =
+      0$. Hence, $u - v \in \nullspace T$. By
+      \cref{thm:translates-of-subspace-are-equal-or-disjoint}, this
+      means that $u + \nullspace T = v + \nullspace T$.
+    \item We can write $\rangespace T = \{Tv: v \in V\} = \{
+      \widetilde{T}(v + \nullspace T): v \in V\}$. Since every element
+      in $V/(\nullspace T)$ can be written as $v + \nullspace T$ for
+      some $v \in V$, it follows that $\rangespace T = \rangespace
+      \widetilde{T}$.
+    \item Let $S: V/(\nullspace T) \rightarrow \rangespace T$ be the
+      map defined so that $S(v + \nullspace T) = \widetilde{T}(v +
+      \nullspace T)$. Since $\widetilde T$ is injective by part (b),
+      we know that $S$ is also injective. Also, $S$ is surjective
+      since $\rangespace T = \rangespace \widetilde{T}$, so for any $w
+      \in \rangespace T$, $w = Tv$, and $S(v + \nullspace T) = Tv =
+      w$. By \cref{thm:invertible-iff-injective-surjective}, $S$ is
+      invertible. Since it is also a linear map, $S$ is an isomorphism.
+      
+  \end{enumerate}
+\end{proof}
+
+\subsection{Duality}
+
+\begin{definition}[linear functional]
+  \label{def:linear-functional}
+  A \textit{linear functional} on $V$ is a linear map from $V$ onto
+  $\mathbb{F}$. In other words, a linear functional is an element of
+  $\mathcal{L}(V, \mathbb{F})$.
+\end{definition}
+
+\begin{definition}[dual space]
+  The \textit{dual space} of $V$, denoted by $V'$, is the vector space
+  of all linear functionals on $V$. In other words, $V' =
+  \mathcal{L}(V, F)$.
+\end{definition}
+
+\begin{theorem}[$\dim V' = \dim V$]
+  \label{thm:dim-dual-space-equal-dim-space}
+  Suppose $V$ is finite-dimensional. Then, $V'$ is also
+  finite-dimensional and $\dim V' = \dim V$.
+\end{theorem}
+\begin{proof}
+  Since $V' = \mathcal{L}(V, \mathbb{F})$ and $\mathbb{F}$ is a vector
+  space of dimension $1$, \cref{thm:Lvw-finite-dim-if-V-W-finite-dim}
+  implies $\dim V' = \dim \mathcal{L}(V, \mathbb{F}) = (\dim V)(\dim
+  \mathbb{F}) = \dim V$.
+\end{proof}
+
+\begin{definition}[dual basis]
+  \label{def:dual-basis}
+  If $v_1, ..., v_n$ is a basis of $V$, then the \textit{dual basis}
+  of $v_1, ..., v_n$ is the list $\varphi_1, ..., \varphi_n$ of
+  elements of $V'$, where each $\varphi_j$ is the linear functional on
+  $V$ such that:
+  \begin{align*}
+    \varphi_j(v_k) &= \begin{cases}
+      0 & k \ne j \\
+      1 & k = j
+    \end{cases}
+  \end{align*}
+\end{definition}
+
+\begin{remark}
+  We show that $\varphi_j$ is well-defined for each $j \in
+  [n]$ and is a basis. By \cref{lemma:linear-map-lemma}, each of the basis vectors in
+  $V$ are mapped to an element of $\mathbb{F}$ (in this case, $0$ or
+  $1$) by each $\varphi_j$, so $\varphi_j$ is a linear map (hence well-defined). Next, we
+  show it is a basis for $V'$. First, \cref{thm:dim-dual-space-equal-dim-space} tells us that
+  $V'$ has the same dimension as $V$, so the list $\varphi_1, ...,
+  \varphi_n$ has the same length has the basis $v_1, ..., v_n$. Next,
+  we let $T \in \mathcal{L}(V, \mathbb{F})$. Let $v \in V$. Then, $v =
+  \sum_{k=1}^n c_k v_k$ for some coefficients $c_1, ..., c_n \in
+  \mathbb{F}$. We have that:
+  \begin{align*}
+    \varphi_jv &= \varphi_j\Bigl(\sum_{k=1}^n c_k v_k\Bigr) \\
+               &= \sum_{k=1}^n c_k \varphi_j(v_k) \\
+               &= c_j \\
+  \end{align*}
+  for each $j \in [n]$. Then, we can write:
+  \begin{align*}
+    Tv &= T\Bigl( \sum_{k=1}c_k v_k \Bigr) \\
+       &= \sum_{k=1}^n c_k(Tv_k) \\
+       &= \sum_{k=1}^n (\varphi_kv)(Tv_k) \\
+  \end{align*}
+  Put $b_k = Tv_k \in \mathbb{F}$ for each $k \in [n]$. Then:
+  \begin{align*}
+    Tv &= \sum_{k=1}^n (\varphi_k v)b_k \\
+       &= \Bigl(\sum_{k=1}^n b_k\varphi_k\Bigr)v \\
+  \end{align*}
+  So, $T = \sum_{k=1}^n b_k \varphi_k$. So, $\mathcal{L}(V,
+  \mathbb{F}) = \text{span}(\varphi_1, ..., \varphi_n)$. By
+  \cref{thm:spanning-list-of-right-length-is-a-basis}, $\varphi_1,
+  ..., \varphi_n$ is a basis for $V'$.
+\end{remark}
+
+\begin{definition}[dual map]
+  \label{def:dual-map}
+  Suppose $T \in \mathcal{L}(V, W)$. The \textit{dual map} of $T$ is
+  the linear map $T' \in \mathcal{L}(W', V')$ defined for each
+  $\varphi \in W'$ by:
+  \begin{align*}
+    T'(\varphi) = \varphi \circ T
+  \end{align*}
+\end{definition}
+
+\begin{theorem}[algebraic properties of dual maps]
+  \label{thm:algebraic-properties-of-dual-maps}
+  Suppose $T \in \mathcal{L}(V, W)$. Then:
+  \begin{enumerate}[(a)]
+  \item $(S + T)' = S' + T'$ for all $S \in \mathcal{L}(V, W)$.
+  \item $(\lambda T)' = \lambda T'$ for all $\lambda \in \mathbb{F}$.
+  \item $(ST)' = T'S'$ for all $S \in \mathcal{L}(W, U)$.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  \leavevmode
+  \begin{enumerate}[(a)]
+  \item Let $\varphi \in W'$. Then, $(S + T)'(\varphi) = \varphi(S + T) = \varphi S
+    + \varphi T = S'(\varphi) + T'(\varphi) = (S' + T')(\varphi)$.
+  \item Let $\varphi \in W'$. Then, $(\lambda T)'(\varphi) =
+    \varphi(\lambda T) = \lambda (\varphi T) = \lambda T'(\varphi)$.
+  \item Let $\varphi \in W'$. Then, $(T'S')(\varphi) = T'(S'(\varphi))
+    = T'(\varphi S) = (\varphi S)(T) = \varphi(ST) = (ST)'$.
+
+  \end{enumerate}
+\end{proof}
+
+\begin{remark}
+  In \cref{thm:algebraic-properties-of-dual-maps}, items (a) and (b)
+  imply that the function taking $T$ to $T'$ is a linear map from
+  $\mathcal{L}(V, W)$ to $\mathcal{L}(W', V')$. Also, sometimes the
+  dual space is denoted as $V^{*}$ instead of $V'$.
+\end{remark}
+
+\begin{definition}[annihilator]
+  For $U \subseteq V$, the \textit{annihilator} of $U$, denoted by
+  $U^0$, is defined by:
+  \begin{align*}
+    U^0 = \{\varphi \in V': \varphi(u) = 0 \text{ for all } u \in U\}
+  \end{align*}
+\end{definition}
+
+\begin{example}
+  Suppose $U$ is a subspace of $\mathcal{P}(\mathbb{R})$, consisting
+  of polynomial multiples of $x^2$. If $\varphi$ is the linear
+  functional on $\mathcal{P}(\mathbb{R})$ defined by $\varphi(p) =
+  p'(0)$, then $\varphi \in U^0$ (since $(cx^2)' = 2xc$ which is zero
+  when $x = 0$).
+\end{example}
+
+\begin{theorem}[the annihilator is a subspace]
+  \label{thm:the-annihilator-is-a-subspace}
+  Let $U \subset V$. Then $U^0$ is a subspace of $V'$.
+\end{theorem}
+\begin{proof}
+  Suppose $\varphi_1, \varphi_2 \in U^0$. Then, for every $u \in U$,
+  $\varphi_1(u) = 0$ and $\varphi_2(u) = 0$. Therefore, for every $u
+  \in U$, $(\varphi_1 + \varphi_2)(u) = \varphi_1(u) + \varphi_2(u) =
+  0$. That is, $\varphi_1 + \varphi_2 \in U^0$. Now, let $\lambda \in
+  \mathbb{F}$ and $\varphi \in U^0$. Then, $(\lambda \varphi)(u) =
+  \lambda (\varphi(u)) = 0$ for every $u \in U$ since $\varphi$ is a
+  linear map. Therefore, $\lambda \varphi \in U$. It is clear that the
+  zero map $0: V \rightarrow \mathbb{F}$ is in $U^0$. So, $U^0$ is a
+  subspace of $V'$.
+\end{proof}
+
+\begin{theorem}[dimension of the annihilator]
+  \label{thm:dimension-of-the-annihilator}
+  Suppose $V$ is finite-dimensional and $U$ is a subspace of
+  $V$. Then, $\dim U^0 = \dim V - \dim U$.
+\end{theorem}
+\begin{proof}
+  Let $i \in \mathcal{L}(U, V)$ be the inclusion map defined by $i(u)
+  = u$ for all $u \in U$. Thus, $i'$ is a linear map from $V'$ to
+  $U'$. By \cref{thm:dim-dual-space-equal-dim-space}, $\dim V = \dim
+  V'$, and by \cref{thm:fundamental-thm-of-linear-maps}:
+  \begin{align*}
+    \dim V = \dim V' = \dim \nullspace i' + \dim \rangespace i'
+  \end{align*}
+  Let $\varphi \in \nullspace i'$. Then, $i'(\varphi) = \varphi \circ
+  i = 0$. That is, for every $u \in U$, $\varphi(i(u)) = 0$. Since
+  $i(u) = u$ for all $u \in U$, $\varphi u = 0$ for all $u \in U$, so
+  $|varphi \in U^0$. Therefore, $\nullspace i' \subset U^0$. Now,
+  suppose $\varphi \in U^0$. Then, $\varphi u = 0$ for all $u \in
+  U$. Since $i(u) = u$ for all $u \in U$, $(\varphi \circ i)(u) = 0$
+  for all $u \in U$. That is, $i'(\varphi) = \varphi \circ i = 0$. So,
+  $\varphi \in \nullspace i'$, meaning $U^0 \subset \nullspace
+  i'$. Therefore, $\nullspace i' = U^0$. Now, let $\varphi \in
+  U'$. Then, by Exercise 13 in section 3A, $\varphi$ can be extended
+  to a linear functional $\psi$ on $V$. Then, $i'(\psi) = \psi \circ i
+  = \varphi$. Therefore, $\varphi \in \rangespace i'$. So,
+  $\rangespace i' = U'$. By \cref{thm:dim-dual-space-equal-dim-space},
+  $\dim U' = \dim U$. So, $\dim V = \dim U^0 + \dim U$.
+\end{proof}
+
+\begin{theorem}[condition for the annihilator to equal $\{0\}$ or the
+  whole space]
+  Suppose $V$ is finite-dimensional and $U$ is a subspace of
+  $V$. Then:
+  \begin{enumerate}[(a)]
+  \item $U^0 = \{0\}$ iff $U = V$.
+  \item $U^0 = V'$ iff $U = \{0\}$.
+  \end{enumerate}  
+\end{theorem}
+\begin{proof}
+  We first prove (a). Suppose $U^0 = \{0\}$. By
+  \cref{thm:dimension-of-the-annihilator}, $\dim U^0 = 0$, so $\dim V
+  = \dim U$. Since $U$ is a subspace of $V$, $U = V$ by
+  \cref{thm:subspace-of-full-dimension-equals-whole-space}. Now,
+  suppose $U = V$. Again, we can apply
+  \cref{thm:dimension-of-the-annihilator} and get that $\dim U^0 = 0$,
+  so $U^0 = \{0\}$. \\
+  Nowe we prove (b). By \cref{thm:dim-dual-space-equal-dim-space},
+  $\dim V = \dim V'$. Now, suppose $U^0 = V'$. Then, $\dim U^0 = \dim
+  V' = \dim V$, so $\dim U = 0 \implies U = \{0\}$ by
+  \cref{thm:dimension-of-the-annihilator}. Now, suppose $U =
+  \{0\}$. \cref{thm:dimension-of-the-annihilator} implies that $\dim
+  U^0 = \dim V = \dim V'$. Since $U^0$ is a subspace of $V'$
+  (\cref{thm:the-annihilator-is-a-subspace}), $U^0 = V'$ by \cref{thm:subspace-of-full-dimension-equals-whole-space}.
+\end{proof}
+
+\begin{theorem}[the null space of $T'$]
+  \label{thm:nullspace-T'}
+  Suppose $V$ and $W$ are finite-dimensional and $T \in \mathcal{L}(V,
+  W)$. Then:
+  \begin{enumerate}[(a)]
+  \item $\nullspace T' = (\rangespace T)^0$.
+  \item $\dim \nullspace T' = \dim \nullspace T + \dim W - \dim V$.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  First, we prove part (a). Suppose that $\varphi \in \nullspace
+  T'$. Then, $T'\varphi = 0$, meaning $\varphi (T) = 0$. That is, for
+  every $v \in V$, $(\varphi \circ T)v = 0$. That is, $\varphi(Tv) =
+  0$ for all $Tv \in \rangespace T$. Therefore, $\varphi \in
+  (\rangespace T)^0$. Now, suppose $\varphi \in (\rangespace
+  T)^{\circ}$. Then, $\varphi(Tv) = 0$ for all $Tv \in \rangespace
+  T$. hHat is, $(\varphi \circ T)v = 0$ for all $v \in V$. Since
+  $T'\varphi = \varphi \circ T$, this means $(T'\varphi)v = 0$ for all
+  $v \in V$, i.e, that $T'\varphi = 0$. So, $\varphi \in \nullspace
+  T'$. \\
+  Now we prove part (b):
+  \begin{align*}
+    \dim \nullspace T' &= \dim (\rangespace T)^0 & \text{ part (a) }
+    \\
+    &= \dim W - \dim \rangespace T & \text{
+                                     \cref{thm:dimension-of-the-annihilator}
+                                     } \\
+    &= \dim W - (\dim V - \dim \nullspace T) & \text{
+                                               \cref{thm:fundamental-thm-of-linear-maps}
+                                               } \\
+    &= \dim \nullspace T + \dim W - \dim V
+  \end{align*}
+\end{proof}
+
+\begin{remark}
+  In the preceding theorem, part (a) does not require the assumption
+  $V$ and $W$ are finite-dimensional.
+\end{remark}
+
+\begin{theorem}[$T$ surjective is equivalent to $T'$ injective]
+  \label{thm:T-surjective-iff-T'-injective}
+  Suppose $V$ and $W$ are finite-dimensional and $T \in \mathcal{L}(V,
+  W)$. Then, $T$ is surjective iff $T'$ is injective.
+\end{theorem}
+\begin{proof}
+  Suppose $T$ is surjective. By \cref{thm:nullspace-T'}:
+  \begin{align*}
+    \dim \nullspace T' &= \dim \nullspace T + \dim W - \dim V \\
+    &= \dim \nullspace T + \dim \rangespace T - \dim V & \text{ $T$ is
+                                                         surjective}
+    \\
+    &= \dim V - \dim V &
+                         \text{\cref{thm:fundamental-thm-of-linear-maps}}
+    \\
+    &= 0
+  \end{align*}
+  Since $\dim \nullspace T' = 0$, $\nullspace T' = \{0\}$, so $T'$ is
+  injective by
+  \cref{thm:injectivity-iff-null-space-equals-0-subspace}. Now,
+  suppose $T'$ is injective. By \cref{thm:nullspace-T'}:
+  \begin{align*}
+    0 &= \dim \nullspace T + \dim W - \dim V \\
+      &= \dim W - (\dim V - \dim \nullspace T) \\
+      &= \dim W - \dim \rangespace T &
+                                       \text{\cref{thm:fundamental-thm-of-linear-maps}} \\ 
+  \end{align*}
+  So, $\dim \rangespace T = \dim W$, meaning $T$ is surjective.
+\end{proof}
+
+\begin{theorem}[the range of $T'$]
+  \label{thm:range-of-T'}
+  Suppose $V$ and $W$ are finite-dimensional and $T \in \mathcal{L}(V,
+  W)$. Then:
+  \begin{enumerate}[(a)]
+  \item $\dim \rangespace T = \dim \rangespace T'$
+  \item $\rangespace T' = (\nullspace T)^0$
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  First, we prove (a). Since $T' \in \mathcal{L}(W', V')$ and $\dim W'
+  = \dim W < \infty$ and $\dim V' = \dim V < \infty$
+  (\cref{thm:dim-dual-space-equal-dim-space}), we can apply
+  \cref{thm:fundamental-thm-of-linear-maps}:
+  \begin{align*}
+    \dim W = \dim W' &= \dim \nullspace T' + \dim \rangespace T' \\
+                     &= \dim \nullspace T + \dim W - \dim V +
+                       \rangespace T & \text{\cref{thm:nullspace-T'}} \\
+  \end{align*}
+  Subtracting from both sides,
+  \begin{align*}
+    \dim V - \dim \nullspace T &= \dim \rangespace T' \\
+    &\implies \dim \rangespace T = \dim \rangespace T' &
+                                                  \text{\cref{thm:fundamental-thm-of-linear-maps}}
+    \\
+  \end{align*}
+  For part (b), we note first that $(\nullspace T)^0$ and $\rangespace
+  T'$ are subspaces of $V'$ (\cref{thm:null-space-is-a-subspace}, \cref{thm:the-annihilator-is-a-subspace},
+  \cref{thm:the-range-is-a-subspace}). Let $T'\varphi \in \rangespace
+  T'$. Then, for all $u \in \nullspace T$, $(T' \varphi)u = (\varphi
+  \circ T)u = \varphi(Tu) = \varphi(0) = 0$. So, $T'\varphi \in
+  (\nullspace T)^0$. Therefore, $\rangespace T' \subset (\nullspace
+  T)^0$. Since they are subspaces of the same space, this means
+  $\rangespace T'$ is a subspace of $(\nullspace T)^0$. Also:
+  \begin{align*}
+    \dim (\nullspace T)^0 &= \dim V - \dim \nullspace T & \text{\cref{thm:fundamental-thm-of-linear-maps}}\\
+                          &= \dim \rangespace T \\
+                          &= \dim \rangespace T' & \text{ by part (a) } \\
+  \end{align*}
+  By \cref{thm:subspace-of-full-dimension-equals-whole-space}, $\dim
+  (\nullspace T)^0 = \dim \rangespace T'$.
+\end{proof}
+
+\begin{theorem}[$T$ injective is equivalent to $T'$ surjective]
+  \label{thm:T-injective-iff-T'-surjective}
+  Suppose $V$ and $W$ are finite-dimensional and $T \in \mathcal{L}(V,
+  W)$. Then, $T$ is injective iff $T'$ is surjective.
+\end{theorem}
+\begin{proof}
+  We have:
+  \begin{align*}
+    \dim V' &= \dim V &
+                        \text{\cref{thm:dim-dual-space-equal-dim-space}} \\
+            &= \dim \nullspace T + \dim \rangespace T &
+                                                        \text{\cref{thm:fundamental-thm-of-linear-maps}} \\
+    &= \dim \nullspace T + \dim \rangespace T' &
+                                                 \text{\cref{thm:range-of-T'}}
+    \\
+  \end{align*}
+  If $T$ is injective, then $\dim \nullspace T = 0$
+  (\cref{thm:injectivity-iff-null-space-equals-0-subspace}), so $\dim
+  V' = \dim \rangespace T'$. By \cref{thm:the-range-is-a-subspace} and
+  \cref{thm:subspace-of-full-dimension-equals-whole-space},
+  $\rangespace T' = V'$, so $T'$ is surjective. If $T'$ is surjective,
+  then $\dim \rangespace T' = \dim V'$, so $\dim \nullspace T = 0$. By
+  \cref{thm:injectivity-iff-null-space-equals-0-subspace}, $T$ is injective.
+\end{proof}
+
+\begin{theorem}[matrix of $T'$ is transpose of matrix of $T$]
+  \label{thm:matrix-T'-transpose-T}
+  Suppose $V$ and $W$ are finite-dimensional and $T \in \mathcal{L}(V,
+  W)$. Then, $\mathcal{M}(T') = (\mathcal{M}(T))^T$.
+\end{theorem}
+\begin{proof}
+  We will write $\mathcal{M}(T') = \mathcal{M}(T', (\psi_1, ...,
+  \psi_m), (\varphi_1, ..., \varphi_n))$ and $\mathcal{M}(T) =
+  \mathcal{M}(T, (v_1, ..., v_n), (w_1, ..., w_m))$.
+  Let $A = \mathcal{M}(T)$ and $B = \mathcal{M}(T')$. Then:
+  \begin{align*}
+    T'\psi_j &= \sum_{k=1}^n B_{k, j} \psi_k \text{ for each $j \in
+               [m]$ }\\
+    T\varphi_k &= \sum_{j=1}^m A_{j, k} \varphi_j \text{ for each $k \in
+    [n]$ } \\
+  \end{align*}
+  Then, for each $l \in [n]$:
+  \begin{align*}
+    (T'\psi_j)v_l &= \sum_{k=1}^n B_{k,j} \varphi_k(v_l) \\
+                  &= B_{l, j} \\
+  \end{align*}
+  where we use \cref{def:dual-basis}. Expanding $(T'\psi_j)v_l$:
+  \begin{align*}
+    (T' \psi_j)v_l &= \psi_j(Tv_l) \\
+                   &= \psi_j \Bigl( \sum_{r=1}^m A_{r,l}w_j \Bigr) \\
+                   &= A_{j,l} \\
+  \end{align*}
+  where we use \cref{def:dual-basis}. Therefore, $B_{l, j} = A_{j, l}$
+  for each $j \in [m]$ and $l \in [n]$. Therefore, $(\mathcal{M}(T))^T
+  = \mathcal{M}(T')$.
+\end{proof}
+
+We can prove that row rank equals column rank through duality.
+\begin{theorem}
+  Suppose $A \in \mathbb{F}^{m,n}$. Then the column rank of $A$ equals
+  the row rank of $A$.
+\end{theorem}
+\begin{proof}
+  Define $T: \mathbb{F}^{n,1} \rightarrow \mathbb{F}^{m,1}$ by $Tx =
+  Ax$. Thus, $\mathcal{M}(T) = A$, where $\mathcal{M}(T)$ is computed
+  w.r.t the standard bases of $\mathbb{F}^{n,1}$ and
+  $\mathbb{F}^{m,1}$. Now:
+  \begin{align*}
+    \text{column rank of } A &= \text{column rank of } \mathcal{M}(T)
+    \\
+    &= \dim \rangespace T &
+                            \text{\cref{thm:dim-range-T-equals-column-rank-M(T)}}
+    \\
+                             &= \dim \rangespace T' & \text{\cref{thm:range-of-T'}} \\
+    &= \text{column rank of } \mathcal{M}(T') &
+                                                  \text{\cref{thm:dim-range-T-equals-column-rank-M(T)}}
+    \\
+    &= \text{column rank of } A^T &
+                                    \text{\cref{thm:matrix-T'-transpose-T}}
+    \\
+    &= \text{row rank of } A
+  \end{align*}
+\end{proof}
+
+
+\section{Polynomials}
+
+\subsection{Basic Properties}
+
+\begin{definition}[zero of polynomial]
+  A number $\lambda \in \mathbb{F}$ is called a \textit{zero} (or
+  \textit{root}) of a polynomial $p \in \mathcal{P}(\mathbb{F})$ if
+  $p(\lambda) = 0$.
+\end{definition}
+
+\begin{theorem}[each zero of a polynomial corresponds to a degree-one
+  factor]
+  \label{thm:degree-one-factor-polynomial}
+  Suppose $m$ is a positive integer and $p \in
+  \mathcal{P}(\mathbb{F})$ is a polynomial of degree $m$. Suppose
+  $\lambda \in \mathbb{F}$. Then, $p(\lambda) = 0$ iff there exists a
+  polynomial $q \in \mathcal{P}(\mathbb{F})$ of degree $m - 1$ so
+  that:
+  \begin{align*}
+    p(z) = (z - \lambda)q(z)
+  \end{align*}
+  for every $z \in \mathbb{F}$.
+\end{theorem}
+\begin{proof}
+  Suppose $p(\lambda) = 0$. Then, $p(z) = p(z) - p(\lambda) =
+  \sum_{k=0}^m a_k (z^k - \lambda^k) = \sum_{k=1}^m a_k (z^k -
+  \lambda^k)$. Then, for each $k \in [m]$, we can write $z^k -
+  \lambda^k = (z - k)(\sum_{j=1}^k \lambda^{j-1} z^{k-j})$. Therefore,
+  $z^k - \lambda^k$ is equal to $z - \lambda$ times some polynomial of
+  degree $k - 1$. Then, $p$ equals $z - \lambda$ times some polynomial
+  of degree $m - 1$. For the converse, if $p(z) = (z - \lambda)q(z)$,
+  then $p(\lambda) = (\lambda - \lambda)q(\lambda) = 0$.
+\end{proof}
+
+\begin{theorem}[degree $m$ implies at most $m$ zeros]
+  \label{thm:degree-m-polynomial-has-at-most-m-zeros}
+  Suppose $m$ is a positive integer and $p \in
+  \mathcal{P}(\mathbb{F})$ is a polynomial of degree $m$. Then, $p$
+  has at most $m$ zeros in $\mathbb{F}$.
+\end{theorem}
+\begin{proof}
+  Suppose $p$ has a root at $z = \lambda_1$. Then, by
+  \cref{thm:degree-one-factor-polynomial}, $p(z) = (z - \lambda_1)
+  q_1(z)$ where $q_1$ is a degree $m - 1$ polynomial. If $m - 1 = 0$,
+  then we are done. Otherwise, we can apply the preceding step to
+  $q_1(z)$ to obtain $q_1(z) = (z - \lambda_2)q_2(z)$ for some
+  $q_1(\lambda_2) = 0$ and $m - 2$ polynomial $q_2(z)$. More generally, at step
+  $k \in [m - 1]$, $q_k(z) = (z - \lambda_{k+1})q_{k+1}(z)$ for some
+  $q_{k}(\lambda_{k+1}) = 0$ and $m - k - 1$ degree polynomial
+  $q_{k+1}(z)$. At $k = m - 1$, the polynomial is of degree $0$, and a
+  degree $0$ polynomial has no roots unless it is zero itself. It is
+  also clear that $p(\lambda_k) = 0$ for each $k \in [m]$, so $p$ has
+  at most $m$ roots.
+\end{proof}
+
+\begin{theorem}[division algorithm for polynomials]
+  \label{thm:division-algorithm-polynomials}
+  Suppose that $p, s \in \mathcal{P}(\mathbb{F})$, with $s \ne
+  0$. Then there exist unique polynomials $q, r \in
+  \mathcal{P}(\mathbb{F})$ such that $p = sq + r$ and $\deg r < \deg s$.
+\end{theorem}
+\begin{proof}
+  Let $n = \deg p$ and $m = \deg s$.
+  Suppose $n < m$. Then, take $q = 0$ and take $r = p$. Then, $\deg r
+  = \deg p < \deg s$, and $p = sq + r$.
+  Now, suppose $n \ge m$. Then, the list
+  $$1,z,...,z^{m-1},s,zs,...,z^{n-m}s$$
+  is linearly independent in $\mathcal{P}_n(\mathbb{F})$ (each
+  polynomial has a different degree). Also, it has length $n - m + m -
+  1 + 1 = n$, so by
+  \cref{thm:linearly-independent-list-of-right-length-is-basis}, it is
+  a basis for $\mathcal{P}_n(\mathbb{F})$.
+  Then, for any $p \in \mathcal{P}_n(\mathbb{F})$, we can write:
+  \begin{align*}
+    p &= \sum_{k=0}^{m-1} a_k z^k + \sum_{k=0}^{n-m} b_k z^k s \\
+      &= \sum_{k=0}^{m-1} a_k z^k + s \sum_{k=0}^{n-m} b_k z^k \\
+  \end{align*}
+  for some coefficients $a_k, b_k \in \mathbb{F}$. We can take $q =
+  \sum_{k=1}^{n-m} b_k z^k$ and $r = \sum_{k=0}^{m-1} a_k z^k$ to get
+  $p = sq + r$ with $\deg r < \deg s$. Uniqueness of $q$ and $r$
+  follows from \cref{thm:criterion-for-basis}.
+\end{proof}
+
+\subsection{Factorization Over $\mathbb{C}$}
+
+For this section and the next, refer to notes on analysis and complex
+analysis. The proofs will not be reproduced here.
+
+\begin{theorem}[fundamental theorem of algebra, first version]
+  \label{thm:fundamental-thm-of-algebra-version-1}
+  Every nonconstant polynomial with complex coefficients has a zero in $\mathbb{C}$.
+\end{theorem}
+
+
+\begin{theorem}[fundamental theorem of algebra, second version]
+  \label{thm:fundamental-thm-of-algebra-version-2}
+  If $p \in \mathcal{P}(\mathbb{C})$ is a nonconstant polynomial, then
+  $p$ has a unique factorization (except for the order of the factors)
+  of the form:
+  \begin{align*}
+    p(z) = c(z - \lambda_1)...(z - \lambda_m)
+  \end{align*}
+  where $c,\lambda_1,...,\lambda_m \in \mathbb{C}$.
+\end{theorem}
+
+\subsection{Factorization Over $\mathbb{R}$}
+
+\begin{theorem}[polynomial with real coefficients have nonreal zeros
+  in pairs]
+  \label{thm:polynomial-with-reall-coefficients-have-complex-conjugate-zeros}
+  Suppose $p \in \mathcal{P}(\mathbb{C})$ and has real
+  coefficients. If $\lambda \in \mathbb{C}$ is a root for $p$, then
+  $\overline{\lambda}$ is a root for $p$.
+\end{theorem}
+\begin{proof}
+  Since $p \in \mathcal{P}(\mathbb{C})$, $p(z) = \sum_{k=0}^m a_k z^k$
+  for some coefficients $a_0, ..., a_m \in \mathbb{C}$. Then:
+  \begin{align*}
+    p(\lambda) &= \sum_{k=0}^m a_k \lambda^k \\
+  \end{align*}
+  Applying properties of complex conjugates:
+  \begin{align*}
+    p(\overline{\lambda}) &= \sum_{k=1}^m a_k (\overline{\lambda})^k \\
+                          &= \overline{\sum_{k=0}^m a_k \lambda^k} \\
+                          &= \overline{0} = 0 \\
+  \end{align*}
+\end{proof}
+
+\begin{theorem}[factorization of a quadratic polynomial]
+  \label{thm:factorization-of-quadratic-polynomial}
+  Suppose $b,c \in \mathbb{R}$ Then there is a polynomial
+  factorization of the form $x^2 + bx + c = (x - \lambda_1)(x -
+  \lambda_2)$ with $\lambda_1, \lambda_2 \in \mathbb{R}$ if and only
+  if $b^2 \ge 4c$.
+\end{theorem}
+
+\begin{theorem}[factorization of a polynomial over $\mathbb{R}$]
+  \label{thm:factorization-of-polynomial-in-R}
+  Suppose $p \in \mathcal{P}(\mathbb{R})$ is a nonconstant
+  polynomial. Then $p$ has a unique factorization (except for the
+  order of the factors) of the form:
+  $p(x) = c(x-\lambda_1)...(x-\lambda_m)(x^2 + b_1x + c_1)...(x^2 +
+  b_Mx + c_M)$
+  where $c,\lambda_1,..,\lambda_m,b_1,...,b_M,c_1,...,c_M \in
+  \mathbb{R}$, with $b_k^2 < 4c_k$ for each $k$. Note either $M$ or
+  $m$ may be zero.
+\end{theorem}
+
+\section{Eigenvalues and Eigenvectors}
+
+\subsection{Invariant Subspaces}
+
+\begin{definition}[operator]
+  \label{def:operator}
+  A linear map from a vector space to itself is called an \textit{operator}.
+\end{definition}
+
+\begin{definition}[invariant subspace]
+  \label{def:invariant-subspace}
+  Suppose $T \in \mathcal{L}(V)$. A subspace $U$ of $V$ is called
+  \textit{invariant} under $T$ if $Tu \in U$ for each $u \in U$. 
+\end{definition}
+
+\begin{example}
+  Let $T \in \mathcal{L}(V)$. Then, $\rangespace T$, $\nullspace T$,
+  $V$, and $\{0\}$ are all invariant under $T$.
+\end{example}
+
+Consider the subspace $U = \{\lambda v : \lambda \in \mathbb{F}\}$. If
+an operator $T$ is invariant under $U$, then $Tv \in U$, meaning $Tv =
+\lambda v$ for some $\lambda \in \mathbb{F}$. This motivates the next definition.
+
+\begin{definition}[eigenvalue]
+  \label{def:eigenvalue}
+  Suppose $T \in \mathcal{L}(V)$. A number $\lambda \in \mathbb{F}$ is
+  calld an \textit{eigenvalue} of $T$ is there exists $v \in V$ such
+  that $v \ne 0$ and $Tv = \lambda v$.
+\end{definition}
+
+\begin{remark}
+  $T$ has an eigenvalue if and only if $V$ has a one-dimensional subspace
+  invariant under $T$.
+\end{remark}
+
+\begin{theorem}[equivalent conditions to be an eigenvalue]
+  \label{thm:equivalent-conditions-to-be-an-eigenvalue}
+  Suppose $V$ is finite-dimensional, $T \in \mathcal{L}(V)$, and
+  $\lambda \in \mathbb{F}$. Then the following are equivalent:
+  \begin{enumerate}[(a)]
+  \item
+    $\lambda$ is an eigenvalue of $T$.
+  \item
+    $T - \lambda I$ is not injective.
+  \item
+    $T - \lambda I$ is not surjective.
+  \item
+    $T - \lambda I$ is not invertible.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  If $\lambda$ is an eigenvalue of $T$, then $Tv = \lambda v$ for some
+  $v \in V, v \ne 0$. Then, $(T - \lambda I) v = 0$. Therefore, $v \in
+  \nullspace (T - \lambda I)$, so $\nullspace (T - \lambda I) \ne
+  \{0\}$. By \cref{thm:injectivity-iff-null-space-equals-0-subspace},
+  $T - \lambda I$ is not injective. By
+  \cref{thm:injectivity-equivalent-surjectivity-finite-dim-space}, $T
+  - \lambda I$ is not surjective. By \cref{def:invertible}, $T -
+  \lambda I$ is not invertible. \\
+  If $T - \lambda I$ is not invertible, then by
+  \cref{thm:injectivity-equivalent-surjectivity-finite-dim-space}
+  implies that $T - \lambda I$ is not injective. Then,
+  \cref{thm:injectivity-iff-null-space-equals-0-subspace}, $(T -
+  \lambda I) v = 0$ for some $v \ne 0$. That is, $Tv = \lambda v$ for
+  some $v \ne 0$. So, $T$ has an eigenvalue.
+\end{proof}
+
+\begin{definition}[eigenvector]
+  \label{def:eigenvector}
+  Suppose $T \in \mathcal{L}(V)$ and $\lambda \in \mathbb{F}$ is an
+  eigenvalue of $T$. A vector $v \in V$ is called an
+  \textit{eigenvector} of $T$ corresponding to $\lambda$ if $v \ne
+  0$ and $Tv = \lambda v$.
+\end{definition}
+
+\begin{theorem}[linearly independent eigenvectors]
+  \label{thm:linearly-independent-eigenvectors}
+  Suppose $T \in \mathcal{L}(V)$. Then every list of eigenvectors of
+  $T$ corresponding to distinct eigenvalues of $T$ is linearly independent.
+\end{theorem}
+\begin{proof}
+  Suppose the result is false. Then there exists a smallest positive integer
+  $n$ so that $v_1, ..., v_n$ is a linearly dependent list of
+  eigenvectors of $T$ with corresponding, distinct eigenvalues of $T$,
+  $\lambda_1, ..., \lambda_n$. Since $v_1 \ne 0$, it follows that $n
+  \ge 2$ for it to be a linearly dependent list. By the minimality of
+  $m$, there exist coefficients $c_1, ..., c_n \in \mathbb{F}$ so that:
+  \begin{align*}
+    \sum_{k=1}^n c_k v_k = 0
+  \end{align*}
+  where $c_k \ne 0$ for all $k \in [n]$. Then, applying $(T -
+  \lambda_n I)$ to both sides, we get that:
+  \begin{align*}
+    \sum_{k=1}^{n-1}c_k (T - \lambda_n I) v_k = 0
+  \end{align*}
+  which simplifies to:
+  \begin{align*}
+    \sum_{k=1}^{n-1} c_k (\lambda_k - \lambda_n) v_k = 0
+  \end{align*}
+  Since the eigenvalues are distinct, this implies that $v_1, ...,
+  v_{n-1}$ is a linearly dependent list of $n - 1$ vectors,
+  contradicting the minimality of $n$.
+\end{proof}
+
+\begin{theorem}[operator cannot have more eigenvalues than dimension of
+  vector space]
+  \label{thm:operator-cannot-have-more-eigenvalues-than-dimension-of-vector-space}
+  Suppose $V$ is finite-dimensional. Then, each operator on $V$ has at
+  most $\dim V$ distinct eigenvalues.
+\end{theorem}
+\begin{proof}
+  By \cref{thm:linearly-independent-eigenvectors}, every list of
+  eigenvectors of an operator $T \in \mathcal{L}(V)$ is linearly
+  independent. By \cref{thm:length-not-exceed-spanning}, the length of
+  any linearly independent list in $V$ cannot exceed that of a
+  spanning list. Since the basis of $V$ is a spanning list with $\dim
+  V$ vectors, the list of eigenvectors of $T$ must have length at most
+  $\dim V$, and so the list of eigenvalues of $T$ must have length at
+  most $\dim V$.
+\end{proof}
+
+\begin{definition}[$T^m$]
+  Suppose $T \in \mathcal{L}(V)$ and $m$ is a positive integer. Then:
+  \begin{enumerate}[(a)]
+  \item
+    $T^m \in \mathcal{L}(V)$ is defined by $T^m = T \circ T \circ
+    ... \circ T$ ($m$ times)
+  \item
+    $T^0$ is defined to be the identity operator on $V$
+  \item
+    If $T$ is invertible with inverse $T^{-1}$, then $T^{-m} \in
+    \mathcal{L}(V)$ is defined by $T^{-m} = (T^{-1})^m$.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[$p(T)$]
+  Suppose $T \in \mathcal{L}(V)$ and $p \in \mathcal{P}(\mathbb{F})$
+  is a polynomial given by:
+  \begin{align*}
+    p(z) &= \sum_{k=0}^m a_k z^k
+  \end{align*}
+  for all $z \in \mathbb{F}$. Then, $p(T)$ is the operator on $V$
+  defined by:
+  \begin{align*}
+    p(T) &= \sum_{k=0}^m a_k T^k
+  \end{align*}
+\end{definition}
+
+\begin{definition}[product of polynomials]
+  If $p, q \in \mathcal{P}(\mathbb{F})$, then $pq \in
+  \mathcal{P}(\mathbb{F})$ is the polynomial defined by:
+  \begin{align*}
+    (pq)(z) &= p(z) q(z) \\
+  \end{align*}
+  for all $z \in \mathbb{F}$. 
+\end{definition}
+
+\begin{theorem}[multiplicative properties]
+  \label{thm:multiplicative-properties-of-polynomials}
+  Suppose $p, q \in \mathcal{P}(\mathbb{F})$ and $T \in
+  \mathcal{L}(V)$. Then:
+  \begin{enumerate}[(a)]
+  \item
+    $(pq)(T) = p(T)q(T)$
+  \item
+    $p(T)q(T) = q(T)p(T)$
+  \end{enumerate}
+\end{theorem}
+
+\begin{theorem}[null space and range of $p(T)$ are invariant under
+  $T$]
+  \label{thm:null-space-and-range-of-pT-are-invariant-under-T}
+  Suppose that $T \in \mathcal{L}(V)$ and $p \in
+  \mathcal{P}(\mathbb{F})$. Then $\nullspace p(T)$ and $\rangespace
+  p(T)$ are invariant under $T$.
+
+\end{theorem}
+\begin{proof}
+  Let $u \in \nullspace p(T)$. Then, $p(T)(Tu) = T(p(T)u) = T(0) =
+  0$. Let $u \in \rangespace p(T)$. Then, $u = p(T)v$ for some $v \in
+  V$. Then, $Tu = T(p(T)v) = p(T)(Tv) \in \rangespace p(T)$.
+\end{proof}
+
+\subsection{The Minimal Polynomial}
+
+\begin{theorem}[existence of eigenvalues]
+  \label{thm:existence-of-eigenvalues}
+  Every operator on a finite-dimensional nonzero complex vector space
+  has an eigenvalue.
+\end{theorem}
+\begin{proof}
+  Let $T \in \mathcal{L}(V)$ and suppose that $v \ne 0$. Then,
+  consider the list $v, Tv, T^2v, ..., T^nv$ where $n = \dim V$. Since
+  this is a list of length $n + 1$, $v, Tv, ..., T^nv$ cannot be
+  linearly independent by \cref{thm:length-not-exceed-spanning}. So,
+  some linear combination of $v, Tv, T^2v, ..., T^nv$ is equal to 0
+  where not all the coefficients are zero. That is, there exists a
+  smallest positive integer $m$ so that $\sum_{k=0}^m c_k
+  T^kv = 0$ for some coefficients $c_0, ..., c_m \in \mathbb{F}$ where
+  $c_k \ne 0$ for all $k \in \{0,...,m\}$. Then, if we let $p(T) =
+  \sum_{k=0}^n c_k T^k$, we get:
+  \begin{align*}
+    p(T)v = 0
+  \end{align*}
+  By \cref{thm:fundamental-thm-of-algebra-version-1}, the polynomial
+  $p(z)$ has a root $\lambda$ so that $p(\lambda) = 0$. By
+  \cref{thm:degree-one-factor-polynomial}, $p(z) = (z - \lambda) q(z)$
+  for some polynomial $q(z)$ satisfying $\deg q \le \deg p$ for all $z
+  \in \mathbb{F}$. Then, $p(T) = (T - \lambda I) q(T)$. Furthermore,
+  $0 = p(T) v = (T - \lambda I) q(T) v$. It cannot be that $q(T) v =
+  0$ since $p(T)$ is the smallest polynomial for which this is
+  true. So, $(T - \lambda I) v = 0$, so $\lambda$ is an eigenvalue of $T$.
+\end{proof}
+
+
+\begin{definition}[monic polynomial]
+  \label{def:monic-polynomial}
+  A \textit{monic polynomial} is a polynomial whose highest degree
+  coefficient equals 1.
+\end{definition}
+
+\begin{theorem}[existence, uniqueness, and degree of minimal
+  polynomial]
+  \label{thm:existence-uniqueness-degree-minimal-polynomial}
+  Suppose $V$ is finite-dimensional and $T \in \mathcal{L}(V)$. Then
+  there is a unique monic polynomial $p \in \mathcal{P}(\mathbb{F})$
+  of smallest degree such that $p(T) = 0$. Furthermore, $\deg p \le
+  \dim V$.
+\end{theorem}
+\begin{proof}
+  If $\dim V = 0$, then $V = \{0\}$ and $p(T) = T^0 = I$ is the unique
+  monic polynomial for which $p(T) = 0$ (since $v = 0$ is the only
+  vector and $p(T)v = 0$). Also, $0 = \deg p \le \dim V = 0$. \\
+  Suppose we have proven the result for vector spaces of dimension
+  less than $\dim V = n > 0$. Let $v \in V$ so that $v \ne 0$. The
+  list $v, Tv, ..., T^nv$. This list has length $n + 1$ and is
+  therefore linearly dependent. \\
+  By \cref{lemma:linear-dependence-lemma}, there exists a smallest
+  positive integer $m$ so that $T^mv$ is a linear combination of $v,
+  Tv, ..., T^{m-1}v$. Therefore, there exists $c_0,...,c_{m-1} \in
+  \mathbb{F}$ such that:
+  $$\sum_{k=0}^{m-1} c_k T^kv + T^m v = 0$$
+  Define a monic polynomial $q \in \mathcal{P}_m(\mathbb{F})$ by:
+  $$q(z) = \sum_{k=0}^{m-1} c_k z^k + z^m$$
+  Then, $q(T)v = 0$. If $k$ is a nonnegative integer, we also have:
+  $$q(T)(T^kv) = T^k(q(T)v) = T^k(0) = 0$$
+  by \cref{thm:multiplicative-properties-of-polynomials}. Also, since
+  $m$ is the smallest positive integer so that the list $v, Tv, ...,
+  T^mv$ is linearly dependent, that means the list $v, Tv, ...,
+  T^{m-1}v$ is linearly independent. As shown by the above equation,
+  each $T^kv \in \nullspace q(T)$ for $k \in \{0, ..., m-1\}$. By
+  \cref{thm:length-not-exceed-spanning}, $\dim \nullspace q(T) \ge
+  m$. By \cref{thm:fundamental-thm-of-linear-maps}:
+  $$\dim \rangespace q(T) = \dim V - \dim \nullspace q(T) \le \dim V
+  - m$$
+  Because $\rangespace q(T)$ is invariant under $T$ by
+  \cref{thm:null-space-and-range-of-pT-are-invariant-under-T}, we can
+  apply the induction hypothesis to the operator $T|_{\rangespace
+    q(T)}$ on the vector space $\rangespace q(T)$. Therefore, there
+  exists a monic polynomial $s \in \mathcal{P}(\mathbb{F})$ with:
+  $$\deg s \le \dim V - m \text{ and } s(T|_{\rangespace q(T)}) = 0$$
+  So, for all $v \in V$:
+  $(sq)(T)(v) = s(T)(q(T)v) = 0$
+  because $q(T)v \in \rangespace q(T)$ and $s(T)|_{\rangespace q(T)} =
+  s(T|_{\rangespace q(T)}) = 0$. Therefore, $sq$ is a monic polynomial
+  such that $\deg sq \le \dim V$ and $(sq)(T) = 0$. \\
+  We have shown that there exists a monic polynomial of degree at most
+  $\dim V$ that when applied to $T$ yields the $0$ operator. Since the
+  degrees of a polynomial are nonnegative (and thus well-ordered),
+  there exists a \textit{smallest} degree monic polynomial with this
+  property. This shows existence. \\
+  To show uniqueness, let $p \in \mathcal{P}(\mathbb{F})$ be a monic
+  polynomial of smallest degree such that $p(T) = 0$. Suppose $r \in
+  \mathcal{P}(\mathbb{F})$ is a monic polynomial of the same degree as
+  $p$ and $r(T) = 0$. Then, $(p - r)(T) = 0$ and $\deg (p - r) \le
+  \deg p$. If $p - r$ were not equal to $0$, we could divide $p - r$
+  by the coefficient of the highest order term in $p - r$ to get a
+  monic polynomial of smaller degree than $p$ that when applied to $T$
+  yields the $0$ operator. Therefore, $p - r = 0$, as desired.
+\end{proof}
+
+\begin{definition}[minimal polynomial]
+  \label{def:minimal-polynomial}
+  Suppose $V$ is finite-dimensional and $T \in \mathcal{L}(V)$. Then
+  the \textit{minimal polynomial} of $T$ is the unique monic
+  polynomial $p \in \mathcal{P}(\mathbb{F})$ of smallest degree such
+  that $p(T) = 0$.
+\end{definition}
+
+\begin{remark}
+  To find the minimal polynomial, we must find a polynomial $p(T) = 0$
+  that is monic. That is, we need:
+  \begin{align*}
+    p(T) = c_0 I + c_1 T + ... + c_{m-1}T^{m-1} + T^m = 0
+  \end{align*}
+  That is, we need to find:
+  \begin{align*}
+    c_0 I + c_1 T + ... + c_{m-1}T^{m-1} = -T^m
+  \end{align*}
+\end{remark}
+
+\begin{theorem}[eigenvalues are the zeros of the minimal polynomial]
+  \label{thm:eigenvalues-are-the-zeros-of-the-minimal-polynomial}
+  Suppose $V$ is finite-dimensional and $T \in \mathcal{L}(V)$.
+  \begin{enumerate}
+    \item The zeros of the minimal polynomial of $T$ are the
+      eigenvalues of $T$
+    \item If $V$ is a complex vector space, then the minimal
+      polynomial of $T$ has the form:
+      \begin{align*}
+        (z-\lambda_1)...(z-\lambda_m)
+      \end{align*}
+      where $\lambda_1,...,\lambda_m$ is a list of all the eigenvalues
+      of $T$, possibly with repetitions.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  Clearly, part (b) follows from part (a) by
+  \cref{thm:fundamental-thm-of-algebra-version-2}. Now we prove part
+  (a). First, suppose $\lambda \in \mathbb{F}$ is a zero of $p$, the
+  minimal polynomial of $T$. Then, $p$ can be written in the form:
+  $$p(z) = (z - \lambda) q(z)$$
+  where $q$ is a monic polynomial with coefficients in $\mathbb{F}$ by
+  \cref{thm:degree-one-factor-polynomial}. Then, since $p(T) = 0$, we
+  have:
+  $$0 = (T - \lambda I) q(T)$$
+  Since $\deg q < \deg p$, it follows that there exists $v \in V$ so
+  that $q(T)v \ne 0$. Then, we would have $(T - \lambda I) (q(T) v) =
+  0$. Therefore, $\lambda$ is an eigenvalue of $T$. Now, suppose
+  $\lambda$ is an eigenvalue of $T$. Then, $Tv = \lambda v$ for some
+  $v \in V$, $v \ne 0$. Then, $T^k v = \lambda^k v$ for each
+  nonnegative integer $k$. Therefore, $p(T) v = p(\lambda) v$. Because
+  $p$ is the minimal polynomial of $T$, we have $p(T)v = 0$. Hence,
+  $p(\lambda) = 0$. Therefore, $\lambda$ is a zero of $p$. 
+\end{proof}
+
+\begin{theorem}[$q(T) = 0$ iff $q$ is a polynomial multiple of the
+  minimal polynomial]
+  \label{thm:qT-0-iff-q-is-polynomial-multiple-of-minimal-polynomial}
+  Suppose $V$ is finite-dimensional, $T \in \mathcal{L}(V)$, and $q
+  \in \mathcal{P}(\mathbb{F})$. Then, $q(T) = 0$ iff $q$is a
+  polynomial multiple of the minimal polynomial of $T$.
+\end{theorem}
+\begin{proof}
+  Let $p$ be the minimal polynomial of $T$. Suppose that $q$ is a
+  polynomial multiple of the minimal polynomial of $T$. Then, $q = sp$
+  for some polynomial $s$. Then, $q(T)v = (sp)(T)(v) = (s(T)p(T))v =
+  s(T)(p(T)v) = s(T)(0) = 0$ for each $v \in V$. So, $q(T) = 0$. Now,
+  suppose that $q(T) = 0$. Then, by
+  \cref{thm:division-algorithm-polynomials}, $q = ps + r$ for some
+  polynomials $s, r \in \mathcal{P}(\mathbb{F})$ with $\deg r < \deg
+  p$. Then, $0 = q(T) = p(T)s(T) + r(T) = r(T)$. Then, $r = 0$,
+  because if $r \ne 0$, we can divide r by its highest degree
+  coefficient to produce a monic polynomial that when applied to $T$
+  gives $0$; this would be a monic polynomial of lower degree than the
+  minimal polynomial, which is a contradiction. Therefore, $q = ps$,
+  so $q$ is a polynomial multiple of $p$.
+\end{proof}
+
+\begin{theorem}[minimal polynomial of restriction operator]
+  \label{thm:minimal-polynomial-of-restriction-operator}
+  Suppose $V$ is finite-dimensional and $T \in \mathcal{L}(V)$, and
+  $U$ is a subspace of $V$ that is invariant under $T$. Then, the
+  minimal polynomial of $T$ is a polynomial multiple of the minimal
+  polynomial of $T|_U$.
+\end{theorem}
+\begin{proof}
+  Let $p$ be the minimal polynomial of $T$. Since $Tu \in U$ for all
+  $u \in U$, $T|_U \in \mathcal{L}(U)$. Since $U$ is a subspace of $V$
+  and $V$ is finite-dimensional,
+  \cref{thm:existence-uniqueness-degree-minimal-polynomial} implies
+  there exists a minimal polynomial $q$ of $T|_U$. Since $p(T) = 0$,
+  $p(T|_U) = 0$, so
+  \cref{thm:qT-0-iff-q-is-polynomial-multiple-of-minimal-polynomial}
+  implies $p$ is a polynomial multiple of $q$, as desired.
+\end{proof}
+
+\begin{theorem}[$T$ not invertible iff constant term of minimal
+  polynomial of $T$ is $0$]
+  \label{thm:T-not-invertible-iff-constant-term-of-minimal-polynomial-of-T-is-0}
+  Suppose $V$ is finite-dimensional and $T \in \mathcal{L}(V)$. Then
+  $T$ is not invertible iff the constant term of the minimal
+  polynomial of $T$ is $0$.
+\end{theorem}
+\begin{proof}
+  Let $p$ be the minimal polynomial of $T$.
+  Suppose $T$ is not invertible. Then, $T - 0I$ is not invertible. By
+  \cref{thm:equivalent-conditions-to-be-an-eigenvalue}, $0$ is an
+  eigenvalue of $T$. By
+  \cref{thm:eigenvalues-are-the-zeros-of-the-minimal-polynomial}, $0$
+  is a root of the minimal polynomial of $T$, i.e, $p(0) = 0$. That
+  is, if $p(z) = \sum_{k=0}^{m-1} c_k z^k + z^m$, then, $0 = p(0) =
+  c_0$. These steps can be reversed to show that if the constant term
+  of the minimal polynomial is $0$, then $T$ is not invertible.
+\end{proof}
+
+\begin{theorem}[even-dimensional null space]
+  \label{thm:even-dimensional-null-space}
+  Suppose $\mathbb{F} = \mathbb{R}$ and $V$ is
+  finite-dimensional. Suppose that $T \in \mathcal{L}(V)$ and $b, c
+  \in \mathbb{R}$ with $b^2 < 4c$. Then, $\dim \nullspace (T^2 + bT +
+  cI)$ is an even number.
+\end{theorem}
+\begin{proof}
+  TODO
+\end{proof}
+
+\begin{theorem}[operators on an odd-dimensional real vector space have
+  eigenvalues]
+  \label{thm:operators-on-real-odd-dimensional-space-have-eigenvalues}
+  Every operator on an odd-dimensional real vector space have eigenvalues.
+\end{theorem}
+\begin{proof}
+  TODO
+\end{proof}
+
+\subsection{Upper-Triangular Matrices}
+
+\begin{definition}[diagonal, upper-triangular matrix]
+  The \textit{diagonal} of a square matrix consists of the entries on
+  the line from the upper-left corner to the bottom-right corner. A
+  square matrix is called \textit{upper-triangular} if all entries
+  below the diagonal are $0$.
+\end{definition}
+
+\begin{theorem}[conditions for upper-triangular matrix]
+  \label{thm:conditions-for-upper-triangular-matrix}
+  Suppose $T \in \mathcal{L}(V)$ and $v_1, ..., v_n$ is a basis for
+  $V$. Then the following are equivalent:
+  \begin{enumerate}[(a)]
+  \item
+    The matrix of $T$ with respect to $v_1, ..., v_n$ is
+    upper-triangular.
+  \item
+    $\text{span }(v_1, ..., v_n)$ is invariant under $T$ for each $k =
+    1, ..., n$.
+  \item
+    $Tv_k \in \text{span }(v_1, ..., v_k)$ for each $k = 1, ..., n$.
+  \end{enumerate}
+\end{theorem}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: t
+%%% End:
