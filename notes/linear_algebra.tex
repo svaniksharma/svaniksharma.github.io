@@ -2839,7 +2839,7 @@ an operator $T$ is invariant under $U$, then $Tv \in U$, meaning $Tv =
   eigenvectors of $T$ with corresponding, distinct eigenvalues of $T$,
   $\lambda_1, ..., \lambda_n$. Since $v_1 \ne 0$, it follows that $n
   \ge 2$ for it to be a linearly dependent list. By the minimality of
-  $m$, there exist coefficients $c_1, ..., c_n \in \mathbb{F}$ so that:
+  $n$, there exist coefficients $c_1, ..., c_n \in \mathbb{F}$ so that:
   \begin{align*}
     \sum_{k=1}^n c_k v_k = 0
   \end{align*}
@@ -3187,12 +3187,221 @@ an operator $T$ is invariant under $U$, then $Tv \in U$, meaning $Tv =
     The matrix of $T$ with respect to $v_1, ..., v_n$ is
     upper-triangular.
   \item
-    $\text{span }(v_1, ..., v_n)$ is invariant under $T$ for each $k =
+    $\text{span }(v_1, ..., v_k)$ is invariant under $T$ for each $k =
     1, ..., n$.
   \item
     $Tv_k \in \text{span }(v_1, ..., v_k)$ for each $k = 1, ..., n$.
   \end{enumerate}
 \end{theorem}
+\begin{proof}
+  First we show that (a) implies (b). The matrix of $T$ with respect
+  to $v_1, ..., v_n$ is defined as:
+  \begin{align*}
+    Tv_k &= \sum_{j=1}^n A_{j, k}v_j \\
+         &= \sum_{j=1}^k A_{j, k} v_j \\
+  \end{align*}
+  for each $k \in [n]$ since $A$ is upper-triangular. Let $u \in \text{span }(v_1, ..., v_k)$ for
+  some $k \in [n]$. Then,
+  $u = \sum_{j=1}^k c_j v_j$ for some $c_1, ..., c_k \in
+  \mathbb{F}$. Then:
+  \begin{align*}
+    Tu &= \sum_{j=1}^k c_j Tv_j \\
+       &= \sum_{j=1}^k \sum_{r=1}^j c_j A_{r, j} v_r \\
+    &= \sum_{j=1}^k \sum_{r=j}^j c_j A_{r, j} v_r \\
+    &= \sum_{r=1}^k \Bigl( \sum_{j=r}^k c_j A_{r,j} \Bigr) v_r \\
+  \end{align*}
+  So, $Tu \in \text{span }(v_1, ..., v_k)$. This proves (b). (b)
+  immediately implies (c) since $v_k \in \text{span }(v_1, ...,
+  v_k)$. We show (c) implies (a). By hypothesis, we have:
+  \begin{align*}
+    Tv_k = \sum_{j=1}^k c_j v_j \\
+  \end{align*}
+  for some $c_1, ..., c_k \in \mathbb{F}$. The matrix of $T$ with
+  respect to $v_1, ..., v_n$ is:
+  \begin{align*}
+    Tv_k = \sum_{j=1}^n A_{j, k} v_j
+  \end{align*}
+  Since $v_1,..., v_n$ is a basis, this implies $\sum_{j=1}^n A_{j,k} v_j
+  = \sum_{j=1}^k c_j v_j$. Then, $A_{j, k} = 0$ for all $j > k$. That
+  is, the matrix of $T$ is upper-triangular.
+\end{proof}
+
+\begin{theorem}[equation satisfied by operator with upper-triangular
+  matrix]
+  \label{thm:equation-satisfied-by-operator-with-upper-triangular-matrix}
+  Suppose $T \in \mathcal{L}(V)$ and $V$ has a basis with respect to
+  which $T$ has an upper-triangular matrix with diagonal entries
+  $\lambda_1, ..., \lambda_n$. Then:
+  $$(T - \lambda_1 I)...(T - \lambda_n I) = 0$$
+\end{theorem}
+\begin{proof}
+  Let $v_1, ..., v_n$ be a basis for $V$ so that $T$ has an upper
+  triangular matrix with respect to $v_1, ..., v_n$ with diagonal
+  entries $\lambda_1, ..., \lambda_n$. Then, $Tv_1 = A_{1, 1} v_1 =
+  \lambda_1 v_1$. So, $(T - \lambda_1 I) v_1 = 0$. By commutativity,
+  $(T - \lambda_1 I)...(T - \lambda_m I) v_1 = 0$ for each $m \in
+  1,...,n$.
+  Also, $Tv_2 = A_{1,2} v_1 + \lambda_2 v_2$, so $(T - \lambda_2 I)
+  v_2 \in \text{span }(v_1)$. Then, $(T - \lambda_1 I) (T -
+  \lambda_2 I) v_2 = 0$ (by the preceding comments on $v_1$) and $(T -
+  \lambda_1 I) ... (T - \lambda_m I) v_1 = 0$ for each $m =
+  2,...,n$. Continuing this pattern, we see that $(T - \lambda_1 I)
+  ... (T - \lambda_n I) v_k = 0$ for each $k \in [n]$. Then, $(T -
+  \lambda_1 I) ... (T - \lambda_n I) = 0$ since it sends each basis
+  vector to $0$.
+\end{proof}
+
+\begin{theorem}[determination of eigenvalues from upper-triangular
+  matrix]
+  \label{thm:eigenvalues-from-upper-triangular-matrix}
+  Suppose $T \in \mathcal{L}(V)$ has an upper-triangular matrix with
+  respect to some basis of $V$. Then, the eigenvalues of $T$ are
+  precisely the entries on the diagonal of that upper-triangular matrix.
+\end{theorem}
+\begin{proof}
+  Let $\lambda_1, ..., \lambda_n$ be the diagonal entries of the
+  matrix of $T$ with respect to some basis of $V$, $v_1, ...,
+  v_n$. Then, $Tv_1 = \lambda_1 v_1$, so $\lambda_1$ is an eigenvalue
+  of $T$. For each $2 \le k \le n$, $(T - \lambda_k I) v_k \in
+  \text{span }(v_1, ..., v_{k-1})$. So, $T - \lambda_k I$ maps
+  $\text{span}(v_1, ..., v_k)$ into $\text{span}(v_1, ...,
+  v_{k-1})$. By
+  \cref{thm:linear-map-to-lower-dimensional-space-not-injective}, $T -
+  \lambda_k I$ is not injective. Then, $\lambda_k$ is an eigenvalue of
+  $T$ by \cref{thm:equivalent-conditions-to-be-an-eigenvalue}.
+  Let $q(z) = (z - \lambda_1) ... (z - \lambda_n)$. By
+  \cref{thm:equation-satisfied-by-operator-with-upper-triangular-matrix},
+  $q(T) = 0$. By
+  \cref{thm:qT-0-iff-q-is-polynomial-multiple-of-minimal-polynomial},
+  $q$ is a polynomial multiple of the minimal polynomial of $T$. By
+  \cref{thm:eigenvalues-are-the-zeros-of-the-minimal-polynomial},
+  every zero of the minimal polynomial of $T$ is an
+  eigenvalue of $T$. Also, every zero of the minimal polynomial of $T$ is a
+  zero of $q$. So, every eigenvalue of $T$ is a zero of $q$. This
+  shows that $\lambda_1, ..., \lambda_n$ are all the eigenvalues of $T$.
+\end{proof}
+
+\begin{theorem}[necessary and sufficient condition to have an
+  upper-triangular matrix]
+  \label{thm:necessary-sufficient-condition-for-upper-triangular-matrix}
+  Suppose $V$ is finite-dimensional and $T \in \mathcal{L}(V)$. Then,
+  $T$ has an upper-triangular matrix with respect to some basis of $V$
+  if and only if the minimal polynomial of $T$ equals $(z -
+  \lambda_1)...(z - \lambda_m)$ for some $\lambda_1, ..., \lambda_m$.
+\end{theorem}
+\begin{proof}
+  Suppose $T$ has an upper-triangular matrix with respect to some
+  basis of $V$. Let $\alpha_1, ..., \alpha_n$ denote the diagonal
+  entries of this matrix. Define $q(z) = (z - \alpha_1)...(z -
+  \alpha_n)$. Then, $q(T) = 0$ by
+  \cref{thm:equation-satisfied-by-operator-with-upper-triangular-matrix}. By
+  \cref{thm:qT-0-iff-q-is-polynomial-multiple-of-minimal-polynomial},
+  $q$ is a multiple of the minimal polynomial $p$. Then, the minimal
+  polynomial $p(z) = (z - \lambda_1)...(z - \lambda_m)$ where
+  $\{\lambda_1, ..., \lambda_m\} \subset \{\alpha_1, ...,
+  \alpha_n\}$. \\
+  Now suppose that the minimal polynomial of $T$ equals $(z -
+  \lambda_1)...(z - \lambda_m) = p(z)$ for some $\lambda_1, ...,
+  \lambda_m \in \mathbb{F}$. We use induction on $m$. If $m = 1$, then
+  $z - \lambda_1$ is the minimal polynomial, meaning $(T - \lambda_1
+  I) v = 0$ for all $v \in V$. That is, $T = \lambda_1 I$, so $T$ has
+  an upper-triangular matrix with respect to some basis of $V$. \\
+  Now, suppose $m > 1$ and the desired result holds for all smaller
+  positive integers. Let $U = \rangespace (T - \lambda_m I)$. Then,
+  $U$ is invariant under $T$ by
+  \cref{thm:null-space-and-range-of-pT-are-invariant-under-T}. Therefore,
+  $T|_U$ is an operator on $U$. If $u \in U$, then $u = (T - \lambda_m
+  I) v$ for some $v \in V$ and:
+  \begin{align*}
+    (T-\lambda_1 I)...(T - \lambda_{m-1}I) u = (T - \lambda_1 I)...(T
+    - \lambda_m I) v = 0
+  \end{align*}
+  So, $(z - \lambda_1)...(z - \lambda_{m-1})$ is a multiple of the
+  minimal polynomial of $T|_U$ by
+  \cref{thm:qT-0-iff-q-is-polynomial-multiple-of-minimal-polynomial}. So,
+  the minimal polynomial of $T|_U$ is a product of at most $m - 1$
+  terms of the form $z - \lambda_k$. By the induction hypothesis,
+  there is a basis of $u_1, ..., u_M$ of $U$ so that $T$ has an
+  upper-triangular matrix with respect to $u_1, ..., u_M$. Then, $Tu_k
+  = (T|_U)u_k \in \text{span }(u_1, ..., u_k)$ for each $k \in [M]$ by
+  \cref{thm:conditions-for-upper-triangular-matrix}. Extend $u_1, ...,
+  u_m$ to a basis $u_1, ..., u_M, v_1, ..., v_N$ of $V$. For each $k
+  \in \{1, ..., N\}$, we have $Tv_k = (T - \lambda_k I) v_k +
+  \lambda_k v_k$. Then, since $(T - \lambda_k I) v_k \in U =
+  \text{span}(u_1, ..., u_M)$, it follows $Tv_k \in \text{span}(u_1, ...,
+    u_M, v_1, ..., v_k)$ for each $k \in [M]$. Then,
+  \cref{thm:conditions-for-upper-triangular-matrix} implies that $T$
+  has an upper-triangular matrix with respect to the basis $u_1, ...,
+  u_M, v_1, ..., v_N$.
+\end{proof}
+
+
+\begin{theorem}[if $\mathbb{F} = \mathbb{C}$, then every operator on
+  $V$ has an upper-triangular matrix]
+  Suppose $V$ is a finite-dimensional complex vector space and $T \in
+  \mathcal{L}(V)$. Then $T$ has an upper-triangular matrix with
+  respect to some basis of $V$.
+\end{theorem}
+\begin{proof}
+  The result follows from \cref{thm:fundamental-thm-of-algebra-version-2} and \cref{thm:necessary-sufficient-condition-for-upper-triangular-matrix}.
+\end{proof}
+
+
+\subsection{Diagonalizable Operators}
+
+\begin{definition}[diagonal matrix]
+  A \textit{diagonal matrix} is a square matrix that is $0$ everywhere
+  except possibly on the diagonal.
+\end{definition}
+
+\begin{definition}[diagonalizable]
+  \label{def:diagonalizable}
+  An operator on $V$ is called \textit{diagonalizable} if the operator
+  has a diagonal matrix w.r.t some basis of $V$.
+\end{definition}
+
+\begin{definition}[eigenspace]
+  \label{def:eigenspace}
+  Suppose $T \in \mathcal{L}(V)$ and $\lambda \in \mathbb{F}$. The
+  \textit{eigenspace} of $T$ corresponding to $\lambda$ is the
+  subspace $E(\lambda, T)$ of $V$ defined by
+  $$E(\lambda, T) = \nullspace(T - \lambda I) = \{v \in V: Tv =
+  \lambda v\}$$
+  Hence, $E(\lambda, T)$ is the set of all eigenvectors of $T$
+  corresponding to $\lambda$ along with the $0$ vector.
+\end{definition}
+
+\begin{remark}
+  We list some things we can immediately conclude from the
+  definitions:
+  \begin{enumerate}[(a)]
+  \item
+    Every diagonal matrix is upper-triangular, so the entries on the
+    diagonal are the eigenvalues.
+  \item
+    $\lambda$ is an eigenvalue of $T$ iff $E(\lambda, T) \ne \{0\}$
+  \item
+    If $\lambda$ is an eigenvalue of $T \in \mathcal{L}(V)$, then $T$
+    restricted to $E(\lambda, T)$ is just the operator of
+    multiplication by $\lambda$.
+  \end{enumerate}
+\end{remark}
+
+\begin{theorem}[sum of eigenspaces is a direct sum]
+  \label{thm:sum-of-eigenspaces is a direct sum}
+  Suppose $T \in \mathcal{L}(V)$ and $\lambda_1, ..., \lambda_m$ are
+  distinct eigenvalues of $T$. Then:
+  \begin{align*}
+    E(\lambda_1, T) + ... + E(\lambda_m, T)
+  \end{align*}
+  is a direct sum. Furthermore, if $V$ is finite-dimensional, then:
+  \begin{align*}
+    \dim E(\lambda_1, T) + ... + \dim E(\lambda_m, T) \le \dim V
+  \end{align*}
+\end{theorem}
+\begin{proof}
+
+\end{proof}
 
 \end{document}
 
